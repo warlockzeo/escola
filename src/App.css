@@ -1,0 +1,120 @@
+.App {
+  min-height: 100vh;
+  padding-top: 100px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/*============================*/
+/* TopMenu */
+/*============================*/
+.logo {
+  height: 80px;
+}
+
+.navbar {
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 10px #000000;
+  z-index: 999;
+}
+
+.navbar-toggler {
+  width: 44px;
+  height: 34px;
+  border-color: #000000;
+  border-radius: 5px;
+  background-color: #fff;
+  color: #000000;
+  padding: 4px 2px 2px;
+}
+/*============================*/
+
+footer {
+  background-color: #ffffff;
+  box-shadow: 0 0 10px #000000;
+  z-index: 999;
+  padding: 10px 0;
+  margin-top: 20px;
+}
+
+input,
+textarea {
+  margin-bottom: 10px;
+  padding: 25px !important;
+  border-radius: 15px !important;
+}
+
+select {
+  border-radius: 15px !important;
+  margin-bottom: 10px;
+  padding: 15px !important;
+  height: 50px !important;
+}
+
+h1,
+h2 {
+  margin: 20px;
+}
+
+.btn {
+  transition: all 0.3s;
+  padding: 20px 40px;
+  border-radius: 15px;
+  font-size: 18px;
+}
+
+.btn-success:hover {
+  background-color: #ffffff;
+  color: #28a745;
+}
+
+.card {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 5px solid #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 0 5px #000000;
+  margin-bottom: 10px !important;
+  min-height: 220px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/*============================*/
+/* Mensagem de validação */
+/*============================*/
+form span {
+  color: #721c24;
+  background-color: #f8d7da;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  border-color: #f5c6cb;
+  display: block;
+}
+/*============================*/
+
+/*============================*/
+/* Contatos */
+/*============================*/
+.contato__bloco__icones {
+  margin-bottom: 20px;
+  background: url('/assets/images/contato-bg1.jpg') 50% no-repeat;
+  background-size: cover;
+  padding: 20px;
+}
+
+.contato__icone {
+  border-radius: 45px;
+  border: 2px solid #000;
+  padding: 10px;
+  margin: 10px;
+  width: 60px;
+  height: 60px;
+  font-size: 200%;
+}

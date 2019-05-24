@@ -1,0 +1,36 @@
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+</IfModule>
+
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+#Faltas
+	RewriteRule ^listarFaltas/([a-z0-9-]+)/?(.*)$ /api/index.php?opcao=listarFalta&tabela=faltas&idAluno=$1&idTurma=$2 [NC]
+	RewriteRule ^informarFalta/?$ /api/index.php?opcao=gravar&tabela=faltas [NC]
+	RewriteRule ^justificarFalta/([a-z0-9-]+)/?$ /api/index.php?opcao=atualizar&tabela=faltas&id=$1 [NC]	
+#Avisos
+	RewriteRule ^listarAvisosSite/?$ /api/index.php?opcao=listarAvisoSite&tabela=avisos [NC]
+	RewriteRule ^listarAvisosAluno/([0-9]+)/?$ /api/index.php?opcao=listarAvisoAluno&tabela=avisos&idAluno=$1 [NC]
+	RewriteRule ^incluirAviso/?$ /api/index.php?opcao=gravar&tabela=avisos [NC]
+#Turmas	
+	RewriteRule ^listarAnos/?$ /api/index.php?opcao=listarAnos&tabela=turmas [NC]
+	
+	RewriteRule ^gradeCurricular/([0-9-]+)/?$ /api/index.php?opcao=mostrar&tabela=gradesCurriculares&turma=$1 [NC]
+	RewriteRule ^gradeAlunos/([0-9-]+)/?$ /api/index.php?opcao=mostrar&tabela=gradesAlunos&turma=$1 [NC]
+#Alunos
+	RewriteRule ^listarAlunosComMatricula/([0-9-]+)/?$ /api/index.php?opcao=alunosComMatricula&tabela=alunos&ano=$1 [NC]
+	RewriteRule ^listarAlunosSemMatricula/([0-9-]+)/?$ /api/index.php?opcao=alunosSemMatricula&tabela=alunos&ano=$1 [NC]
+	RewriteRule ^exibirAluno/([0-9-]+)/?$ /api/index.php?opcao=exibir&tabela=alunos&id=$1 [NC]
+	RewriteRule ^mudarSenha/?$ /api/index.php?opcao=mudarSenha&tabela=alunos [NC]
+	
+#Todas as tabelas
+	RewriteRule ^listar/([a-z0-9-]+)/?(.*)$ /api/index.php?opcao=listar&tabela=$1&ano=$2&idAluno=$2 [NC]
+	RewriteRule ^gravar/([a-z0-9-]+)/?$ /api/index.php?opcao=gravar&tabela=$1 [NC]
+	RewriteRule ^atualizar/([a-z0-9-]+)/?$ /api/index.php?opcao=atualizar&tabela=$1 [NC]
+	RewriteRule ^apagar/([a-z0-9-]+)/([0-9-]+)/?$ /api/index.php?opcao=apagar&tabela=$1&id=$2 [NC]
+
+	RewriteRule ^dashboard/?$ /dashboard/indexDashboard.html [NC]
+	RewriteRule ^dashboard/([a-z0-9-]+)/?$ /dashboard/indexDashboard.html [NC]
+	RewriteRule ^([a-z0-9-]+)/?$ /index.html [NC]
+	
+</IfModule>
