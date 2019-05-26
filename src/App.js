@@ -15,11 +15,18 @@ class App extends Component {
     nivelAcessoUsuarioLogado: localStorage.getItem('userAccessLevel') || ''
   };
 
+  logout = () => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userAccessLevel');
+    window.location.href = '/';
+  };
+
   render() {
     return (
       <BrowserRouter>
         <div className='App'>
-          <Header {...this.state} />
+          <Header {...this.state} logout={this.logout} />
           <Routes />
           <Footer />
         </div>

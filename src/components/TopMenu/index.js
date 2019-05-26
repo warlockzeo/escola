@@ -8,6 +8,8 @@ import {
   NavLink
 } from 'reactstrap';
 
+import './styles.css';
+
 class TopMenu extends Component {
   state = {
     isOpen: false
@@ -42,16 +44,41 @@ class TopMenu extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className='ml-auto' navbar>
               <NavItem>
-                <NavLink href='/sobre'>A Escola</NavLink>
+                <NavLink href='/sobre'>
+                  <div className='efeito-menu' />
+                  <i className='fas fa-info-circle' /> A Escola
+                </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href='/calendario'>Calendário</NavLink>
+                <NavLink href='/calendario'>
+                  <i className='far fa-calendar-alt' /> Calendário
+                  <div className='efeito-menu' />
+                </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href='/contato'>Contato</NavLink>
+                <NavLink href='/contato'>
+                  <div className='efeito-menu' />
+                  <i className='far fa-address-book' /> Contato
+                </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href='/login'>Login</NavLink>
+                <NavLink href='/contato'>
+                  <div className='efeito-menu' />
+                  <i className='far fa-address-book' /> Contato
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                {this.props.user ? (
+                  <NavLink href='#' onClick={this.props.logout}>
+                    <div className='efeito-menu' />
+                    <i className='fas fa-key' /> Logout
+                  </NavLink>
+                ) : (
+                  <NavLink href='/login'>
+                    <div className='efeito-menu' />
+                    <i className='fas fa-key' /> Login
+                  </NavLink>
+                )}
               </NavItem>
             </Nav>
           </Collapse>

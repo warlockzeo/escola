@@ -41,6 +41,10 @@
             $alunos->mudaSenha();
         }
 
+        elseif($_GET['opcao']=='verificarSenha'){
+            $alunos->verificarSenha();
+        }
+
     }
 
     elseif($_GET['tabela']=='turmas'){

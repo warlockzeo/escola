@@ -23,7 +23,7 @@ const Routes = props => (
       <Route path='/calendario' component={Calendario} />
       <Route path='/contato' component={Contato} />
       <Route path='/login' component={Login} />
-      <PrivateRoute path='/dashboard' component={Dashboard} />
+      <PrivateRoute exact path='/dashboard' component={Dashboard} />
       <PrivateRoute path='/dashboard/escola' component={Escola} />
       <PrivateRoute path='/dashboard/alunos' component={Alunos} />
       <PrivateRoute path='/dashboard/turmas' component={Turmas} />

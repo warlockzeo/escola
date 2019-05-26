@@ -31,7 +31,11 @@ const Contato = () => {
         <h1>Contato</h1>
         <Row>
           <Col md={4}>
-            <Card body style={{ margin: 'auto', width: 400, maxWidth: '95%' }}>
+            <Card
+              body
+              className='contato__card wow bounceInLeft animated'
+              data-wow-delay='0.1s'
+            >
               <CardTitle>
                 <i className='contato__icone fas fa-map-marked-alt' />
                 <br />
@@ -41,7 +45,11 @@ const Contato = () => {
             </Card>
           </Col>
           <Col md={4}>
-            <Card body style={{ margin: 'auto', width: 400, maxWidth: '95%' }}>
+            <Card
+              body
+              className='contato__card wow bounceInLeft animated'
+              data-wow-delay='0.3s'
+            >
               <CardTitle>
                 <i className='contato__icone fas fa-map-marked-alt' />
                 <br />
@@ -51,7 +59,11 @@ const Contato = () => {
             </Card>
           </Col>
           <Col md={4}>
-            <Card body style={{ margin: 'auto', width: 400, maxWidth: '95%' }}>
+            <Card
+              body
+              className='contato__card wow bounceInLeft animated'
+              data-wow-delay='0.5s'
+            >
               <CardTitle>
                 <i className='contato__icone fas fa-map-marked-alt' />
                 <br />

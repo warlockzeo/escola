@@ -232,9 +232,10 @@
             $obj = json_decode($json, TRUE);
             $id = $obj['id'];
             if($id){
-                $password = md5("seguranca"+$obj['password']);
+                $login = $obj['login'];
+                $senha = md5("seguranca".$obj['senha']);
 
-                $sql = "UPDATE alunos SET password = '$password' WHERE id = $id";
+                $sql = "UPDATE alunos SET login = '$login', senha = '$senha' WHERE id = $id";
                 $BFetch=$this->conectaDB()->prepare($sql);
                 $BFetch->execute();
             }
@@ -245,17 +246,17 @@
             echo '{"resp":"ok"}';
         }
 
-        public function verificaSenhaERetornaUsuario()
+        public function verificarSenha()
         {
             $json = file_get_contents('php://input');
             $obj = json_decode($json, TRUE);
-            $id = $obj['id'];
-            $senha = $obs['senha'];
-            if($id&$senha){
+            $login = $obj['login'];
+            $senha = $obj['senha'];
+            if($login&$senha){
 
-                $password = md5("seguranca"+$obj['senha']);
+                $senha = md5("seguranca".$obj['senha']);
 
-                $ql = "SELECT * FROM alunos WHERE id = $id AND password = $password";
+                $sql = "SELECT * FROM alunos WHERE login = '$login' AND senha = '$senha'";
                 $BFetch=$this->conectaDB()->prepare($sql);
                 $BFetch->execute();
     
@@ -286,9 +287,10 @@
             header("Content-type: application/json");
   
             if(count($j)>0){
-                echo '{"resp":' + json_encode($j[0]) + '}';
+                echo '{"resp":' . json_encode($j[0]) . '}';
             }else{
                 echo '{"resp":"erro"}';
+                //echo $sql;
             }
             
         }
