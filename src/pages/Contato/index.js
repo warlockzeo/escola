@@ -1,5 +1,5 @@
-import React from 'react';
-import { Row, Col, Card, CardTitle, Spinner } from 'reactstrap';
+import React, { Component, Fragment } from 'react';
+import { Alert, Row, Col, Card, CardTitle, Spinner } from 'reactstrap';
 import { Form, Input, Select, Textarea } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
@@ -14,123 +14,190 @@ const schema = Yup.object().shape({
   uf: Yup.string().required('Este campo é obrigatório')
 });
 
-const Contato = () => {
-  function onSubmit(data) {
-    console.log(data);
+const options = [
+  { id: 'AC', title: 'Acre' },
+  { id: 'AL', title: 'Alagoas' },
+  { id: 'AM', title: 'Amazonas' },
+  { id: 'AP', title: 'Amapá' },
+  { id: 'BA', title: 'Bahia' },
+  { id: 'CE', title: 'Ceará' },
+  { id: 'DF', title: 'Distrito Federal' },
+  { id: 'ES', title: 'Espírito Santo' },
+  { id: 'GO', title: 'Goiás' },
+  { id: 'MA', title: 'Maranhão' },
+  { id: 'MG', title: 'Minas Gerais' },
+  { id: 'MS', title: 'Mato Grosso do Sul' },
+  { id: 'MT', title: 'Mato Grosso' },
+  { id: 'PA', title: 'Pará' },
+  { id: 'PB', title: 'Paraíba' },
+  { id: 'PE', title: 'Pernambuco' },
+  { id: 'PI', title: 'Piauí' },
+  { id: 'PR', title: 'Paraná' },
+  { id: 'RJ', title: 'Rio de Janeiro' },
+  { id: 'RN', title: 'Rio Grande do Norte' },
+  { id: 'RO', title: 'Rondônia' },
+  { id: 'RR', title: 'Roraima' },
+  { id: 'RS', title: 'Rio Grande do Sul' },
+  { id: 'SC', title: 'Santa Catarina' },
+  { id: 'SE', title: 'Sergipe' },
+  { id: 'SP', title: 'São Paulo' },
+  { id: 'TO', title: 'Tocantins' }
+];
+
+class Contato extends Component {
+  state = {
+    formStatus: 'fill',
+    formMessage: ''
+  };
+
+  onSubmit = async data => {
+    this.setState({ formStatus: 'wait' });
+    fetch('http://api/enviarEmail', {
+      method: 'POST',
+      body: JSON.stringify({
+        ...data
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log(responseJson.resp);
+        responseJson.resp !== 'erro'
+          ? this.setState({
+              formMessage: 'Mensagem enviada com sucesso!',
+              formStatus: 'send'
+            })
+          : this.setState({
+              formMessage: 'Falha ao enviar, tente novamente mais tarde.',
+              formStatus: 'erro'
+            });
+      });
+  };
+
+  render() {
+    if (this.state.formStatus === 'fill') {
+      return (
+        <Fragment>
+          <div className='contato__bloco__icones col-md-12'>
+            <h1>Contato</h1>
+            <Row>
+              <Col md={4}>
+                <Card
+                  body
+                  className='contato__card wow bounceInLeft animated'
+                  data-wow-delay='0.1s'
+                >
+                  <CardTitle>
+                    <i className='contato__icone fas fa-map-marked-alt' />
+                    <br />
+                    Nossa Localização
+                  </CardTitle>
+                  Rua Joaquim Barbosa de Souza, 02, Centro, Vertentes - PE
+                </Card>
+              </Col>
+              <Col md={4}>
+                <Card
+                  body
+                  className='contato__card wow bounceInLeft animated'
+                  data-wow-delay='0.3s'
+                >
+                  <CardTitle>
+                    <i className='contato__icone fas fa-map-marked-alt' />
+                    <br />
+                    Ligue-nos
+                  </CardTitle>
+                  (81) 99128-2508
+                </Card>
+              </Col>
+              <Col md={4}>
+                <Card
+                  body
+                  className='contato__card wow bounceInLeft animated'
+                  data-wow-delay='0.5s'
+                >
+                  <CardTitle>
+                    <i className='contato__icone fas fa-map-marked-alt' />
+                    <br />
+                    Escreva-nos por e-mail
+                  </CardTitle>
+                  secretaria@sagradocoracaovertentes.com.br
+                </Card>
+              </Col>
+            </Row>
+          </div>
+          <div className='contato__form col-md-12'>
+            <h2>Fale Conosco</h2>
+            <Form schema={schema} onSubmit={this.onSubmit}>
+              <Row>
+                <Col md={12}>
+                  <Input
+                    name='nome'
+                    className='form-control'
+                    placeholder='Nome completo'
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col md={3}>
+                  {' '}
+                  <Input
+                    name='telefone'
+                    className='form-control'
+                    placeholder='Telefone'
+                  />
+                </Col>
+                <Col md={4}>
+                  <Input
+                    name='email'
+                    type='email'
+                    className='form-control'
+                    placeholder='E-mail'
+                  />
+                </Col>
+                <Col md={3}>
+                  <Input
+                    name='cidade'
+                    className='form-control'
+                    placeholder='Cidade'
+                  />
+                </Col>
+                <Col md={2}>
+                  <Select
+                    name='uf'
+                    options={options}
+                    className='form-control'
+                  />
+                </Col>
+              </Row>
+              <Row>
+                <Col md={12}>
+                  <Textarea
+                    name='mensagem'
+                    className='form-control'
+                    placeholder='Digite aqui a sua mensagem'
+                  />
+                </Col>
+              </Row>
+
+              <button type='submit' className='btn btn-success'>
+                Enviar
+              </button>
+            </Form>
+          </div>
+        </Fragment>
+      );
+    } else if (this.state.formStatus === 'wait') {
+      return <Spinner color='primary' />;
+    } else if (
+      this.state.formStatus === 'send' ||
+      this.state.formStatus === 'erro'
+    ) {
+      return (
+        <Alert color={this.state.formStatus === 'send' ? 'success' : 'danger'}>
+          {this.state.formMessage}
+        </Alert>
+      );
+    }
   }
-
-  const options = [
-    { id: 'PE', title: 'Pernambuco' },
-    { id: 'PB', title: 'Paraíba' },
-    { id: 'PA', title: 'Pará' }
-  ];
-
-  return (
-    <>
-      <div className='contato__bloco__icones col-md-12'>
-        <h1>Contato</h1>
-        <Row>
-          <Col md={4}>
-            <Card
-              body
-              className='contato__card wow bounceInLeft animated'
-              data-wow-delay='0.1s'
-            >
-              <CardTitle>
-                <i className='contato__icone fas fa-map-marked-alt' />
-                <br />
-                Nossa Localização
-              </CardTitle>
-              Rua Joaquim Barbosa de Souza, 02, Centro, Vertentes - PE
-            </Card>
-          </Col>
-          <Col md={4}>
-            <Card
-              body
-              className='contato__card wow bounceInLeft animated'
-              data-wow-delay='0.3s'
-            >
-              <CardTitle>
-                <i className='contato__icone fas fa-map-marked-alt' />
-                <br />
-                Ligue-nos
-              </CardTitle>
-              (81) 99128-2508
-            </Card>
-          </Col>
-          <Col md={4}>
-            <Card
-              body
-              className='contato__card wow bounceInLeft animated'
-              data-wow-delay='0.5s'
-            >
-              <CardTitle>
-                <i className='contato__icone fas fa-map-marked-alt' />
-                <br />
-                Escreva-nos por e-mail
-              </CardTitle>
-              secretaria@sagradocoracaovertentes.com.br
-            </Card>
-          </Col>
-        </Row>
-      </div>
-      <div className='contato__form col-md-12'>
-        <h2>Fale Conosco</h2>
-        <Form schema={schema} onSubmit={onSubmit}>
-          <Row>
-            <Col md={12}>
-              <Input
-                name='nome'
-                className='form-control'
-                placeholder='Nome completo'
-              />
-            </Col>
-          </Row>
-          <Row>
-            <Col md={3}>
-              {' '}
-              <Input
-                name='telefone'
-                className='form-control'
-                placeholder='Telefone'
-              />
-            </Col>
-            <Col md={4}>
-              <Input
-                name='email'
-                type='email'
-                className='form-control'
-                placeholder='E-mail'
-              />
-            </Col>
-            <Col md={3}>
-              <Input
-                name='cidade'
-                className='form-control'
-                placeholder='Cidade'
-              />
-            </Col>
-            <Col md={2}>
-              <Select name='uf' options={options} className='form-control' />
-            </Col>
-          </Row>
-          <Row>
-            <Col md={12}>
-              <Textarea
-                name='mensagem'
-                className='form-control'
-                placeholder='Digite aqui a sua mensagem'
-              />
-            </Col>
-          </Row>
-
-          <button type='submit' className='btn btn-success'>
-            Login
-          </button>
-        </Form>
-      </div>
-    </>
-  );
-};
+}
 
 export default Contato;

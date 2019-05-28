@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Sobre from './pages/Sobre';
 import Calendario from './pages/Calendario';
 import Contato from './pages/Contato';
+import Eventos from './pages/Eventos';
 import Login from './pages/Login';
 import Dashboard from './pages/dashboard';
 import Escola from './pages/dashboard/Escola';
@@ -22,6 +23,7 @@ const Routes = props => (
       <Route path='/sobre' component={Sobre} />
       <Route path='/calendario' component={Calendario} />
       <Route path='/contato' component={Contato} />
+      <Route path='/eventos' component={Eventos} />
       <Route path='/login' component={Login} />
       <PrivateRoute exact path='/dashboard' component={Dashboard} />
       <PrivateRoute path='/dashboard/escola' component={Escola} />

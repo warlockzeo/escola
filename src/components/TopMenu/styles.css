@@ -23,5 +23,11 @@
 
 .nav-item:hover .efeito-menu {
   width: 100%;
-  height: 100px;
+  height: 70px;
+}
+
+.headerNomeAluno {
+  position: absolute;
+  right: 20px;
+  top: 70px;
 }

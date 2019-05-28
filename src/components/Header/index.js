@@ -3,7 +3,6 @@ import TopMenu from '../TopMenu';
 import DashboardSideMenu from '../DashboardSideMenu';
 
 const Header = props => {
-  console.log(props);
   return !props.isLogged ||
     props.isLogged & (props.nivelAcessoUsuarioLogado === '1') ? (
     <TopMenu user={props.nomeUsuarioLogado} logout={props.logout} />

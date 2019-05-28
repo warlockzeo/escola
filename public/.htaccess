@@ -4,6 +4,9 @@
 
 <IfModule mod_rewrite.c>
 	RewriteEngine on
+
+#Contato/Email
+	RewriteRule ^enviarEmail/?$ /api/index.php?opcao=enviarEmail&tabela= [NC]
 #Faltas
 	RewriteRule ^listarFaltas/([a-z0-9-]+)/?(.*)$ /api/index.php?opcao=listarFalta&tabela=faltas&idAluno=$1&idTurma=$2 [NC]
 	RewriteRule ^informarFalta/?$ /api/index.php?opcao=gravar&tabela=faltas [NC]

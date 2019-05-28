@@ -41,6 +41,7 @@ class TopMenu extends Component {
               <i className='fas fa-bars' />
             </span>
           </button>
+
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className='ml-auto' navbar>
               <NavItem>
@@ -62,16 +63,10 @@ class TopMenu extends Component {
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href='/contato'>
-                  <div className='efeito-menu' />
-                  <i className='far fa-address-book' /> Contato
-                </NavLink>
-              </NavItem>
-              <NavItem>
                 {this.props.user ? (
                   <NavLink href='#' onClick={this.props.logout}>
                     <div className='efeito-menu' />
-                    <i className='fas fa-key' /> Logout
+                    <i className='fas fa-power-off' /> Logout
                   </NavLink>
                 ) : (
                   <NavLink href='/login'>
@@ -82,6 +77,9 @@ class TopMenu extends Component {
               </NavItem>
             </Nav>
           </Collapse>
+          {this.props.user && (
+            <div className='headerNomeAluno'>Olá {this.props.user}</div>
+          )}
         </Navbar>
       </header>
     );

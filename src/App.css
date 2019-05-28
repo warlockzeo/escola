@@ -90,14 +90,20 @@ h2 {
 /*============================*/
 /* Mensagem de validação */
 /*============================*/
-form span,
-.alert {
+form span {
   color: #721c24;
   background-color: #f8d7da;
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 15px;
   border-color: #f5c6cb;
+  display: block;
+}
+
+.alert {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 15px;
   display: block;
 }
 /*============================*/

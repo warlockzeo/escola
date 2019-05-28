@@ -195,4 +195,13 @@
         }
     }
 
+    else{
+        include("ClassEmail.php");
+
+        $email=new ClassEmail();
+
+        if($_GET['opcao']=='enviarEmail'){
+            $email->enviarEmail();
+        }
+    }
 ?>
