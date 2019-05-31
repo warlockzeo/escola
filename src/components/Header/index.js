@@ -7,7 +7,10 @@ const Header = props => {
     props.isLogged & (props.nivelAcessoUsuarioLogado === '1') ? (
     <TopMenu user={props.nomeUsuarioLogado} logout={props.logout} />
   ) : (
-    <DashboardSideMenu logout={props.logout} />
+    <DashboardSideMenu
+      logout={props.logout}
+      nivelAcesso={props.nivelAcessoUsuarioLogado}
+    />
   );
 };
 

@@ -1,5 +1,13 @@
 import React from 'react';
-import { Table } from 'reactstrap';
+//import { Table } from 'reactstrap';
+
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
 const calendario = [
   {
@@ -60,7 +68,28 @@ const calendario = [
   }
 ];
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+    marginTop: theme.spacing(3),
+    overflowX: 'auto'
+  },
+  table: {
+    minWidth: 650
+  }
+}));
+
+function createData(id, inicio, fim, atividade, turmas) {
+  return { id, inicio, fim, atividade, turmas };
+}
+
+const rows = calendario.map(data =>
+  createData(data.id, data.inicio, data.fim, data.atividade, data.turmas)
+);
+
 const Calendario = props => {
+  const classes = useStyles();
+
   return (
     <>
       <h1>Calendário</h1>
@@ -71,22 +100,30 @@ const Calendario = props => {
       </h2>
 
       <h2>Lista de atividades escolares</h2>
-      <Table>
-        <tr>
-          <th>Turmas</th>
-          <th>Inicio</th>
-          <th>Fim</th>
-          <th className='text-left'>Atividade</th>
-        </tr>
-        {calendario.map(data => (
-          <tr key='data.id'>
-            <td>{data.turmas}</td>
-            <td>{data.inicio}</td>
-            <td>{data.fim}</td>
-            <td className='text-left'>{data.atividade}</td>
-          </tr>
-        ))}
-      </Table>
+      <Paper className={classes.root}>
+        <Table className={classes.table}>
+          <TableHead>
+            <TableRow>
+              <TableCell>Turmas</TableCell>
+              <TableCell>Início</TableCell>
+              <TableCell>Fim</TableCell>
+              <TableCell>Atividade</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rows.map(row => (
+              <TableRow key={row.id}>
+                <TableCell component='th' scope='row'>
+                  {row.turmas}
+                </TableCell>
+                <TableCell>{row.inicio}</TableCell>
+                <TableCell>{row.fim}</TableCell>
+                <TableCell>{row.atividade}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Paper>
     </>
   );
 };

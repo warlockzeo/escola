@@ -5,7 +5,8 @@
   "dependencies": {
     "@bit/feathericons.react-feather.loader": "^1.1.6",
     "@bit/joshk.jotils.get-random-color": "^1.1.0",
-    "@material-ui/core": "^4.0.0",
+    "@material-ui/core": "^4.0.1",
+    "@material-ui/icons": "^4.0.1",
     "@rocketseat/unform": "^1.3.0",
     "bit-bin": "^14.1.1",
     "google-maps-react": "^2.0.2",
