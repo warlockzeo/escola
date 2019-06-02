@@ -10,6 +10,7 @@
 
 .dashboard {
   margin-top: -100px;
+  width: 100%;
 }
 /*============================*/
 /* TopMenu */
@@ -64,14 +65,20 @@ h2 {
 .btn {
   transition: all 0.3s;
   padding: 20px 40px;
-  margin-bottom: 20px;
+  margin: 0 10px 20px 10px;
   border-radius: 15px;
   font-size: 18px;
+  font-weight: bold;
 }
 
 .btn-success:hover {
   background-color: #ffffff;
   color: #28a745;
+}
+
+.btn-danger:hover {
+  background-color: #ffffff;
+  color: #dc3545;
 }
 
 .card {

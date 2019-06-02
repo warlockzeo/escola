@@ -102,7 +102,7 @@
                 $i++;
             }
 
-            header("Access-Control-Allow-Origin:*");
+            header('Access-Control-Allow-Origin: *');  
             header("Content-type: application/json");
 
             echo json_encode($j);
@@ -178,13 +178,13 @@
             $cidade = $obj['cidade'];
             $uf = $obj['uf'];
             $mae = $obj['mae'];
-            $pai = $obj['pai'];
-            $fonePai = $obj['fonePai'];
-            $foneMae = $obj['foneMae'];
+            $pai = $obj['pai']?$obj['pai']:'';
+            $fonePai = $obj['fonePai']?$obj['fonePai']:'';
+            $foneMae = $obj['foneMae']?$obj['foneMae']:'';
             $responsavel = $obj['responsavel'];
             $dataNasc = $obj['dataNasc'];
             $sexo = $obj['sexo'];
-            $obs = $obj['obs'];
+            $obs = $obj['obs']?$obj['obs']:'';
          
             $sql = "INSERT INTO alunos (nome, endereco, cidade, uf, mae, pai, foneMae, fonePai, responsavel, dataNasc, sexo, obs) VALUES ('$nome', '$endereco', '$cidade', '$uf', '$mae', '$pai', '$foneMae', '$fonePai', '$responsavel', '$dataNasc', '$sexo', '$obs')";
             $BFetch=$this->conectaDB()->prepare($sql);
@@ -193,7 +193,7 @@
             header("Access-Control-Allow-Origin:*");
             header("Content-type: application/json");
   
-            echo '{"resp":"ok"}';
+            echo '{"resp":"ok", "sql":"'.$sql.'"}';
         }
 
         public function atualizaAluno()

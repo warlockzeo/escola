@@ -14,7 +14,7 @@ const schema = Yup.object().shape({
   uf: Yup.string().required('Este campo é obrigatório')
 });
 
-const options = [
+const optionsUf = [
   { id: 'AC', title: 'Acre' },
   { id: 'AL', title: 'Alagoas' },
   { id: 'AM', title: 'Amazonas' },
@@ -50,7 +50,7 @@ class Contato extends Component {
     formMessage: ''
   };
 
-  onSubmit = async data => {
+  onSubmit = data => {
     this.setState({ formStatus: 'wait' });
     fetch('http://api/enviarEmail', {
       method: 'POST',
@@ -60,7 +60,6 @@ class Contato extends Component {
     })
       .then(response => response.json())
       .then(responseJson => {
-        console.log(responseJson.resp);
         responseJson.resp !== 'erro'
           ? this.setState({
               formMessage: 'Mensagem enviada com sucesso!',
@@ -163,7 +162,7 @@ class Contato extends Component {
                 <Col md={2}>
                   <Select
                     name='uf'
-                    options={options}
+                    options={optionsUf}
                     className='form-control'
                   />
                 </Col>

@@ -3,14 +3,13 @@ import TopMenu from '../TopMenu';
 import DashboardSideMenu from '../DashboardSideMenu';
 
 const Header = props => {
-  return !props.isLogged ||
-    props.isLogged & (props.nivelAcessoUsuarioLogado === '1') ? (
-    <TopMenu user={props.nomeUsuarioLogado} logout={props.logout} />
-  ) : (
+  return window.location.href.includes('dashboard') ? (
     <DashboardSideMenu
       logout={props.logout}
       nivelAcesso={props.nivelAcessoUsuarioLogado}
     />
+  ) : (
+    <TopMenu user={props.nomeUsuarioLogado} logout={props.logout} />
   );
 };
 

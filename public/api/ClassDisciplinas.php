@@ -23,7 +23,11 @@
             header("Access-Control-Allow-Origin:*");
             header("Content-type: application/json");
 
-            echo json_encode($j);
+            if(count($j)>0){
+                echo '{"resp":' . json_encode($j) . '}';
+            }else{
+                echo '{"resp":"erro"}';
+            }
         }
 
         public function apagaDisciplina($id)

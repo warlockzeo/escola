@@ -120,7 +120,8 @@ const useToolbarStyles = makeStyles(theme => ({
     flex: '1 1 100%'
   },
   actions: {
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
+    width: '200px'
   },
   title: {
     flex: '0 0 auto'
@@ -143,7 +144,7 @@ const EnhancedTableToolbar = props => {
             {numSelected} selected
           </Typography>
         ) : (
-          <Typography variant='h6' id='tableTitle'>
+          <Typography variant='h4' id='tableTitle'>
             {props.titulo}
           </Typography>
         )}
@@ -209,6 +210,7 @@ function EnhancedTable(props) {
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [lastRowSelectedData, setLastRowSelectedData] = React.useState({});
 
   function handleRequestSort(event, property) {
     const isDesc = orderBy === property && order === 'desc';
@@ -225,12 +227,12 @@ function EnhancedTable(props) {
     setSelected([]);
   }
 
-  function handleClick(event, name) {
-    const selectedIndex = selected.indexOf(name);
+  function handleClick(event, id, row) {
+    const selectedIndex = selected.indexOf(id);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, name);
+      newSelected = newSelected.concat(selected, id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -243,6 +245,7 @@ function EnhancedTable(props) {
     }
 
     setSelected(newSelected);
+    setLastRowSelectedData(row);
   }
 
   function handleChangePage(event, newPage) {
@@ -254,11 +257,11 @@ function EnhancedTable(props) {
   }
 
   function handleDelete() {
-    props.delete();
+    props.delete(lastRowSelectedData);
   }
 
   function handleEdit() {
-    props.edit();
+    props.edit(lastRowSelectedData);
   }
 
   const isSelected = name => selected.indexOf(name) !== -1;
@@ -300,7 +303,7 @@ function EnhancedTable(props) {
                   return (
                     <TableRow
                       hover
-                      onClick={event => handleClick(event, id)}
+                      onClick={event => handleClick(event, id, row)}
                       role='checkbox'
                       aria-checked={isItemSelected}
                       tabIndex={-1}
