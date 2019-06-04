@@ -61,7 +61,6 @@ class FormAlunos extends Component {
   };
 
   onSubmit = async data => {
-    console.log(data);
     await this.props.onSubmit(data);
   };
 
@@ -74,7 +73,6 @@ class FormAlunos extends Component {
   }
 
   render() {
-    console.log(this.props.dados);
     if (this.state.formStatus === 'fill') {
       return (
         <Fragment>

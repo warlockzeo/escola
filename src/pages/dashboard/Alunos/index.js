@@ -76,7 +76,6 @@ class Alunos extends Component {
   };
 
   handleSubmit = data => {
-    console.log(data);
     const url = data.id
       ? 'http://api/atualizar/alunos'
       : 'http://api/gravar/alunos';
