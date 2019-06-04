@@ -17,6 +17,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
+import AddIcon from '@material-ui/icons/Add';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 
@@ -151,30 +152,44 @@ const EnhancedTableToolbar = props => {
       </div>
       <div className={classes.spacer} />
       <div className={classes.actions}>
-        {numSelected > 0 ? (
-          <Fragment>
-            {props.btDelete && (
-              <Tooltip title='Apagar' onClick={props.delete}>
-                <IconButton aria-label='Delete'>
-                  <DeleteIcon />
-                </IconButton>
-              </Tooltip>
-            )}
-            {props.btEdit && (
-              <Tooltip title='Editar' onClick={props.edit}>
-                <IconButton aria-label='Edit'>
-                  <EditIcon />
-                </IconButton>
-              </Tooltip>
-            )}
-          </Fragment>
-        ) : (
-          <Tooltip title='Filter list'>
-            <IconButton aria-label='Filter list'>
-              <FilterListIcon />
-            </IconButton>
-          </Tooltip>
-        )}
+        <Fragment>
+          {numSelected === 1 ? (
+            <Fragment>
+              {props.btEdit && (
+                <Tooltip title='Editar' onClick={props.edit}>
+                  <IconButton aria-label='Edit'>
+                    <EditIcon />
+                  </IconButton>
+                </Tooltip>
+              )}
+              {props.btDelete && (
+                <Tooltip title='Apagar' onClick={props.delete}>
+                  <IconButton aria-label='Delete'>
+                    <DeleteIcon />
+                  </IconButton>
+                </Tooltip>
+              )}
+            </Fragment>
+          ) : (
+            numSelected === 0 && (
+              <Fragment>
+                <Tooltip title='Filter list'>
+                  <IconButton aria-label='Filter list'>
+                    <FilterListIcon />
+                  </IconButton>
+                </Tooltip>
+
+                {props.btAdd && (
+                  <Tooltip title='Incluir Novo' onClick={props.add}>
+                    <IconButton aria-label='Add'>
+                      <AddIcon />
+                    </IconButton>
+                  </Tooltip>
+                )}
+              </Fragment>
+            )
+          )}
+        </Fragment>
       </div>
     </Toolbar>
   );
@@ -264,6 +279,10 @@ function EnhancedTable(props) {
     props.edit(lastRowSelectedData);
   }
 
+  function handleAdd() {
+    props.add();
+  }
+
   const isSelected = name => selected.indexOf(name) !== -1;
 
   const emptyRows =
@@ -279,6 +298,8 @@ function EnhancedTable(props) {
           delete={handleDelete}
           btEdit={props.edit ? true : false}
           edit={handleEdit}
+          btAdd={props.add ? true : false}
+          add={handleAdd}
         />
         <div className={classes.tableWrapper}>
           <Table

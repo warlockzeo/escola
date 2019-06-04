@@ -8,10 +8,6 @@
   justify-content: space-between;
 }
 
-.dashboard {
-  margin-top: -100px;
-  width: 100%;
-}
 /*============================*/
 /* TopMenu */
 /*============================*/
@@ -184,4 +180,23 @@ form span {
   width: 60px;
   height: 60px;
   font-size: 200%;
+}
+
+/*=============================*/
+/* Dashboard */
+/*=============================*/
+.dashboard {
+  margin-top: -100px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 100px);
+}
+
+.dashboard__card {
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  max-width: 400px;
 }

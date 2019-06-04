@@ -49,6 +49,10 @@ class Alunos extends Component {
     this.setState({ show: 'edit', alunoAtual: data });
   };
 
+  onAddClick = () => {
+    this.setState({ show: 'edit' });
+  };
+
   onDeleteClick = data => {
     this.setState({ show: 'alert', alunoAtual: data });
   };
@@ -76,7 +80,9 @@ class Alunos extends Component {
     const url = data.id
       ? 'http://api/atualizar/alunos'
       : 'http://api/gravar/alunos';
+
     this.setState({ show: 'wait' });
+
     fetch(`${url}`, {
       method: 'POST',
       //mode: 'no-cors',
@@ -105,35 +111,20 @@ class Alunos extends Component {
 
   render() {
     return (
-      <div
-        className='dashboard'
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '100%',
-          height: '100vh'
-        }}
-      >
+      <div className='dashboard'>
         {this.state.show === 'table' ? (
           <div className='container'>
             <Tabela
               titulo='Alunos'
               campos={campos}
               dados={this.state.alunos}
+              add={this.onAddClick}
               edit={this.onEditClick}
               delete={this.onDeleteClick}
             />
           </div>
         ) : this.state.show === 'alert' ? (
-          <Card
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              width: '80%',
-              maxWidth: 400
-            }}
-          >
+          <Card className='dashboard__card'>
             <p>Confirma exclusão do aluno {this.state.alunoAtual.nome}?</p>
             <Button color='success' onClick={this.handleDelete}>
               Sim

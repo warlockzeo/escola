@@ -4,7 +4,7 @@ import { Form, Input, Select, Textarea } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
 const schema = Yup.object().shape({
-  id: Yup.number(),
+  id: Yup.string(),
   nome: Yup.string().required('Este campo é obrigatório'),
   mae: Yup.string().required('Este campo é obrigatório'),
   pai: Yup.string(),
@@ -93,7 +93,7 @@ class FormAlunos extends Component {
                     placeholder='Nome completo'
                     autoFocus
                   />
-                  <Input name='id' style={{ display: 'none' }} />
+                  <Input name='id' className='d-none' />
                 </Col>
               </Row>
               <Row>

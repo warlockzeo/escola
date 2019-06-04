@@ -18,37 +18,38 @@ class DashBoardSideMenu extends Component {
           <li className='sideBar__itensMenu'>
             <a href='/dashboard/escola' className='sideBar__link'>
               <div className='efeito-menu' />
-              <i className='sideBar__icone fas fa-info-circle' /> Escola
+              <i className='sideBar__icone fas fa-school' /> Escola
             </a>
           </li>
           <li className='sideBar__itensMenu'>
             <a href='/dashboard/alunos' className='sideBar__link'>
-              <i className='sideBar__icone far fa-calendar-alt' /> Alunos
+              <i className='sideBar__icone fas fa-address-card' /> Alunos
               <div className='efeito-menu' />
             </a>
           </li>
           <li className='sideBar__itensMenu'>
             <a href='/dashboard/turmas' className='sideBar__link'>
               <div className='efeito-menu' />
-              <i className='sideBar__icone far fa-address-book' /> Turmas
+              <i className='sideBar__icone fas fa-user-friends' /> Turmas
             </a>
           </li>
           <li className='sideBar__itensMenu'>
             <a href='/dashboard/disciplinas' className='sideBar__link'>
               <div className='efeito-menu' />
-              <i className='sideBar__icone far fa-address-book' /> Disciplinas
+              <i className='sideBar__icone fas fa-book-reader' /> Disciplinas
             </a>
           </li>
           <li className='sideBar__itensMenu'>
             <a href='/dashboard/professores' className='sideBar__link'>
               <div className='efeito-menu' />
-              <i className='sideBar__icone far fa-address-book' /> Professores
+              <i className='sideBar__icone fas fa-chalkboard-teacher' />{' '}
+              Professores
             </a>
           </li>
           <li className='sideBar__itensMenu'>
             <a href='/dashboard/avisos' className='sideBar__link'>
               <div className='efeito-menu' />
-              <i className='sideBar__icone far fa-address-book' /> Avisos
+              <i className='sideBar__icone fas fa-info-circle' /> Avisos
             </a>
           </li>
           <li className='sideBar__itensMenu'>

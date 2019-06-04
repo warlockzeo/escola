@@ -37,14 +37,6 @@
             $alunos->gravarNota();
         }
 
-        elseif($_GET['opcao']=='mudarSenha'){
-            $alunos->mudaSenha();
-        }
-
-        elseif($_GET['opcao']=='verificarSenha'){
-            $alunos->verificarSenha();
-        }
-
     }
 
     elseif($_GET['tabela']=='turmas'){
@@ -195,6 +187,37 @@
         }
     }
 
+    elseif($_GET['tabela']=='users'){
+        include("ClassUsers.php");
+
+        $users=new ClassUsers();
+
+        if($_GET['opcao']=='listar'){
+            $users->listaUsers();
+        } 
+
+        elseif($_GET['opcao']=='apagar') {
+            $users->apagaUser($_GET['id']);    
+        }
+    
+        elseif($_GET['opcao']=='gravar') {
+            $users->gravaUser();
+        }
+    
+        elseif($_GET['opcao']=='atualizar') {
+            $users->atualizaUser();
+        }
+
+        elseif($_GET['opcao']=='mudarSenha'){
+            $users->mudaSenha();
+        }
+
+        elseif($_GET['opcao']=='verificarSenha'){
+            $users->verificarSenha();
+        }
+
+    }
+    
     else{
         include("ClassEmail.php");
 

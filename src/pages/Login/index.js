@@ -4,7 +4,7 @@ import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
 const schema = Yup.object().shape({
-  login: Yup.string().required('Um login é necessário'),
+  user: Yup.string().required('Um login é necessário'),
   senha: Yup.string().required('Uma senha é obrigatória')
 });
 
@@ -14,33 +14,39 @@ class Login extends Component {
   };
 
   onSubmit = data => {
-    const { login, senha } = data;
+    const { user, senha } = data;
     fetch('http://api/verificarSenha', {
       method: 'POST',
       body: JSON.stringify({
-        login: login,
-        senha: senha
+        user,
+        senha
       })
     })
       .then(response => response.json())
       .then(responseJson => {
+        /*
+Nivel 500 - Desenvolvedor
+Nivel 100 - Admin
+Nivel 90 - Professor
+Nivel 10 - Aluno
+*/
         if (responseJson.resp !== 'erro') {
-          const { nome, id } = responseJson.resp;
-          localStorage.setItem('user', nome);
-          localStorage.setItem('userId', id);
-          localStorage.setItem('userAccessLevel', '1');
-          this.setState({ errorMessage: '' });
-          window.location.href = '/alunos/';
-        } else {
-          if (login === 'admin') {
-            localStorage.setItem('userAccessLevel', '9');
-            localStorage.setItem('user', 'admin');
-            localStorage.setItem('userId', '0');
+          const { nivel, user, nome, id } = responseJson.resp;
+          if (nivel >= 90) {
+            localStorage.setItem('userAccessLevel', nivel);
+            localStorage.setItem('user', nome || user);
+            localStorage.setItem('userId', id);
             this.setState({ errorMessage: '' });
             window.location.href = '/dashboard/';
           } else {
-            this.setState({ errorMessage: 'Login ou Senha inválidos.' });
+            localStorage.setItem('userAccessLevel', nivel);
+            localStorage.setItem('user', nome || user);
+            localStorage.setItem('userId', id);
+            this.setState({ errorMessage: '' });
+            window.location.href = '/alunos/';
           }
+        } else {
+          this.setState({ errorMessage: 'Login ou Senha inválidos.' });
         }
       });
   };
@@ -58,7 +64,7 @@ class Login extends Component {
           </CardTitle>
 
           <Form schema={schema} onSubmit={this.onSubmit}>
-            <Input name='login' className='form-control' placeholder='Login' />
+            <Input name='user' className='form-control' placeholder='Login' />
             <Input
               name='senha'
               type='password'

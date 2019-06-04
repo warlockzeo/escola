@@ -1,5 +1,5 @@
 .sidebar {
-  width: 40px;
+  width: 55px;
   height: 100vh;
   background-color: #ffffff;
   position: fixed;
@@ -17,8 +17,9 @@
 }
 
 .sideBar__logo {
-  width: 100%;
+  width: calc(100% - 10px);
   height: auto;
+  margin: 5px;
 }
 
 .sidebar:hover .sideBar__logo {
@@ -34,17 +35,24 @@
   border-left: solid 15px #ffffff;
 }
 
+.sideBar__icone {
+  margin-right: 10px;
+  text-align: center;
+  width: 25px;
+}
+
 .sideBar__itensMenu {
   text-align: left;
   color: #000000;
   margin: 5px 0;
   padding: 5px 0;
   transition: all 0.5s;
+  border-left: solid 0px #ffffff;
 }
 
 .sideBar__itensMenu:hover {
   background-color: #cccccc;
-  border-left: solid 15px #000000;
+  border-left: solid 5px #000000;
   margin-left: -15px;
   padding-left: 10px;
 }
@@ -61,8 +69,4 @@
 
 .sideBar__link:hover {
   color: #ffffff;
-}
-
-.sideBar__icone {
-  margin-right: 10px;
 }
