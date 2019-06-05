@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Tabela from '../../../components/Tabela';
 import { Card, Button, Spinner } from 'reactstrap';
-import FormProfessores from '../../../components/FormProfessores';
+import FormOneField from '../../../components/FormOneField';
 const campos = [
   {
     id: 'nome',
@@ -123,7 +123,8 @@ class Professores extends Component {
         ) : this.state.show === 'wait' ? (
           <Spinner />
         ) : (
-          <FormProfessores
+          <FormOneField
+            titulo='Professor'
             dados={this.state.alunoAtual}
             onSubmit={this.handleSubmit}
             onCancel={this.handleCancel}

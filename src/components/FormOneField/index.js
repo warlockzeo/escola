@@ -8,7 +8,7 @@ const schema = Yup.object().shape({
   nome: Yup.string().required('Este campo é obrigatório')
 });
 
-class FormProfessores extends Component {
+class FormOneField extends Component {
   state = {
     formStatus: 'fill',
     formMessage: ''
@@ -28,11 +28,12 @@ class FormProfessores extends Component {
   }
 
   render() {
+    const tituloLowerCase = this.props.titulo.toLowerCase();
     if (this.state.formStatus === 'fill') {
       return (
         <Fragment>
           <div className='container'>
-            <h2>Cadastro Professor</h2>
+            <h2>Cadastro {tituloLowerCase}</h2>
             <Form
               schema={schema}
               onSubmit={this.props.onSubmit}
@@ -43,7 +44,7 @@ class FormProfessores extends Component {
                   <Input
                     name='nome'
                     className='form-control'
-                    placeholder='Nome do professor'
+                    placeholder={`Nome do ${tituloLowerCase}`}
                     autoFocus
                   />
                   <Input name='id' className='d-none' />
@@ -78,4 +79,4 @@ class FormProfessores extends Component {
   }
 }
 
-export default FormProfessores;
+export default FormOneField;

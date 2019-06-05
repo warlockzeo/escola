@@ -10,10 +10,12 @@ const schema = Yup.object().shape({
 
 class Login extends Component {
   state = {
+    formStatus: 'fill',
     errorMessage: ''
   };
 
   onSubmit = data => {
+    this.setState({ formStatus: 'wait' });
     const { user, senha } = data;
     fetch('http://api/verificarSenha', {
       method: 'POST',
@@ -46,41 +48,48 @@ Nivel 10 - Aluno
             window.location.href = '/alunos/';
           }
         } else {
-          this.setState({ errorMessage: 'Login ou Senha inválidos.' });
+          this.setState({
+            formStatus: 'fill',
+            errorMessage: 'Login ou Senha inválidos.'
+          });
         }
       });
   };
 
   render() {
-    return (
-      <div className='container'>
-        <Card
-          body
-          style={{ margin: 'auto', width: 400, maxWidth: '95%' }}
-          className='wow bounceInRight animated'
-        >
-          <CardTitle>
-            <h1>Login</h1>
-          </CardTitle>
+    if (this.state.formStatus === 'fill') {
+      return (
+        <div className='container'>
+          <Card
+            body
+            style={{ margin: 'auto', width: 400, maxWidth: '95%' }}
+            className='wow bounceInRight animated'
+          >
+            <CardTitle>
+              <h1>Login</h1>
+            </CardTitle>
 
-          <Form schema={schema} onSubmit={this.onSubmit}>
-            <Input name='user' className='form-control' placeholder='Login' />
-            <Input
-              name='senha'
-              type='password'
-              className='form-control'
-              placeholder='Senha'
-            />
-            {this.state.errorMessage && (
-              <Alert color='danger'>{this.state.errorMessage}</Alert>
-            )}
-            <button type='submit' className='btn btn-success'>
-              Login
-            </button>
-          </Form>
-        </Card>
-      </div>
-    );
+            <Form schema={schema} onSubmit={this.onSubmit}>
+              <Input name='user' className='form-control' placeholder='Login' />
+              <Input
+                name='senha'
+                type='password'
+                className='form-control'
+                placeholder='Senha'
+              />
+              {this.state.errorMessage && (
+                <Alert color='danger'>{this.state.errorMessage}</Alert>
+              )}
+              <button type='submit' className='btn btn-success'>
+                Login
+              </button>
+            </Form>
+          </Card>
+        </div>
+      );
+    } else {
+      return <Spinner color='primary' />;
+    }
   }
 }
 

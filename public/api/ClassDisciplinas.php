@@ -24,7 +24,7 @@
             header("Content-type: application/json");
 
             if(count($j)>0){
-                echo '{"resp":' . json_encode($j) . '}';
+                echo json_encode($j);
             }else{
                 echo '{"resp":"erro"}';
             }
