@@ -1,5 +1,5 @@
 .alunosDetalhes {
-  padding: 0 100px;
+  padding: 20px 20px 20px 100px;
 }
 
 .btnCancel {
@@ -13,4 +13,42 @@
 
 .btnCancel:hover {
   color: red;
+}
+
+.alunosDetalhes__dados {
+  border-radius: 5px;
+  box-shadow: 0 0 5px #cccccc;
+  min-height: 50px;
+  border: none;
+  padding: 5px 15px 25px 15px;
+}
+
+.alunosDetalhes__dados--show {
+  min-height: 50px;
+}
+
+.alunosDetalhes__linhaDados {
+  padding: 10px 0;
+}
+
+.btnEdit {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  z-index: 999;
+}
+
+.btnToggle {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-radius: 0 0 5px 5px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+  background-color: #000000;
+  color: #ffffff;
+  cursor: pointer;
 }

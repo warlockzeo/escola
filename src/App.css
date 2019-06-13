@@ -191,7 +191,7 @@ form span {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: calc(100vh - 100px);
+  min-height: calc(100vh - 100px);
 }
 
 .dashboard__card {
@@ -199,4 +199,8 @@ form span {
   justify-content: center;
   width: 80%;
   max-width: 400px;
+}
+
+.legenda__dados {
+  font-weight: bold;
 }

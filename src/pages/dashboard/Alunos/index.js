@@ -34,7 +34,8 @@ class Alunos extends Component {
   state = {
     alunos: [],
     alunoAtual: {},
-    show: 'table',
+    show: 'detalhes',
+    //show: 'table',
     showAnterior: '',
     errorMessage: ''
   };

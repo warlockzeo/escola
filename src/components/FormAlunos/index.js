@@ -89,6 +89,7 @@ class FormAlunos extends Component {
                     name='nome'
                     className='form-control'
                     placeholder='Nome completo'
+                    title='Nome'
                     autoFocus
                   />
                   <Input name='id' className='d-none' />
@@ -100,6 +101,7 @@ class FormAlunos extends Component {
                     name='mae'
                     className='form-control'
                     placeholder='Nome completo da mãe'
+                    title='Mãe'
                   />
                 </Col>
                 <Col md={2}>
@@ -107,6 +109,7 @@ class FormAlunos extends Component {
                     name='foneMae'
                     className='form-control'
                     placeholder='Telefone da mãe'
+                    title='Telefone da Mãe'
                   />
                 </Col>
                 <Col md={4}>
@@ -114,6 +117,7 @@ class FormAlunos extends Component {
                     name='pai'
                     className='form-control'
                     placeholder='Nome completo do Pai'
+                    title='Pai'
                   />
                 </Col>
                 <Col md={2}>
@@ -121,6 +125,7 @@ class FormAlunos extends Component {
                     name='fonePai'
                     className='form-control'
                     placeholder='Telefone do pai'
+                    title='Telefone do Pai'
                   />
                 </Col>
               </Row>
@@ -130,6 +135,7 @@ class FormAlunos extends Component {
                     name='responsavel'
                     className='form-control'
                     placeholder='Responsavel'
+                    title='Responsável'
                   />
                 </Col>
                 <Col md={3}>
@@ -138,6 +144,7 @@ class FormAlunos extends Component {
                     type='date'
                     className='form-control'
                     placeholder='Data de Nascimento'
+                    title='Data de Nascimento'
                   />
                 </Col>
                 <Col md={2}>
@@ -145,6 +152,7 @@ class FormAlunos extends Component {
                     name='sexo'
                     options={optionsSexo}
                     className='form-control'
+                    title='Sexo'
                   />
                 </Col>
               </Row>
@@ -155,6 +163,7 @@ class FormAlunos extends Component {
                     type='email'
                     className='form-control'
                     placeholder='E-mail'
+                    title='E-mail'
                   />
                 </Col>
                 <Col md={4}>
@@ -162,6 +171,7 @@ class FormAlunos extends Component {
                     name='endereco'
                     className='form-control'
                     placeholder='Endereço'
+                    title='Endereço'
                   />
                 </Col>
                 <Col md={3}>
@@ -169,6 +179,7 @@ class FormAlunos extends Component {
                     name='cidade'
                     className='form-control'
                     placeholder='Cidade'
+                    title='Cidade'
                   />
                 </Col>
                 <Col md={2}>
@@ -176,6 +187,7 @@ class FormAlunos extends Component {
                     name='uf'
                     options={optionsUf}
                     className='form-control'
+                    title='UF'
                   />
                 </Col>
               </Row>
@@ -185,6 +197,7 @@ class FormAlunos extends Component {
                     name='obs'
                     className='form-control'
                     placeholder='Observações'
+                    title='Obs'
                   />
                 </Col>
               </Row>

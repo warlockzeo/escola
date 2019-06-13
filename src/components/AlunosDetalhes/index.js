@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Row, Col, Collapse, Button } from 'reactstrap';
+import { Card, Row, Col, Collapse } from 'reactstrap';
+import Historico from '../Historico';
 
 import './styles.css';
 
@@ -23,32 +24,91 @@ class AlunosDetalhes extends Component {
           onClick={this.props.cancel}
           title='Cancelar'
         >
-          <i className='fa fa-times-circle' aria-hidden='true' />
+          <i className='fa fa-times-circle' aria-hidden='true' />x
         </span>
         <Row>
           <h1>Cadastro do Aluno</h1>
         </Row>
-        <Row>
-          <Button className='btnEdit' onClick={this.handleEdit}>
-            Editar
-          </Button>
-          <Col md={12}>Nome: {this.props.dados.nome}</Col>
+        <Card className='alunosDetalhes__dados'>
+          <span className='btnEdit' onClick={this.handleEdit}>
+            E
+          </span>
+          <div className='alunosDetalhes__dados--show'>
+            <Row className='alunosDetalhes__linhaDados'>
+              <Col md={12}>
+                <span className='legenda__dados'>Nome</span>:
+                {this.props.dados.nome}
+              </Col>
+            </Row>
+            <Row className='alunosDetalhes__linhaDados'>
+              <Col md={3}>
+                <span className='legenda__dados'>Mãe:</span>
+                {this.props.dados.mae}
+              </Col>
+              <Col md={3}>
+                <span className='legenda__dados'>Fone Mãe:</span>
+                {this.props.dados.foneMae}
+              </Col>
+              <Col md={3}>
+                <span className='legenda__dados'>Pai:</span>
+                {this.props.dados.pai}
+              </Col>
+              <Col md={3}>
+                <span className='legenda__dados'>Fone Pai:</span>
+                {this.props.dados.fonePai}
+              </Col>
+            </Row>
+            <span className='btnToggle' onClick={this.toggle}>
+              {this.state.collapse ? `Mostrar Menos` : `Mostrar tudo`}
+            </span>
+          </div>
 
-          <Button
-            color='primary'
-            onClick={this.toggle}
-            style={{ marginBottom: '1rem' }}
-          >
-            Mostrar tudo
-          </Button>
           <Collapse isOpen={this.state.collapse}>
-            Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus
-            terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer
-            labore wes anderson cred nesciunt sapiente ea proident.
+            <Row className='alunosDetalhes__linhaDados'>
+              <Col md={4}>
+                <span className='legenda__dados'>Responsável:</span>
+                {this.props.dados.responsavel}
+              </Col>
+              <Col md={4}>
+                <span className='legenda__dados'>Data de Nascimento:</span>
+                {this.props.dados.dataNasc}
+              </Col>
+              <Col md={4}>
+                <span className='legenda__dados'>Sexo:</span>
+                {this.props.dados.sexo}
+              </Col>
+            </Row>
+            <Row className='alunosDetalhes__linhaDados'>
+              <Col md={2}>
+                <span className='legenda__dados'>E-mail:</span>
+                {this.props.dados.email}
+              </Col>
+              <Col md={4}>
+                <span className='legenda__dados'>Endereço:</span>
+                {this.props.dados.endereco}
+              </Col>
+              <Col md={4}>
+                <span className='legenda__dados'>Cidade:</span>
+                {this.props.dados.cidade}
+              </Col>
+              <Col md={2}>
+                <span className='legenda__dados'>UF:</span>
+                {this.props.dados.uf}
+              </Col>
+            </Row>
+            <Row className='alunosDetalhes__linhaDados'>
+              <Col md={12}>
+                <span className='legenda__dados'>Observação:</span>
+                {this.props.dados.obs}
+              </Col>
+            </Row>
           </Collapse>
-        </Row>
+        </Card>
+
         <Row>Faltas</Row>
-        <Row>Notas</Row>
+        <Row>
+          <Historico />
+        </Row>
       </Col>
     );
   }
