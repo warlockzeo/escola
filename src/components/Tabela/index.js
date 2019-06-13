@@ -18,6 +18,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
+import DetailsIcon from '@material-ui/icons/AccountCircle';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 
@@ -169,6 +170,13 @@ const EnhancedTableToolbar = props => {
                   </IconButton>
                 </Tooltip>
               )}
+              {props.btDetails && (
+                <Tooltip title='Detalhes' onClick={props.details}>
+                  <IconButton aria-label='Detalhes'>
+                    <DetailsIcon />
+                  </IconButton>
+                </Tooltip>
+              )}
             </Fragment>
           ) : (
             numSelected === 0 && (
@@ -283,6 +291,10 @@ function EnhancedTable(props) {
     props.add();
   }
 
+  function handleDetails() {
+    props.details(lastRowSelectedData);
+  }
+
   const isSelected = name => selected.indexOf(name) !== -1;
 
   const emptyRows =
@@ -300,6 +312,8 @@ function EnhancedTable(props) {
           edit={handleEdit}
           btAdd={props.add ? true : false}
           add={handleAdd}
+          btDetails={props.details ? true : false}
+          details={handleDetails}
         />
         <div className={classes.tableWrapper}>
           <Table

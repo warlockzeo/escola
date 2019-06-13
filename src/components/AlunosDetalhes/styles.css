@@ -1,0 +1,16 @@
+.alunosDetalhes {
+  padding: 0 100px;
+}
+
+.btnCancel {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 200%;
+  transition: all 0.3s;
+}
+
+.btnCancel:hover {
+  color: red;
+}

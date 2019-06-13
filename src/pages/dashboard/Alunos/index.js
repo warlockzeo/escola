@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Tabela from '../../../components/Tabela';
 import FormAlunos from '../../../components/FormAlunos';
 import { Card, Button, Spinner } from 'reactstrap';
+import AlunosDetalhes from '../../../components/AlunosDetalhes';
 
 const campos = [
   {
@@ -34,6 +35,7 @@ class Alunos extends Component {
     alunos: [],
     alunoAtual: {},
     show: 'table',
+    showAnterior: '',
     errorMessage: ''
   };
 
@@ -46,7 +48,11 @@ class Alunos extends Component {
   };
 
   onEditClick = data => {
-    this.setState({ show: 'edit', alunoAtual: data });
+    this.setState({
+      showAnterior: this.state.show,
+      show: 'edit',
+      alunoAtual: data
+    });
   };
 
   onAddClick = () => {
@@ -92,7 +98,7 @@ class Alunos extends Component {
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.resp !== 'erro') {
-          this.setState({ show: 'table' });
+          this.setState({ alunoAtual: data, show: this.state.showAnterior });
           this.loadAlunos();
         } else {
           this.setState({ show: 'edit', errorMessage: responseJson.resp });
@@ -101,6 +107,14 @@ class Alunos extends Component {
   };
 
   handleCancel = () => {
+    this.setState({ show: this.state.showAnterior });
+  };
+
+  onDetalhesClick = data => {
+    this.setState({ show: 'detalhes', alunoAtual: data });
+  };
+
+  cancelDetalhes = () => {
     this.setState({ show: 'table' });
   };
 
@@ -120,6 +134,7 @@ class Alunos extends Component {
               add={this.onAddClick}
               edit={this.onEditClick}
               delete={this.onDeleteClick}
+              details={this.onDetalhesClick}
             />
           </div>
         ) : this.state.show === 'alert' ? (
@@ -134,6 +149,12 @@ class Alunos extends Component {
           </Card>
         ) : this.state.show === 'wait' ? (
           <Spinner />
+        ) : this.state.show === 'detalhes' ? (
+          <AlunosDetalhes
+            dados={this.state.alunoAtual}
+            cancel={this.cancelDetalhes}
+            editar={this.onEditClick}
+          />
         ) : (
           <FormAlunos
             dados={this.state.alunoAtual}

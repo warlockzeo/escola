@@ -26,6 +26,7 @@ class Login extends Component {
     })
       .then(response => response.json())
       .then(responseJson => {
+        console.log(responseJson);
         /*
 Nivel 500 - Desenvolvedor
 Nivel 100 - Admin

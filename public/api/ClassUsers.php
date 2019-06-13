@@ -110,44 +110,44 @@
 
                 $senha = md5("seguranca".$obj['senha']);
 
-                $sql = "SELECT u.user, u.senha, u.idAluno, u.nivel, a.* FROM alunos as a LEFT JOIN users as u  on a.id = u.idAluno WHERE u.user = '$user' AND u.senha = '$senha'";
+                $sql = "SELECT u.user, u.senha, u.idAluno, u.nivel FROM users as u  WHERE u.user = '$user' AND u.senha = '$senha'";
                 $BFetch=$this->conectaDB()->prepare($sql);
                 $BFetch->execute();
-    
-                $j=[];
-                $i=0;
+
                 while($Fetch=$BFetch->fetch(PDO::FETCH_ASSOC)){
-                    $j[$i]=[
-                        "id"=>$Fetch['id'],
-                        "nome"=>$Fetch['nome'],
-                        "endereco" => $Fetch['endereco'],
-                        "cidade" => $Fetch['cidade'],
-                        "uf" => $Fetch['uf'],
-                        "mae" => $Fetch['mae'],
-                        "pai" => $Fetch['pai'],
-                        "fonePai" => $Fetch['fonePai'],
-                        "foneMae" => $Fetch['foneMae'],
-                        "responsavel" => $Fetch['responsavel'],
-                        "dataNasc" => $Fetch['dataNasc'],
-                        "sexo" => $Fetch['sexo'],
-                        "obs" => $Fetch['obs'],
+
+                    $sql2 = "SELECT * FROM alunos WHERE id = $Fetch[idAluno]";
+                    $BFetch2=$this->conectaDB()->prepare($sql2);
+                    $BFetch2->execute();
+        
+                    $Fetch2=$BFetch2->fetch(PDO::FETCH_ASSOC);
+                    $j[0]=[
+                        "id"=>$Fetch2['id'],
+                        "nome"=>$Fetch2['nome'],
+                        "endereco" => $Fetch2['endereco'],
+                        "cidade" => $Fetch2['cidade'],
+                        "uf" => $Fetch2['uf'],
+                        "mae" => $Fetch2['mae'],
+                        "pai" => $Fetch2['pai'],
+                        "fonePai" => $Fetch2['fonePai'],
+                        "foneMae" => $Fetch2['foneMae'],
+                        "responsavel" => $Fetch2['responsavel'],
+                        "dataNasc" => $Fetch2['dataNasc'],
+                        "sexo" => $Fetch2['sexo'],
+                        "obs" => $Fetch2['obs'],
                         "user" => $Fetch['user'],
                         "nivel" => $Fetch['nivel']
-
                     ];
-                    $i++;
                 }
-                
             }
 
             header("Access-Control-Allow-Origin:*");
             header("Content-type: application/json");
   
-            if(count($j)>0){
+            if(isset($j[0])){
                 echo '{"resp":' . json_encode($j[0]) . '}';
             }else{
                 echo '{"resp":"erro", "sql":"'.$sql.'"}';
-                //echo $sql;
             }
             
         }

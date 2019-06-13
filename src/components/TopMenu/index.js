@@ -78,7 +78,12 @@ class TopMenu extends Component {
             </Nav>
           </Collapse>
           {this.props.user && (
-            <div className='headerNomeAluno'>Olá {this.props.user}</div>
+            <div className='headerNomeAluno'>
+              Olá {this.props.user}{' '}
+              {this.props.user === 'admin' && (
+                <a href='/dashboard/'>- Painel de Controle</a>
+              )}
+            </div>
           )}
         </Navbar>
       </header>
