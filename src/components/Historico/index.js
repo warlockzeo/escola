@@ -2,12 +2,103 @@ import React, { Fragment, Component } from 'react';
 import Tabela from '../Tabela';
 import { Card, Button, Spinner, Col } from 'reactstrap';
 import FormOneField from '../FormOneField';
+
 const campos = [
   {
-    id: 'nome',
+    id: 'disciplina',
     numeric: false,
     disablePadding: true,
-    label: 'Nome',
+    label: 'Disciplina',
+    component: 'th',
+    scope: 'row',
+    padding: 'none'
+  },
+  {
+    id: 'teste1',
+    numeric: false,
+    disablePadding: true,
+    label: '1º Bim Teste',
+    component: 'th',
+    scope: 'row',
+    padding: 'none'
+  },
+  {
+    id: 'prova1',
+    numeric: false,
+    disablePadding: true,
+    label: '1º Bim Prova',
+    component: 'th',
+    scope: 'row',
+    padding: 'none'
+  },
+  {
+    id: 'teste2',
+    numeric: false,
+    disablePadding: true,
+    label: '2º Bim Teste',
+    component: 'th',
+    scope: 'row',
+    padding: 'none'
+  },
+  {
+    id: 'prova2',
+    numeric: false,
+    disablePadding: true,
+    label: '2º Bim Prova',
+    component: 'th',
+    scope: 'row',
+    padding: 'none'
+  },
+  {
+    id: 'teste3',
+    numeric: false,
+    disablePadding: true,
+    label: '3º Bim Teste',
+    component: 'th',
+    scope: 'row',
+    padding: 'none'
+  },
+  {
+    id: 'prova3',
+    numeric: false,
+    disablePadding: true,
+    label: '3º Bim Prova',
+    component: 'th',
+    scope: 'row',
+    padding: 'none'
+  },
+  {
+    id: 'teste4',
+    numeric: false,
+    disablePadding: true,
+    label: '4º Bim Teste',
+    component: 'th',
+    scope: 'row',
+    padding: 'none'
+  },
+  {
+    id: 'prova4',
+    numeric: false,
+    disablePadding: true,
+    label: '4º Bim Prova',
+    component: 'th',
+    scope: 'row',
+    padding: 'none'
+  },
+  {
+    id: 'recup',
+    numeric: false,
+    disablePadding: true,
+    label: 'Recup',
+    component: 'th',
+    scope: 'row',
+    padding: 'none'
+  },
+  {
+    id: 'mediaFinal',
+    numeric: false,
+    disablePadding: true,
+    label: 'Média Final',
     component: 'th',
     scope: 'row',
     padding: 'none'
@@ -16,55 +107,29 @@ const campos = [
 
 class Historico extends Component {
   state = {
-    professores: [],
-    professorAtual: {},
+    historico: [],
+    historicoAtual: {},
     show: 'table',
     errorMessage: ''
   };
 
-  loadHistorico = () => {
-    fetch('http://api/listar/professores')
+  loadHistorico = (ano, aluno) => {
+    fetch(`http://api/listar/historicos/${ano}/${aluno}`)
       .then(response => response.json())
       .then(responseJson => {
-        this.setState({ professores: responseJson });
+        this.setState({ historicos: responseJson });
       });
   };
 
   onEditClick = data => {
-    this.setState({ show: 'edit', professorAtual: data });
-  };
-
-  onAddClick = () => {
-    this.setState({ show: 'edit' });
-  };
-
-  onDeleteClick = data => {
-    this.setState({ show: 'alert', professorAtual: data });
-  };
-
-  handleDelete = () => {
-    this.setState({ show: 'wait' });
-    fetch(`http://api/apagar/professores/${this.state.professorAtual.id}`)
-      .then(response => response.json())
-      .then(responseJson => {
-        if (responseJson.resp === 'ok') {
-          this.setState({ show: 'table', professorAtual: {} });
-          this.loadHistorico();
-        } else {
-          console.log(responseJson.resp);
-        }
-      });
-  };
-
-  cancelDelete = () => {
-    this.setState({ show: 'table', ProfessorAtual: {} });
+    this.setState({ show: 'edit', historicoAtual: data });
   };
 
   handleSubmit = data => {
     console.log(data);
     const url = data.id
-      ? 'http://api/atualizar/professores'
-      : 'http://api/gravar/professores';
+      ? 'http://api/atualizar/historicos'
+      : 'http://api/gravar/historicos';
 
     this.setState({ show: 'wait' });
 
@@ -90,7 +155,7 @@ class Historico extends Component {
   };
 
   componentWillMount() {
-    this.loadHistorico();
+    this.loadHistorico(this.props.ano, this.props.aluno);
   }
 
   render() {
@@ -101,8 +166,7 @@ class Historico extends Component {
             <Tabela
               titulo='Histórico'
               campos={campos}
-              dados={this.state.professores}
-              add={this.onAddClick}
+              dados={this.state.historico}
               edit={this.onEditClick}
               delete={this.onDeleteClick}
             />
@@ -110,7 +174,7 @@ class Historico extends Component {
         ) : this.state.show === 'alert' ? (
           <Card className='dashboard__card'>
             <p>
-              Confirma exclusão do professor {this.state.professorAtual.nome}?
+              Confirma exclusão do histórico {this.state.historicoAtual.nome}?
             </p>
             <Button color='success' onClick={this.handleDelete}>
               Sim
@@ -123,8 +187,8 @@ class Historico extends Component {
           <Spinner />
         ) : (
           <FormOneField
-            titulo='Professor'
-            dados={this.state.alunoAtual}
+            titulo='Histórico'
+            dados={this.state.historicoAtual}
             onSubmit={this.handleSubmit}
             onCancel={this.handleCancel}
             errorMessage={this.state.errorMessage}

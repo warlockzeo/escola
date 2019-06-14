@@ -57,7 +57,7 @@ class Professores extends Component {
   };
 
   cancelDelete = () => {
-    this.setState({ show: 'table', ProfessorAtual: {} });
+    this.setState({ show: 'table', professorAtual: {} });
   };
 
   handleSubmit = data => {
@@ -125,7 +125,7 @@ class Professores extends Component {
         ) : (
           <FormOneField
             titulo='Professor'
-            dados={this.state.alunoAtual}
+            dados={this.state.professorAtual}
             onSubmit={this.handleSubmit}
             onCancel={this.handleCancel}
             errorMessage={this.state.errorMessage}

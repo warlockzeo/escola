@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Card, Row, Col, Collapse } from 'reactstrap';
+//import moment from 'moment';
 import Historico from '../Historico';
+import Faltas from '../Faltas';
 
 import './styles.css';
 
@@ -105,9 +107,14 @@ class AlunosDetalhes extends Component {
           </Collapse>
         </Card>
 
-        <Row>Faltas</Row>
         <Row>
-          <Historico />
+          <Faltas />
+        </Row>
+        <Row>
+          <Historico
+            aluno={this.props.dados.id}
+            ano={2019 /*moment().format('YYYY')*/}
+          />
         </Row>
       </Col>
     );
