@@ -1,14 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { Button, Alert, Row, Col, Spinner } from 'reactstrap';
-import { Form, Input, Select } from '@rocketseat/unform';
+import { Form, Select } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
 const schema = Yup.object().shape({
-  id: Yup.string(),
-  ano: Yup.string(),
-  serie: Yup.string().required('Este campo é obrigatório'),
-  horario: Yup.string().required('Este campo é obrigatório'),
-  descricao: Yup.string().required('Este campo é obrigatório')
+  aluno: Yup.string().required('Este campo é obrigatório')
 });
 
 class FormTurmaAddAluno extends Component {
@@ -48,10 +44,10 @@ class FormTurmaAddAluno extends Component {
               <Row>
                 <Col md={12}>
                   <Select
-                    name='horario'
+                    name='aluno'
                     options={this.props.dados}
                     className='form-control'
-                    title='Horário'
+                    title='Aluno'
                   />
                 </Col>
               </Row>
