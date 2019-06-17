@@ -71,7 +71,12 @@ Nivel 10 - Aluno
             </CardTitle>
 
             <Form schema={schema} onSubmit={this.onSubmit}>
-              <Input name='user' className='form-control' placeholder='Login' />
+              <Input
+                name='user'
+                className='form-control'
+                placeholder='Login'
+                autoFocus
+              />
               <Input
                 name='senha'
                 type='password'

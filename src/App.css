@@ -67,9 +67,10 @@ h2 {
 }
 
 .btn {
+  width: 100%;
   transition: all 0.3s;
   padding: 20px 40px;
-  margin: 0 10px 20px 10px;
+  margin: 0 0 20px;
   border-radius: 15px;
   font-size: 18px;
   font-weight: bold;
@@ -83,6 +84,20 @@ h2 {
 .btn-danger:hover {
   background-color: #ffffff;
   color: #dc3545;
+}
+
+.btnCancel {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 200%;
+  transition: all 0.3s;
+  z-index: 999;
+}
+
+.btnCancel:hover {
+  color: red;
 }
 
 .card {
@@ -197,6 +212,7 @@ form span {
   margin-top: -100px;
   width: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: calc(100vh - 100px);
@@ -211,4 +227,5 @@ form span {
 
 .legenda__dados {
   font-weight: bold;
+  padding: 0 10px;
 }

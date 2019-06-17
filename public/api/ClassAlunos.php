@@ -41,7 +41,7 @@
         #lista Alunos MATRICULADOS ESTE ANO com Json
         public function listaAlunosComMatricula($ano)
         {
-            $sql = "SELECT a.*, g.*, t.* FROM alunos as a LEFT JOIN gradesAlunos as g on g.idAluno = a.id LEFT JOIN turmas as t on g.idTurma = t.id WHERE t.ano = $ano";
+            $sql = "SELECT a.*, g.*, t.* FROM alunos as a LEFT JOIN gradesAlunos as g on g.idAluno = a.id LEFT JOIN turmas as t on g.idTurma = t.id WHERE t.ano = $ano  ORDER BY a.nome";
             $BFetch=$this->conectaDB()->prepare($sql);
             $BFetch->execute();
 
@@ -76,7 +76,7 @@
         #lista Alunos NÃO MATRICULADOS ESTE ANO com Json
         public function listaAlunosSemMatricula($ano)
         {
-            $sql = "SELECT * FROM alunos WHERE NOT id IN (SELECT g.idAluno FROM gradesAlunos as g LEFT JOIN turmas as t on g.idTurma = t.id WHERE t.ano = $ano)";
+            $sql = "SELECT * FROM alunos WHERE NOT id IN (SELECT g.idAluno FROM gradesAlunos as g LEFT JOIN turmas as t on g.idTurma = t.id WHERE t.ano = $ano) ORDER BY nome";
             $BFetch=$this->conectaDB()->prepare($sql);
             $BFetch->execute();
 

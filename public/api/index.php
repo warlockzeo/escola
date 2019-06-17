@@ -59,6 +59,10 @@
         elseif($_GET['opcao']=='atualizar'){
             $turma->atualizaTurma();
         }
+
+        elseif($_GET['opcao']=='apagar'){
+            $turma->apagaTurma($_GET['id']);
+        }
     }
 
     elseif($_GET['tabela']=='gradesAlunos'){

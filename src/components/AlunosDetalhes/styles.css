@@ -2,22 +2,10 @@
   padding: 20px 20px 20px 100px;
 }
 
-.btnCancel {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  cursor: pointer;
-  font-size: 200%;
-  transition: all 0.3s;
-}
-
-.btnCancel:hover {
-  color: red;
-}
-
 .alunosDetalhes__dados {
   border-radius: 5px;
-  box-shadow: 0 0 5px #cccccc;
+  box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
+    0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
   min-height: 50px;
   border: none;
   padding: 5px 15px 25px 15px;

@@ -1,70 +1,240 @@
 import React, { Component, Fragment } from 'react';
 import Tabela from '../../../components/Tabela';
+import { Row, Col, Card, Button, Spinner } from 'reactstrap';
+import { Select, Form } from '@rocketseat/unform';
+import * as Yup from 'yup';
+import moment from 'moment';
+
+import FormTurma from '../../../components/FormTurma';
+import TurmaDetalhes from '../../../components/TurmaDetalhes';
+
+import './styles.css';
+
+const schema = Yup.object().shape({
+  ano: Yup.string()
+});
 
 const campos = [
   {
-    id: 'nome',
+    id: 'descricao',
     numeric: false,
     disablePadding: true,
-    label: 'Nome',
+    label: 'Descrição',
     component: 'th',
     scope: 'row',
     padding: 'none'
   },
   {
-    id: 'mae',
+    id: 'serie',
     numeric: false,
     disablePadding: false,
-    label: 'Mãe',
+    label: 'Série',
     align: 'left'
   },
   {
-    id: 'turma',
+    id: 'horario',
     numeric: false,
     disablePadding: false,
-    label: 'Turma',
+    label: 'Horário',
     align: 'left'
   }
 ];
 
-class Avisos extends Component {
+class Turmas extends Component {
   state = {
-    avisos: []
+    turmas: [],
+    turmaAtual: {},
+    show: 'table',
+    showAnterior: '',
+    errorMessage: '',
+    anos: [],
+    ano: moment().format('YYYY')
   };
 
-  handleEdit = () => {
-    console.log('edit');
-  };
-
-  handleDelete = () => {
-    console.log('delete');
-  };
-
-  loadAvisos = () => {
-    fetch('http://api/listar/avisos')
+  loadAnos = () => {
+    fetch(`http://api/listarAnos`)
       .then(response => response.json())
       .then(responseJson => {
-        this.setState({ avisos: responseJson });
+        const anos = responseJson.map(ano => {
+          const retorno = {};
+
+          retorno.id = ano.ano;
+          retorno.title = ano.ano;
+
+          return retorno;
+        });
+        this.setState({ anos });
       });
   };
 
+  loadTurmas = ano => {
+    fetch(`http://api/listar/turmas/${ano}`)
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({ turmas: responseJson });
+      });
+  };
+
+  onEditClick = data => {
+    this.setState({
+      showAnterior: this.state.show,
+      show: 'edit',
+      turmaAtual: data
+    });
+  };
+
+  onAddClick = () => {
+    this.setState({
+      showAnterior: this.state.show,
+      show: 'add',
+      turmaAtual: {}
+    });
+  };
+
+  handleSubmit = data => {
+    const url = data.id
+      ? 'http://api/atualizar/turmas'
+      : 'http://api/gravar/turmas';
+
+    this.setState({ show: 'wait' });
+
+    fetch(`${url}`, {
+      method: 'POST',
+      //mode: 'no-cors',
+      body: JSON.stringify({
+        ...data
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson.resp !== 'erro') {
+          this.setState({
+            turmaAtual: data,
+            show: this.state.showAnterior,
+            showAnterior: ''
+          });
+          this.loadTurmas(this.state.ano);
+        } else {
+          this.setState({ show: 'edit', errorMessage: responseJson.resp });
+        }
+      });
+  };
+
+  handleCancel = () => {
+    this.setState({ show: this.state.showAnterior, showAnterior: '' });
+  };
+
+  onDeleteClick = data => {
+    this.setState({ show: 'alert', turmaAtual: data });
+  };
+
+  handleDelete = () => {
+    this.setState({ show: 'wait' });
+    fetch(`http://api/apagar/turmas/${this.state.turmaAtual.id}`)
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson.resp === 'ok') {
+          this.setState({ show: 'table', turmaAtual: {} });
+          this.loadTurmas(this.state.ano);
+        } else {
+          console.log(responseJson.resp);
+        }
+      });
+  };
+
+  cancelDelete = () => {
+    this.setState({ show: 'table', turmaAtual: {} });
+  };
+
+  onDetalhesClick = data => {
+    this.setState({ show: 'detalhes', turmaAtual: data });
+  };
+
+  cancelDetalhes = () => {
+    this.setState({ show: 'table' });
+  };
+
+  onChangeAno = e => {
+    this.setState({ ano: e.currentTarget.value });
+  };
+
   componentWillMount() {
-    this.loadAvisos();
+    this.loadTurmas(this.state.ano);
+    this.loadAnos();
   }
 
   render() {
     return (
-      <div className='dashboard container'>
-        <Tabela
-          titulo='Avisos'
-          campos={campos}
-          dados={this.state.avisos}
-          edit={this.handleEdit}
-          delete={this.handleDelete}
-        />
+      <div className='dashboard turmas'>
+        {this.state.show === 'table' ? (
+          <Fragment>
+            <Row style={{ justifyContent: 'center', alignItems: 'center' }}>
+              <Col md={3}>
+                <span className='legenda__dados'>Ano:</span>
+              </Col>
+              <Col md={9}>
+                <Form schema={schema} initialData={{ ano: this.state.ano }}>
+                  <Select
+                    name='ano'
+                    options={this.state.anos}
+                    className='form-control'
+                    title='Anos'
+                    onChange={this.onChangeAno}
+                  />
+                </Form>
+              </Col>
+            </Row>
+            {this.state.ano && (
+              <Col md={12}>
+                <Tabela
+                  titulo='Turmas'
+                  campos={campos}
+                  dados={this.state.turmas}
+                  add={this.onAddClick}
+                  edit={this.onEditClick}
+                  delete={this.onDeleteClick}
+                  details={this.onDetalhesClick}
+                />
+              </Col>
+            )}
+          </Fragment>
+        ) : this.state.show === 'alert' ? (
+          <div className='wrap100vh'>
+            <Card className='dashboard__card'>
+              <p>
+                Confirma exclusão da turma {this.state.turmaAtual.descricao}?
+              </p>
+              <Button color='success' onClick={this.handleDelete}>
+                Sim
+              </Button>
+              <Button color='danger' onClick={this.cancelDelete}>
+                Não
+              </Button>
+            </Card>
+          </div>
+        ) : this.state.show === 'wait' ? (
+          <Spinner />
+        ) : this.state.show === 'detalhes' ? (
+          <Col md={12}>
+            <TurmaDetalhes
+              turma={this.state.turmaAtual}
+              cancel={this.cancelDetalhes}
+            />
+          </Col>
+        ) : (
+          <Col md={12}>
+            <FormTurma
+              dados={this.state.turmaAtual}
+              onSubmit={this.handleSubmit}
+              onCancel={this.handleCancel}
+              errorMessage={this.state.errorMessage}
+              ano={!this.state.turmaAtual.ano && this.state.ano}
+            />
+          </Col>
+        )}
       </div>
     );
   }
 }
 
-export default Avisos;
+export default Turmas;

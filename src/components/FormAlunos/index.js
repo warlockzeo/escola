@@ -64,6 +64,11 @@ class FormAlunos extends Component {
     await this.props.onSubmit(data);
   };
 
+  onCancel = e => {
+    e.preventDefault();
+    this.props.onCancel();
+  };
+
   componentWillMount() {
     this.props.errorMessage &&
       this.setState({
@@ -201,12 +206,18 @@ class FormAlunos extends Component {
                   />
                 </Col>
               </Row>
-              <button type='submit' className='btn btn-success'>
-                Gravar
-              </button>
-              <button className='btn btn-danger' onClick={this.props.onCancel}>
-                Cancelar
-              </button>
+              <Row>
+                <Col md={6}>
+                  <button type='submit' className='btn btn-success'>
+                    Gravar
+                  </button>
+                </Col>
+                <Col md={6}>
+                  <button className='btn btn-danger' onClick={this.onCancel}>
+                    Cancelar
+                  </button>
+                </Col>
+              </Row>
             </Form>
           </div>
         </Fragment>

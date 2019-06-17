@@ -34,8 +34,8 @@ class Alunos extends Component {
   state = {
     alunos: [],
     alunoAtual: {},
-    show: 'detalhes',
-    //show: 'table',
+    //show: 'detalhes',
+    show: 'table',
     showAnterior: '',
     errorMessage: ''
   };
@@ -57,29 +57,7 @@ class Alunos extends Component {
   };
 
   onAddClick = () => {
-    this.setState({ show: 'edit' });
-  };
-
-  onDeleteClick = data => {
-    this.setState({ show: 'alert', alunoAtual: data });
-  };
-
-  handleDelete = () => {
-    this.setState({ show: 'wait' });
-    fetch(`http://api/apagar/alunos/${this.state.alunoAtual.id}`)
-      .then(response => response.json())
-      .then(responseJson => {
-        if (responseJson.resp === 'ok') {
-          this.setState({ show: 'table', alunoAtual: {} });
-          this.loadAlunos();
-        } else {
-          console.log(responseJson.resp);
-        }
-      });
-  };
-
-  cancelDelete = () => {
-    this.setState({ show: 'table', alunoAtual: {} });
+    this.setState({ showAnterior: this.state.show, show: 'edit' });
   };
 
   handleSubmit = data => {
@@ -109,6 +87,28 @@ class Alunos extends Component {
 
   handleCancel = () => {
     this.setState({ show: this.state.showAnterior });
+  };
+
+  onDeleteClick = data => {
+    this.setState({ show: 'alert', alunoAtual: data });
+  };
+
+  handleDelete = () => {
+    this.setState({ show: 'wait' });
+    fetch(`http://api/apagar/alunos/${this.state.alunoAtual.id}`)
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson.resp === 'ok') {
+          this.setState({ show: 'table', alunoAtual: {} });
+          this.loadAlunos();
+        } else {
+          console.log(responseJson.resp);
+        }
+      });
+  };
+
+  cancelDelete = () => {
+    this.setState({ show: 'table', alunoAtual: {} });
   };
 
   onDetalhesClick = data => {

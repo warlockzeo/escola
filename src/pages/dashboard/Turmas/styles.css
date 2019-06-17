@@ -1,0 +1,17 @@
+.turmas {
+  padding: 20px 20px 20px 100px;
+  justify-content: flex-start;
+}
+
+.turma__dados {
+  margin-bottom: 20px;
+}
+
+.wrap100vh {
+  width: 80%;
+  max-width: 500px;
+  height: calc(100vh - 150px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

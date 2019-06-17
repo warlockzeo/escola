@@ -21,19 +21,15 @@ class AlunosDetalhes extends Component {
   render() {
     return (
       <Col md={12} className='alunosDetalhes' style={{ textAlign: 'left' }}>
-        <span
-          className='btnCancel'
-          onClick={this.props.cancel}
-          title='Cancelar'
-        >
-          <i className='fa fa-times-circle' aria-hidden='true' />x
+        <span className='btnCancel' onClick={this.props.cancel} title='Voltar'>
+          <i className='fa fa-times-circle' aria-hidden='true' />
         </span>
         <Row>
           <h1>Cadastro do Aluno</h1>
         </Row>
         <Card className='alunosDetalhes__dados'>
           <span className='btnEdit' onClick={this.handleEdit}>
-            E
+            <i className='fas fa-user-edit' title='Editar dados' />
           </span>
           <div className='alunosDetalhes__dados--show'>
             <Row className='alunosDetalhes__linhaDados'>

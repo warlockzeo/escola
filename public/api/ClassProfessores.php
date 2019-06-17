@@ -1,9 +1,9 @@
 <?php 
-    include("ClassConexao.php");
+    include_once("ClassConexao.php");
 
-    class ClassProfessores extends ClassConexao{
+    class ClassProfessores extends ClassConexao {
 
-        #exibir Alunos com Json
+        #exibir Professores com Json
         public function listaProfessores()
         {
             $BFetch=$this->conectaDB()->prepare("SELECT * FROM professores ORDER BY nome ASC");
