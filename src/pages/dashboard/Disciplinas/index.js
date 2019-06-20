@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Tabela from '../../../components/Tabela';
 import { Row, Col, Spinner } from 'reactstrap';
-import { Select } from '@rocketseat/unform';
+import { Form, Select } from '@rocketseat/unform';
 
 import FormOneField from '../../../components/FormOneField';
+import FormOneSelect from '../../../components/FormOneSelect';
 import ConfirmDelete from '../../../components/ConfirmDelete';
 
 const optionsSeries = [
@@ -32,6 +33,7 @@ const campos = [
 
 class Disciplina extends Component {
   state = {
+    serieAtual: '',
     disciplinas: [],
     disciplinaAtual: {},
     gradesCurriculares: [],
@@ -98,7 +100,6 @@ class Disciplina extends Component {
   };
 
   handleSubmitDisciplina = data => {
-    console.log(data);
     const url = data.id
       ? 'http://api/atualizar/disciplinas'
       : 'http://api/gravar/disciplinas';
@@ -127,11 +128,12 @@ class Disciplina extends Component {
       });
   };
 
-  handleCancelFormDisciplina = () => {
+  handleCancelForm = () => {
     this.setState({
       show: this.state.showAnterior,
       showAnterior: '',
-      disciplinaAtual: ''
+      disciplinaAtual: {},
+      gradeCurricularAtual: {}
     });
   };
 
@@ -165,11 +167,11 @@ class Disciplina extends Component {
       });
   };
 
-  onChangeSerie = e => {
+  loadGradeCurricularDaSerie = serie => {
     fetch(`http://api/gradeCurricular/`, {
       method: 'POST',
       body: JSON.stringify({
-        serie: e.currentTarget.value
+        serie
       })
     })
       .then(response => response.json())
@@ -180,8 +182,16 @@ class Disciplina extends Component {
             nome: disciplina.disciplina
           };
         });
-        this.setState({ gradesCurriculares });
+        this.setState({
+          gradesCurriculares,
+          serieAtual: serie
+        });
       });
+  };
+
+  onChangeSerie = e => {
+    const serie = e.currentTarget.value;
+    this.loadGradeCurricularDaSerie(serie);
   };
 
   onEditGradeCurricularClick = data => {
@@ -206,6 +216,56 @@ class Disciplina extends Component {
       show: 'deleteGradeCurricular',
       gradeCurricularAtual: data
     });
+  };
+
+  handleDeleteGradeCurricular = () => {
+    this.setState({ show: 'wait' });
+    fetch(
+      `http://api/apagar/gradesCurriculares/${
+        this.state.gradeCurricularAtual.id
+      }`
+    )
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson.resp === 'ok') {
+          this.setState({
+            show: this.state.showAnterior,
+            showAnterior: '',
+            gradeCurricularAtual: {}
+          });
+          this.loadGradesCurriculares();
+        } else {
+          console.log(responseJson.resp);
+        }
+      });
+  };
+
+  handleSubmitGradeCurricular = data => {
+    const url = data.id
+      ? 'http://api/atualizar/gradesCurriculares'
+      : 'http://api/gravar/gradesCurriculares';
+
+    const dados = data.id
+      ? { id: data.id, idDisciplina: data.key, serie: this.state.serieAtual }
+      : { idDisciplina: data.key, serie: this.state.serieAtual };
+
+    this.setState({ show: 'wait' });
+
+    fetch(`${url}`, {
+      method: 'POST',
+      body: JSON.stringify({
+        ...dados
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson.resp !== 'erro') {
+          this.setState({ show: this.state.showAnterior, showAnterior: '' });
+          this.loadGradeCurricularDaSerie(this.state.serieAtual);
+        } else {
+          this.setState({ show: 'edit', errorMessage: responseJson.resp });
+        }
+      });
   };
 
   componentWillMount() {
@@ -260,39 +320,55 @@ class Disciplina extends Component {
             titulo='Disciplina'
             dados={this.state.disciplinaAtual}
             onSubmit={this.handleSubmitDisciplina}
-            onCancel={this.handleCancelFormDisciplina}
+            onCancel={this.handleCancelForm}
             errorMessage={this.state.errorMessage}
           />
         ) : this.state.show === 'wait' ? (
           <Spinner />
         ) : this.state.show === 'tableGradeCurricular' ? (
           <div className='container'>
-            <Col md={6}>Série: </Col>
-            <Col md={6}>
-              <Select
-                name='serie'
-                options={optionsSeries}
-                className='form-control'
-                title='Série'
-                onChange={this.onChangeSerie}
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'flex-start'
+              }}
+            >
+              <span className='legenda__dados'>Série: </span>
+              <Form
+                initialData={{
+                  serie: this.state.serieAtual
+                }}
+              >
+                <Select
+                  name='serie'
+                  options={optionsSeries}
+                  className='form-control'
+                  title='Série'
+                  onChange={this.onChangeSerie}
+                />
+              </Form>
+            </div>
+            {this.state.serieAtual !== '' && (
+              <Tabela
+                titulo='Grade Curricular'
+                campos={campos}
+                dados={this.state.gradesCurriculares}
+                add={this.onAddGradeCurricularClick}
+                edit={this.onEditGradeCurricularClick}
+                delete={this.onDeleteGradeCurricularClick}
               />
-            </Col>
-            <Tabela
-              titulo='Grade Curricular'
-              campos={campos}
-              dados={this.state.gradesCurriculares}
-              add={this.onAddGradeCurricularClick}
-              edit={this.onEditGradeCurricularClick}
-              delete={this.onDeleteGradeCurricularClick}
-            />
+            )}
           </div>
         ) : (
           this.state.show === 'editAddGradeCurricular' && (
-            <FormOneField
+            <FormOneSelect
               titulo='Grade Curricular'
               dados={this.state.gradeCurricularAtual}
-              onSubmit={this.handleSubmitDisciplina}
-              onCancel={this.handleCancelFormDisciplina}
+              options={this.state.disciplinas}
+              onSubmit={this.handleSubmitGradeCurricular}
+              onCancel={this.handleCancelForm}
               errorMessage={this.state.errorMessage}
             />
           )

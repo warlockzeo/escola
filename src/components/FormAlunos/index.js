@@ -78,6 +78,7 @@ class FormAlunos extends Component {
   }
 
   render() {
+    console.log(this.props.dados);
     if (this.state.formStatus === 'fill') {
       return (
         <Fragment>
