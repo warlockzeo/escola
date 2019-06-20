@@ -92,6 +92,10 @@
 
         $gradeCurricular=new ClassGradesCurriculares();
 
+        if($_GET['opcao']=='mostrar'){
+            $gradeCurricular->mostraGrade();
+        }
+
         if($_GET['opcao']=='listar'){
             $gradeCurricular->listaGrades();
         }

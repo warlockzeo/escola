@@ -139,15 +139,17 @@ class Alunos extends Component {
             />
           </div>
         ) : this.state.show === 'alert' ? (
-          <Card className='dashboard__card'>
-            <p>Confirma exclusão do aluno {this.state.alunoAtual.nome}?</p>
-            <Button color='success' onClick={this.handleDelete}>
-              Sim
-            </Button>
-            <Button color='danger' onClick={this.cancelDelete}>
-              Não
-            </Button>
-          </Card>
+          <div className='wrap100vh'>
+            <Card className='dashboard__card'>
+              <p>Confirma exclusão do aluno {this.state.alunoAtual.nome}?</p>
+              <Button color='success' onClick={this.handleDelete}>
+                Sim
+              </Button>
+              <Button color='danger' onClick={this.cancelDelete}>
+                Não
+              </Button>
+            </Card>
+          </div>
         ) : this.state.show === 'wait' ? (
           <Spinner />
         ) : this.state.show === 'detalhes' ? (
