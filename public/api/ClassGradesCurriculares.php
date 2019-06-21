@@ -30,11 +30,14 @@
             echo json_encode($j);
         }
 
-        public function mostraGrade()
+        public function mostraGrade($serie)
         {
-            $json = file_get_contents('php://input');
-            $obj = json_decode($json, TRUE);
-            $serie = $obj['serie'];
+            if(!$serie>0){
+                $json = file_get_contents('php://input');
+                $obj = json_decode($json, TRUE);
+                $serie = $obj['serie'];
+            }
+
 
             $BFetch=$this->conectaDB()->prepare("SELECT g.*, d.disciplina FROM gradesCurriculares as g LEFT JOIN disciplinas as d on d.id = g.idDisciplina WHERE g.serie = '".$serie."' ORDER BY g.serie ASC, g.idTurma ASC, d.disciplina ASC");
             $BFetch->execute();
@@ -57,8 +60,8 @@
             header("Access-Control-Allow-Origin:*");
             header("Content-type: application/json");
 
-//            return json_encode($j);
-            echo json_encode($j);
+            //echo json_encode($j);
+            return json_encode($j);
         }
 
         public function apagaGrade($id)

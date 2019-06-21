@@ -5,34 +5,20 @@ import FormTurmaAddAluno from '../FormTurmaAddAluno';
 
 const gradeAlunos = [
   {
-    id: 'descricao',
+    id: 'nome',
     numeric: false,
     disablePadding: true,
-    label: 'Descrição',
+    label: 'Nome do Aluno',
     component: 'th',
     scope: 'row',
     padding: 'none'
-  },
-  {
-    id: 'serie',
-    numeric: false,
-    disablePadding: false,
-    label: 'Série',
-    align: 'left'
-  },
-  {
-    id: 'horario',
-    numeric: false,
-    disablePadding: false,
-    label: 'Horário',
-    align: 'left'
   }
 ];
 
 class TurmaDetalhes extends Component {
   state = {
-    turma: '',
-    alunos: [],
+    turma: {},
+    alunosSemMatricula: [],
     gradeAlunos: [],
     alunoAtual: {},
     show: 'tableAlunos',
@@ -44,7 +30,7 @@ class TurmaDetalhes extends Component {
     fetch(`http://api/listarAlunosSemMatricula/${this.state.turma.ano}`)
       .then(response => response.json())
       .then(responseJson => {
-        const alunos = responseJson.map(aluno => {
+        const alunosSemMatricula = responseJson.map(aluno => {
           const retorno = {};
 
           retorno.id = aluno.id;
@@ -52,7 +38,35 @@ class TurmaDetalhes extends Component {
 
           return retorno;
         });
-        this.setState({ alunos });
+        this.setState({ alunosSemMatricula });
+      });
+  };
+
+  loadGradeAlunos = () => {
+    fetch(`http://api/gradeAlunos/${this.state.turma.id}`)
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({ gradeAlunos: responseJson });
+      });
+  };
+
+  handleSubmit = data => {
+    this.setState({ show: 'wait' });
+    fetch('http://api/gravar/gradesAlunos', {
+      method: 'POST',
+      body: JSON.stringify({
+        idAluno: data.aluno,
+        idTurma: this.state.turma.id
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson.resp === 'ok') {
+          this.setState({ show: this.state.showAnterior, showAnterior: '' });
+          this.loadGradeAlunos(this.state.turma.id);
+        } else {
+          this.setState({ show: 'formAlunos' });
+        }
       });
   };
 
@@ -69,6 +83,10 @@ class TurmaDetalhes extends Component {
 
   componentWillMount() {
     this.setState({ turma: this.props.turma });
+  }
+
+  componentDidMount() {
+    this.loadGradeAlunos(this.state.turma.id);
   }
 
   render() {
@@ -111,8 +129,9 @@ class TurmaDetalhes extends Component {
         ) : this.state.show === 'formAlunos' ? (
           <Col md={12}>
             <FormTurmaAddAluno
-              dados={this.state.alunos}
+              dados={this.state.alunosSemMatricula}
               onCancel={this.onCancel}
+              onSubmit={this.handleSubmit}
             />
           </Col>
         ) : (

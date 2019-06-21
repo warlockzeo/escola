@@ -93,7 +93,7 @@
         $gradeCurricular=new ClassGradesCurriculares();
 
         if($_GET['opcao']=='mostrar'){
-            $gradeCurricular->mostraGrade();
+            $gradeCurricular->mostraGrade($_GET['serie']);
         }
 
         if($_GET['opcao']=='listar'){

@@ -8,15 +8,15 @@ import FormOneSelect from '../../../components/FormOneSelect';
 import ConfirmDelete from '../../../components/ConfirmDelete';
 
 const optionsSeries = [
-  { id: '1º Ano', title: '1º Ano' },
-  { id: '2º Ano', title: '2º Ano' },
-  { id: '3º Ano', title: '3º Ano' },
-  { id: '4º Ano', title: '4º Ano' },
-  { id: '5º Ano', title: '5º Ano' },
-  { id: '6º Ano', title: '6º Ano' },
-  { id: '7º Ano', title: '7º Ano' },
-  { id: '8º Ano', title: '8º Ano' },
-  { id: '9º Ano', title: '9º Ano' }
+  { id: '1', title: '1º Ano' },
+  { id: '2', title: '2º Ano' },
+  { id: '3', title: '3º Ano' },
+  { id: '4', title: '4º Ano' },
+  { id: '5', title: '5º Ano' },
+  { id: '6', title: '6º Ano' },
+  { id: '7', title: '7º Ano' },
+  { id: '8', title: '8º Ano' },
+  { id: '9', title: '9º Ano' }
 ];
 
 const campos = [
@@ -350,7 +350,7 @@ class Disciplina extends Component {
                 />
               </Form>
             </div>
-            {this.state.serieAtual !== '' && (
+            {this.state.serieAtual > 0 && (
               <Tabela
                 titulo='Grade Curricular'
                 campos={campos}

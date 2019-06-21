@@ -60,6 +60,7 @@
             $grades = new ClassGradesCurriculares();
             $disciplinas = json_decode($grades->mostraGrade($turma[0]['serie']),TRUE);
 
+            //print_r($disciplinas);
             include("ClassHistoricos.php");
             $historico = new ClassHistoricos;
             //percorre disciplinas da grade
@@ -74,7 +75,7 @@
             header("Access-Control-Allow-Origin:*");
             header("Content-type: application/json");
   
-            echo '{"resp":"ok", "sql":"'.$sql.'", "disciplinas":"'.$turma[0]['serie'].'"}';
+            echo '{"resp":"ok", "sql":"'.$sql.'"}';
         }
 
     }

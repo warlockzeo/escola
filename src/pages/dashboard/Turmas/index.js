@@ -7,6 +7,7 @@ import moment from 'moment';
 
 import FormTurma from '../../../components/FormTurma';
 import TurmaDetalhes from '../../../components/TurmaDetalhes';
+import ConfirmDelete from '../../../components/ConfirmDelete';
 
 import './styles.css';
 
@@ -100,7 +101,6 @@ class Turmas extends Component {
 
     fetch(`${url}`, {
       method: 'POST',
-      //mode: 'no-cors',
       body: JSON.stringify({
         ...data
       })
@@ -199,19 +199,11 @@ class Turmas extends Component {
             )}
           </Fragment>
         ) : this.state.show === 'alert' ? (
-          <div className='wrap100vh'>
-            <Card className='dashboard__card'>
-              <p>
-                Confirma exclusão da turma {this.state.turmaAtual.descricao}?
-              </p>
-              <Button color='success' onClick={this.handleDelete}>
-                Sim
-              </Button>
-              <Button color='danger' onClick={this.cancelDelete}>
-                Não
-              </Button>
-            </Card>
-          </div>
+          <ConfirmDelete
+            info={this.state.turmaAtual.descricao}
+            delete={this.handleDelete}
+            cancel={this.cancelDelete}
+          />
         ) : this.state.show === 'wait' ? (
           <Spinner />
         ) : this.state.show === 'detalhes' ? (
