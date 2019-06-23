@@ -109,7 +109,7 @@ class AlunosDetalhes extends Component {
         <Row>
           <Historico
             aluno={this.props.dados.id}
-            ano={2019 /*moment().format('YYYY')*/}
+            tuma={this.props.dados.turma}
           />
         </Row>
       </Col>

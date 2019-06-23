@@ -1,7 +1,8 @@
 import React, { Fragment, Component } from 'react';
 import Tabela from '../Tabela';
 import { Card, Button, Spinner, Col } from 'reactstrap';
-import FormOneField from '../FormOneField';
+//import FormOneField from '../FormOneField';
+import FormAddNotas from '../FormAddNotas';
 
 const campos = [
   {
@@ -113,11 +114,11 @@ class Historico extends Component {
     errorMessage: ''
   };
 
-  loadHistorico = (ano, aluno) => {
-    fetch(`http://api/listar/historicos/${ano}/${aluno}`)
+  loadHistorico = (turma, aluno) => {
+    fetch(`http://api/listar/historicos/${aluno}`)
       .then(response => response.json())
       .then(responseJson => {
-        this.setState({ historicos: responseJson });
+        this.setState({ historico: responseJson });
       });
   };
 
@@ -143,7 +144,7 @@ class Historico extends Component {
       .then(responseJson => {
         if (responseJson.resp !== 'erro') {
           this.setState({ show: 'table' });
-          this.loadHistorico();
+          this.loadHistorico(this.props.ano, this.props.aluno);
         } else {
           this.setState({ show: 'edit', errorMessage: responseJson.resp });
         }
@@ -186,8 +187,7 @@ class Historico extends Component {
         ) : this.state.show === 'wait' ? (
           <Spinner />
         ) : (
-          <FormOneField
-            titulo='Histórico'
+          <FormAddNotas
             dados={this.state.historicoAtual}
             onSubmit={this.handleSubmit}
             onCancel={this.handleCancel}

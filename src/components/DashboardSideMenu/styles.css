@@ -9,21 +9,25 @@
   padding: 0;
   overflow: hidden;
   transition: all 0.3s;
+  transition-delay: 1s;
   z-index: 900;
 }
 
 .sidebar:hover {
+  transition: all 0.3s;
   width: 150px;
 }
 
 .sideBar__logo {
-  width: calc(100% - 10px);
+  transition: all 0.3s;
+  width: 85%;
   height: auto;
   margin: 5px;
 }
 
 .sidebar:hover .sideBar__logo {
-  margin: 10px;
+  transition: all 0.3s;
+  margin: 5px;
   width: 85%;
 }
 

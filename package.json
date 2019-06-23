@@ -20,6 +20,7 @@
     "react-slideshow-image": "^1.1.8",
     "react-strap": "^0.0.1",
     "reactstrap": "^8.0.0",
+    "sass": "^1.21.0",
     "styled-components": "^4.2.0",
     "yup": "^0.27.0"
   },

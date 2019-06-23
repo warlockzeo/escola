@@ -1,7 +1,9 @@
 import React, { Fragment, Component } from 'react';
 import Tabela from '../Tabela';
 import { Row, Col, Spinner } from 'reactstrap';
+
 import FormTurmaAddAluno from '../FormTurmaAddAluno';
+import ConfirmDelete from '../ConfirmDelete';
 
 const gradeAlunos = [
   {
@@ -75,7 +77,25 @@ class TurmaDetalhes extends Component {
     this.setState({ showAnterior: this.state.show, show: 'formAlunos' });
   };
 
-  onDeleteAlunos = () => {};
+  handleDeleteAlunos = () => {
+    this.setState({ show: 'wait' });
+    fetch(`http://api/apagar/gradesAlunos/${this.state.alunoAtual.id}`)
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson.resp === 'ok') {
+          this.setState({ show: this.state.showAnterior, showAnterior: '' });
+          this.loadGradeAlunos(this.state.turma.id);
+        }
+      });
+  };
+
+  onDeleteAlunos = data => {
+    this.setState({
+      showAnterior: this.state.show,
+      show: 'alert',
+      alunoAtual: data
+    });
+  };
 
   onCancel = () => {
     this.setState({ show: this.state.showAnterior, showAnterior: '' });
@@ -105,10 +125,8 @@ class TurmaDetalhes extends Component {
               <Col md={12} className='turma__dados'>
                 <span className='legenda__dados'>Turma: </span>
                 {this.state.turma.descricao}
-
                 <span className='legenda__dados'>Série: </span>
-                {this.state.turma.serie}
-
+                {this.state.turma.serie}º Ano
                 <span className='legenda__dados'>Horário: </span>
                 {this.state.turma.horario}
               </Col>
@@ -134,6 +152,12 @@ class TurmaDetalhes extends Component {
               onSubmit={this.handleSubmit}
             />
           </Col>
+        ) : this.state.show === 'alert' ? (
+          <ConfirmDelete
+            info={this.state.alunoAtual.nome}
+            delete={this.handleDeleteAlunos}
+            cancel={this.onCancel}
+          />
         ) : (
           this.state.show === 'wait' && <Spinner />
         )}

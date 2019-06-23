@@ -81,18 +81,26 @@
             $json = file_get_contents('php://input');
             $obj = json_decode($json, TRUE);
 
-            $id = $obj['disciplina'];
-            $campo = $obj['campo'];
-            $nota = $obj['nota'];
+            $id = $obj['id'];
+            $teste1 = $obj['teste1'];
+            $prova1 = $obj['prova1'];
+            $teste2 = $obj['teste2'];
+            $prova2 = $obj['prova2'];
+            $teste3 = $obj['teste3'];
+            $prova3 = $obj['prova3'];
+            $teste4 = $obj['teste4'];
+            $prova4 = $obj['prova4'];
+            $recup = $obj['recup'];
+            $mediaFinal = $obj['mediaFinal'];
 
-            $sql = "UPDATE historicos SET ". $campo ." = $nota WHERE id = $id";
+            $sql = "UPDATE historicos SET teste1 = '$teste1', teste2 = '$teste2', teste3 = '$teste3', teste4 = '$teste4', prova1 = '$prova1', prova2 = '$prova2',  prova3 = '$prova3',  prova4 = '$prova4', recup = '$recup', mediaFinal = '$mediaFinal' WHERE id = $id";
             $BFetch=$this->conectaDB()->prepare($sql);
             $BFetch->execute();
 
             header("Access-Control-Allow-Origin:*");
             header("Content-type: application/json");
   
-            echo '{"resp":"ok"}';
+            echo '{"resp":"ok", "sql":"'.$sql.'"}';
         }
 
     }

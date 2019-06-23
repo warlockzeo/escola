@@ -1,9 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import Tabela from '../../../components/Tabela';
-import { Row, Col, Card, Button, Spinner } from 'reactstrap';
+import { Row, Col, Spinner } from 'reactstrap';
 import { Select, Form } from '@rocketseat/unform';
 import * as Yup from 'yup';
-import moment from 'moment';
 
 import FormTurma from '../../../components/FormTurma';
 import TurmaDetalhes from '../../../components/TurmaDetalhes';
@@ -49,7 +48,7 @@ class Turmas extends Component {
     showAnterior: '',
     errorMessage: '',
     anos: [],
-    ano: moment().format('YYYY')
+    ano: ''
   };
 
   loadAnos = () => {
@@ -72,7 +71,18 @@ class Turmas extends Component {
     fetch(`http://api/listar/turmas/${ano}`)
       .then(response => response.json())
       .then(responseJson => {
-        this.setState({ turmas: responseJson });
+        const turmas = responseJson.map(turma => {
+          const retorno = {};
+
+          retorno.id = turma.id;
+          retorno.ano = turma.ano;
+          retorno.serie = `${turma.serie}º ano`;
+          retorno.descricao = turma.descricao;
+          retorno.horario = turma.horario;
+
+          return retorno;
+        });
+        this.setState({ turmas });
       });
   };
 
@@ -156,10 +166,10 @@ class Turmas extends Component {
 
   onChangeAno = e => {
     this.setState({ ano: e.currentTarget.value });
+    this.loadTurmas(e.currentTarget.value);
   };
 
   componentWillMount() {
-    this.loadTurmas(this.state.ano);
     this.loadAnos();
   }
 

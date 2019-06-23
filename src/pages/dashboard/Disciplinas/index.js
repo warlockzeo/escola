@@ -168,6 +168,7 @@ class Disciplina extends Component {
   };
 
   loadGradeCurricularDaSerie = serie => {
+    console.log(serie);
     fetch(`http://api/gradeCurricular/`, {
       method: 'POST',
       body: JSON.stringify({
@@ -176,16 +177,23 @@ class Disciplina extends Component {
     })
       .then(response => response.json())
       .then(responseJson => {
-        const gradesCurriculares = responseJson.map(disciplina => {
-          return {
-            id: disciplina.id,
-            nome: disciplina.disciplina
-          };
-        });
-        this.setState({
-          gradesCurriculares,
-          serieAtual: serie
-        });
+        if (responseJson.resp !== 'erro') {
+          const gradesCurriculares = responseJson.map(disciplina => {
+            return {
+              id: disciplina.id,
+              nome: disciplina.disciplina
+            };
+          });
+          this.setState({
+            gradesCurriculares,
+            serieAtual: serie
+          });
+        } else {
+          this.setState({
+            gradesCurriculares: [],
+            serieAtual: serie
+          });
+        }
       });
   };
 
@@ -273,6 +281,7 @@ class Disciplina extends Component {
   }
 
   render() {
+    console.log(this.state.serieAtual);
     return (
       <div className='dashboard'>
         {(this.state.show === 'tableDisciplina' ||

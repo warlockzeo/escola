@@ -1,12 +1,13 @@
 <?php 
-    include("ClassConexao.php");
+    include_once("ClassConexao.php");
 
     class ClassAlunos extends ClassConexao{
 
         #exibir lista completa de Alunos
         public function listaAlunos()
         {
-            $sql = "SELECT * FROM alunos ORDER BY nome ASC";
+            $sql = "SELECT a.*, t.descricao FROM alunos as a LEFT JOIN turmas as t on t.id = a.turma ORDER BY nome ASC";
+            //$sql = "SELECT * FROM alunos ORDER BY nome ASC";
             $BFetch=$this->conectaDB()->prepare($sql);
             $BFetch->execute();
 
@@ -27,7 +28,9 @@
                     "responsavel" => $Fetch['responsavel'],
                     "dataNasc" => $Fetch['dataNasc'],
                     "sexo" => $Fetch['sexo'],
-                    "obs" => $Fetch['obs']
+                    "obs" => $Fetch['obs'],
+                    //"turma" => $Fetch['turma'],
+                    "turma" => $Fetch['descricao'],
                 ];
                 $i++;
             }
@@ -224,6 +227,18 @@
             header("Content-type: application/json");
   
             echo '{"resp":"ok"}';
+        }
+
+        public function atualizaTurmaDoAluno($id,$turma)
+        {
+            $sql = "UPDATE alunos SET turma = $turma WHERE id = $id";
+            $BFetch=$this->conectaDB()->prepare($sql);
+            $BFetch->execute();
+
+            header("Access-Control-Allow-Origin:*");
+            header("Content-type: application/json");
+  
+            return '{"resp":"ok"}';
         }
 
     }
