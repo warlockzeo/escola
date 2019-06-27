@@ -76,7 +76,8 @@ function EnhancedTableHead(props) {
         {headRows.map(row => (
           <TableCell
             key={row.id}
-            align={row.numeric ? 'right' : 'left'}
+            //align={row.numeric ? 'right' : 'left'}
+            align={row.numeric ? 'right' : row.align}
             padding={row.disablePadding ? 'none' : 'default'}
             sortDirection={orderBy === row.id ? order : false}
           >
@@ -84,6 +85,7 @@ function EnhancedTableHead(props) {
               active={orderBy === row.id}
               direction={order}
               onClick={createSortHandler(row.id)}
+              align={row.align}
             >
               {row.label}
             </TableSortLabel>

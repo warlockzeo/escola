@@ -28,6 +28,7 @@
 #Users
 	RewriteRule ^mudarSenha/?$ /api/index.php?opcao=mudarSenha&tabela=users [NC]
 	RewriteRule ^verificarSenha/?$ /api/index.php?opcao=verificarSenha&tabela=users [NC]
+	RewriteRule ^verificaUser/([a-z0-9-]+)/?$ /api/index.php?opcao=verificaUser&tabela=users&id=$1 [NC]
 
 #Todas as tabelas
 	RewriteRule ^listar/([a-z0-9-]+)/?(.*)$ /api/index.php?opcao=listar&tabela=$1&ano=$2&idAluno=$2 [NC]

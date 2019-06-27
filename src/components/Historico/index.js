@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react';
 import Tabela from '../Tabela';
 import { Card, Button, Spinner, Col } from 'reactstrap';
-//import FormOneField from '../FormOneField';
+
 import FormAddNotas from '../FormAddNotas';
 
 const campos = [
@@ -21,7 +21,8 @@ const campos = [
     label: '1º Bim Teste',
     component: 'th',
     scope: 'row',
-    padding: 'none'
+    padding: 'none',
+    align: 'center'
   },
   {
     id: 'prova1',
@@ -30,7 +31,18 @@ const campos = [
     label: '1º Bim Prova',
     component: 'th',
     scope: 'row',
-    padding: 'none'
+    padding: 'none',
+    align: 'center'
+  },
+  {
+    id: 'media1',
+    numeric: false,
+    disablePadding: true,
+    label: '1º Bim Média',
+    component: 'th',
+    scope: 'row',
+    padding: 'none',
+    align: 'center'
   },
   {
     id: 'teste2',
@@ -39,7 +51,8 @@ const campos = [
     label: '2º Bim Teste',
     component: 'th',
     scope: 'row',
-    padding: 'none'
+    padding: 'none',
+    align: 'center'
   },
   {
     id: 'prova2',
@@ -48,7 +61,18 @@ const campos = [
     label: '2º Bim Prova',
     component: 'th',
     scope: 'row',
-    padding: 'none'
+    padding: 'none',
+    align: 'center'
+  },
+  {
+    id: 'media2',
+    numeric: false,
+    disablePadding: true,
+    label: '2º Bim Média',
+    component: 'th',
+    scope: 'row',
+    padding: 'none',
+    align: 'center'
   },
   {
     id: 'teste3',
@@ -57,7 +81,8 @@ const campos = [
     label: '3º Bim Teste',
     component: 'th',
     scope: 'row',
-    padding: 'none'
+    padding: 'none',
+    align: 'center'
   },
   {
     id: 'prova3',
@@ -66,7 +91,18 @@ const campos = [
     label: '3º Bim Prova',
     component: 'th',
     scope: 'row',
-    padding: 'none'
+    padding: 'none',
+    align: 'center'
+  },
+  {
+    id: 'media3',
+    numeric: false,
+    disablePadding: true,
+    label: '3º Bim Média',
+    component: 'th',
+    scope: 'row',
+    padding: 'none',
+    align: 'center'
   },
   {
     id: 'teste4',
@@ -75,7 +111,8 @@ const campos = [
     label: '4º Bim Teste',
     component: 'th',
     scope: 'row',
-    padding: 'none'
+    padding: 'none',
+    align: 'center'
   },
   {
     id: 'prova4',
@@ -84,7 +121,18 @@ const campos = [
     label: '4º Bim Prova',
     component: 'th',
     scope: 'row',
-    padding: 'none'
+    padding: 'none',
+    align: 'center'
+  },
+  {
+    id: 'media4',
+    numeric: false,
+    disablePadding: true,
+    label: '4º Bim Média',
+    component: 'th',
+    scope: 'row',
+    padding: 'none',
+    align: 'center'
   },
   {
     id: 'recup',
@@ -93,7 +141,8 @@ const campos = [
     label: 'Recup',
     component: 'th',
     scope: 'row',
-    padding: 'none'
+    padding: 'none',
+    align: 'center'
   },
   {
     id: 'mediaFinal',
@@ -102,7 +151,8 @@ const campos = [
     label: 'Média Final',
     component: 'th',
     scope: 'row',
-    padding: 'none'
+    padding: 'none',
+    align: 'center'
   }
 ];
 

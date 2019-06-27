@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { Card, Button, Spinner } from 'reactstrap';
+
 import Tabela from '../../../components/Tabela';
 import FormAlunos from '../../../components/FormAlunos';
-import { Card, Button, Spinner } from 'reactstrap';
 import AlunosDetalhes from '../../../components/AlunosDetalhes';
+import FormPassword from '../../../components/FormPassword';
 
 const campos = [
   {
@@ -34,7 +36,7 @@ class Alunos extends Component {
   state = {
     alunos: [],
     alunoAtual: {},
-    //show: 'detalhes',
+    idSenha: '',
     show: 'table',
     showAnterior: '',
     errorMessage: ''
@@ -54,6 +56,44 @@ class Alunos extends Component {
       show: 'edit',
       alunoAtual: data
     });
+  };
+
+  onPasswordClick = data => {
+    fetch(`http://api/verificaUser/${data}`)
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson.resp === 'erro') {
+          this.setState({ show: 'password', showAnterior: this.state.show });
+        } else {
+          this.setState({
+            show: 'password',
+            showAnterior: this.state.show,
+            idSenha: responseJson.id
+          });
+        }
+      });
+  };
+
+  handlePassword = data => {
+    const url = this.state.idSenha
+      ? 'http://api/atualizar/users/'
+      : 'http://api/gravar/users/';
+    fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({
+        ...data,
+        idAluno: this.state.alunoAtual.id,
+        id: this.state.idSenha
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        //this.setState({ show: this.state.showAnterior, showAnterior: '' });
+      });
+  };
+
+  cancelPassword = () => {
+    this.setState({ show: this.state.showAnterior, showAnterior: '' });
   };
 
   onAddClick = () => {
@@ -115,7 +155,7 @@ class Alunos extends Component {
   };
 
   cancelDetalhes = () => {
-    this.setState({ show: 'table' });
+    this.setState({ show: 'table', alunoAtual: {} });
   };
 
   componentWillMount() {
@@ -156,6 +196,13 @@ class Alunos extends Component {
             dados={this.state.alunoAtual}
             cancel={this.cancelDetalhes}
             editar={this.onEditClick}
+            password={this.onPasswordClick}
+          />
+        ) : this.state.show === 'password' ? (
+          <FormPassword
+            cancel={this.cancelPassword}
+            dados={this.state.alunoAtual}
+            password={this.handlePassword}
           />
         ) : (
           <FormAlunos

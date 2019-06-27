@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Row, Col, Collapse } from 'reactstrap';
-//import moment from 'moment';
+import moment from 'moment';
 import Historico from '../Historico';
 import Faltas from '../Faltas';
 
@@ -14,8 +14,13 @@ class AlunosDetalhes extends Component {
   toggle = () => {
     this.setState(state => ({ collapse: !state.collapse }));
   };
+
   handleEdit = () => {
     this.props.editar(this.props.dados);
+  };
+
+  handlePassword = () => {
+    this.props.password(this.props.dados.id);
   };
 
   render() {
@@ -28,6 +33,9 @@ class AlunosDetalhes extends Component {
           <h1>Cadastro do Aluno</h1>
         </Row>
         <Card className='alunosDetalhes__dados'>
+          <span className='btnPassword' onClick={this.handlePassword}>
+            <i className='fas fa-key' title='Cadastrar/Editar password' />
+          </span>
           <span className='btnEdit' onClick={this.handleEdit}>
             <i className='fas fa-user-edit' title='Editar dados' />
           </span>
@@ -69,7 +77,7 @@ class AlunosDetalhes extends Component {
               </Col>
               <Col md={4}>
                 <span className='legenda__dados'>Data de Nascimento:</span>
-                {this.props.dados.dataNasc}
+                {moment(this.props.dados.dataNasc).format('DD/MM/YYYY')}
               </Col>
               <Col md={4}>
                 <span className='legenda__dados'>Sexo:</span>

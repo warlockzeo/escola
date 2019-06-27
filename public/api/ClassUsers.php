@@ -46,10 +46,10 @@
             $json = file_get_contents('php://input');
             $obj = json_decode($json, TRUE);
             $user = $obj['user'];
-            $nivel = $obj['nivel'];
+            $senha = md5("seguranca".$obj['senha']);
             $idAluno = $obj['idAluno'];
          
-            $sql = "INSERT INTO users (user, nivel, idAluno) VALUES ('$user', $nivel, $idAluno)";
+            $sql = "INSERT INTO users (user, senha, idAluno) VALUES ('$user', '$senha', $idAluno)";
             $BFetch=$this->conectaDB()->prepare($sql);
             $BFetch->execute();
 
@@ -66,10 +66,10 @@
             $id = $obj['id'];
             if($id){
                 $user = $obj['user'];
-                $nivel = $obj['nivel'];
+                $senha = md5("seguranca".$obj['senha']);
                 $idAluno = $obj['idAluno'];
 
-                $sql = "UPDATE users SET user = '$user', nivel = $nivel, idAluno = $idAluno WHERE id = $id";
+                $sql = "UPDATE users SET user = '$user', senha = '$senha', idAluno = $idAluno WHERE id = $id";
                 $BFetch=$this->conectaDB()->prepare($sql);
                 $BFetch->execute();
             }
@@ -77,7 +77,7 @@
             header("Access-Control-Allow-Origin:*");
             header("Content-type: application/json");
   
-            echo '{"resp":"ok"}';
+            echo '{"resp":"ok", "sql":"'.$sql.'"}';
         }
 
         public function mudarSenha()
@@ -152,6 +152,21 @@
             
         }
 
+        public function verificarUser($id){
+            $sql = "SELECT * FROM users WHERE idAluno = $id";
+            $BFetch=$this->conectaDB()->prepare($sql);
+            $BFetch->execute();
+            $Fetch=$BFetch->fetch(PDO::FETCH_ASSOC);
+
+            header("Access-Control-Allow-Origin:*");
+            header("Content-type: application/json");
+
+            if($Fetch['id']==''){
+                echo '{"resp":"erro", "sql":"'.$sql.'"}';
+            } else {
+                echo '{"resp":"ok", "id":"'.$Fetch['id'].'", "sql":"'.$sql.'"}';
+            }
+        }
 
     }
     

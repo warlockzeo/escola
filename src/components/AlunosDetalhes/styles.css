@@ -27,6 +27,19 @@
   z-index: 999;
 }
 
+.btnPassword {
+  position: absolute;
+  top: 10px;
+  right: 45px;
+  cursor: pointer;
+  z-index: 999;
+}
+
+.btnEdit:hover,
+.btnPassword:hover {
+  color: rgb(0, 160, 227);
+}
+
 .btnToggle {
   position: absolute;
   bottom: 0;

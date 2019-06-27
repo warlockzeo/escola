@@ -224,6 +224,10 @@
             $users->verificarSenha();
         }
 
+        elseif($_GET['opcao']=='verificaUser'){
+            $users->verificarUser($_GET['id']);
+        }
+
     }
     
     else{
