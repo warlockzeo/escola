@@ -210,7 +210,7 @@ class Turmas extends Component {
           </Fragment>
         ) : this.state.show === 'alert' ? (
           <ConfirmDelete
-            info={this.state.turmaAtual.descricao}
+            info={`da turma ${this.state.turmaAtual.descricao}`}
             delete={this.handleDelete}
             cancel={this.cancelDelete}
           />

@@ -21,8 +21,8 @@
                 $i++;
             }
 
-            header("Access-Control-Allow-Origin:*");
-            header("Content-type: application/json");
+            //header("Access-Control-Allow-Origin:*");
+            //header("Content-type: application/json");
 
             if(count($j)>0){
                 $data = json_encode($j);
@@ -37,8 +37,8 @@
             $BFetch=$this->conectaDB()->prepare("DELETE FROM professores WHERE id=$id");
             $BFetch->execute();
 
-            header("Access-Control-Allow-Origin:*");
-            header("Content-type: application/json");
+            //header("Access-Control-Allow-Origin:*");
+            //header("Content-type: application/json");
 
             echo '{"resp":"ok"}';
         }
@@ -53,8 +53,8 @@
             $BFetch=$this->conectaDB()->prepare($sql);
             $BFetch->execute();
 
-            header("Access-Control-Allow-Origin:*");
-            header("Content-type: application/json");
+            //header("Access-Control-Allow-Origin:*");
+            //header("Content-type: application/json");
   
             echo '{"resp":"ok", "sql":"'.$sql.'"}';
         }

@@ -30,7 +30,7 @@ const FormPassword = props => {
           {senha}
         </p>
         <button type='submit' className='btn btn-success' onClick={onSubmit}>
-          Gravar
+          Confirmar
         </button>
       </Card>
     </div>

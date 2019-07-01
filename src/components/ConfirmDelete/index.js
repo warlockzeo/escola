@@ -6,7 +6,7 @@ const ConfirmDelete = props => {
     <Fragment>
       <div className='wrap100vh'>
         <Card className='dashboard__card'>
-          <p>Confirma exclusão da Disciplina {props.info}?</p>
+          <p>Confirma exclusão {props.info}?</p>
           <Button color='success' onClick={props.delete}>
             Sim
           </Button>

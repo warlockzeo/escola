@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Tabela from '../../../components/Tabela';
-import { Card, Button, Spinner } from 'reactstrap';
+import { Spinner } from 'reactstrap';
+
+import ConfirmDelete from '../../../components/ConfirmDelete';
 import FormOneField from '../../../components/FormOneField';
 const campos = [
   {
@@ -26,7 +28,8 @@ class Professores extends Component {
     fetch('http://api/listar/professores')
       .then(response => response.json())
       .then(responseJson => {
-        this.setState({ professores: responseJson });
+        responseJson.resp === 'ok' &&
+          this.setState({ professores: responseJson.data });
       });
   };
 
@@ -109,17 +112,11 @@ class Professores extends Component {
             />
           </div>
         ) : this.state.show === 'alert' ? (
-          <Card className='dashboard__card'>
-            <p>
-              Confirma exclusão do professor {this.state.professorAtual.nome}?
-            </p>
-            <Button color='success' onClick={this.handleDelete}>
-              Sim
-            </Button>
-            <Button color='danger' onClick={this.cancelDelete}>
-              Não
-            </Button>
-          </Card>
+          <ConfirmDelete
+            info={`do professor ${this.state.professorAtual.nome}`}
+            delete={this.handleDelete}
+            cancel={this.cancelDelete}
+          />
         ) : this.state.show === 'wait' ? (
           <Spinner />
         ) : (

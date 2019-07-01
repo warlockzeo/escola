@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Card, Button, Spinner } from 'reactstrap';
+import { Spinner } from 'reactstrap';
 
+import ConfirmDelete from '../../../components/ConfirmDelete';
 import Tabela from '../../../components/Tabela';
 import FormAlunos from '../../../components/FormAlunos';
 import AlunosDetalhes from '../../../components/AlunosDetalhes';
@@ -178,17 +179,11 @@ class Alunos extends Component {
             />
           </div>
         ) : this.state.show === 'alert' ? (
-          <div className='wrap100vh'>
-            <Card className='dashboard__card'>
-              <p>Confirma exclusão do aluno {this.state.alunoAtual.nome}?</p>
-              <Button color='success' onClick={this.handleDelete}>
-                Sim
-              </Button>
-              <Button color='danger' onClick={this.cancelDelete}>
-                Não
-              </Button>
-            </Card>
-          </div>
+          <ConfirmDelete
+            info={`do aluno(a) ${this.state.alunoAtual.nome}`}
+            delete={this.handleDeleteAlunos}
+            cancel={this.cancelDelete}
+          />
         ) : this.state.show === 'wait' ? (
           <Spinner />
         ) : this.state.show === 'detalhes' ? (

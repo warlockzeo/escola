@@ -4,7 +4,7 @@ import { Row, Col, Spinner } from 'reactstrap';
 import { Form, Select } from '@rocketseat/unform';
 
 import FormOneField from '../../../components/FormOneField';
-import FormOneSelect from '../../../components/FormOneSelect';
+import FormAddGradeCurricular from '../../../components/FormAddGradeCurricular';
 import ConfirmDelete from '../../../components/ConfirmDelete';
 
 const optionsSeries = [
@@ -19,7 +19,7 @@ const optionsSeries = [
   { id: '9', title: '9º Ano' }
 ];
 
-const campos = [
+const camposDisciplina = [
   {
     id: 'nome',
     numeric: false,
@@ -31,9 +31,31 @@ const campos = [
   }
 ];
 
+const camposGrade = [
+  {
+    id: 'nome',
+    numeric: false,
+    disablePadding: true,
+    label: 'Disciplina',
+    component: 'th',
+    scope: 'row',
+    padding: 'none'
+  },
+  {
+    id: 'professor',
+    numeric: false,
+    disablePadding: true,
+    label: 'Professor',
+    component: 'th',
+    scope: 'row',
+    padding: 'none'
+  }
+];
+
 class Disciplina extends Component {
   state = {
     serieAtual: '',
+    professores: [],
     disciplinas: [],
     disciplinaAtual: {},
     gradesCurriculares: [],
@@ -41,6 +63,22 @@ class Disciplina extends Component {
     show: 'tableDisciplina',
     showAnterior: '',
     errorMessage: ''
+  };
+
+  loadProfessores = () => {
+    fetch('http://api/listar/professores')
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson.resp === 'ok') {
+          const professores = responseJson.data.map(professor => {
+            return {
+              id: professor.id,
+              nome: professor.nome
+            };
+          });
+          this.setState({ professores });
+        }
+      });
   };
 
   loadDisciplinas = () => {
@@ -160,7 +198,8 @@ class Disciplina extends Component {
         const gradesCurriculares = responseJson.map(disciplina => {
           return {
             id: disciplina.id,
-            nome: disciplina.disciplina
+            nome: disciplina.disciplina,
+            professor: disciplina.professor
           };
         });
         this.setState({ gradesCurriculares });
@@ -168,7 +207,6 @@ class Disciplina extends Component {
   };
 
   loadGradeCurricularDaSerie = serie => {
-    console.log(serie);
     fetch(`http://api/gradeCurricular/`, {
       method: 'POST',
       body: JSON.stringify({
@@ -181,7 +219,8 @@ class Disciplina extends Component {
           const gradesCurriculares = responseJson.map(disciplina => {
             return {
               id: disciplina.id,
-              nome: disciplina.disciplina
+              nome: disciplina.disciplina,
+              professor: disciplina.professor
             };
           });
           this.setState({
@@ -253,9 +292,19 @@ class Disciplina extends Component {
       ? 'http://api/atualizar/gradesCurriculares'
       : 'http://api/gravar/gradesCurriculares';
 
-    const dados = data.id
-      ? { id: data.id, idDisciplina: data.key, serie: this.state.serieAtual }
-      : { idDisciplina: data.key, serie: this.state.serieAtual };
+    const dados =
+      data.id !== ''
+        ? {
+            id: data.id,
+            idDisciplina: data.disciplina,
+            idProfessor: data.professor,
+            serie: this.state.serieAtual
+          }
+        : {
+            idDisciplina: data.disciplina,
+            idProfessor: data.professor,
+            serie: this.state.serieAtual
+          };
 
     this.setState({ show: 'wait' });
 
@@ -278,10 +327,10 @@ class Disciplina extends Component {
 
   componentWillMount() {
     this.loadDisciplinas();
+    this.loadProfessores();
   }
 
   render() {
-    console.log(this.state.serieAtual);
     return (
       <div className='dashboard'>
         {(this.state.show === 'tableDisciplina' ||
@@ -311,7 +360,7 @@ class Disciplina extends Component {
           <div className='container'>
             <Tabela
               titulo='Disciplinas'
-              campos={campos}
+              campos={camposDisciplina}
               dados={this.state.disciplinas}
               add={this.onAddDisciplinaClick}
               edit={this.onEditDisciplinaClick}
@@ -320,7 +369,7 @@ class Disciplina extends Component {
           </div>
         ) : this.state.show === 'deleteDisciplina' ? (
           <ConfirmDelete
-            info={this.state.disciplinaAtual.disciplina}
+            info={`da disciplina ${this.state.disciplinaAtual.nome}`}
             delete={this.handleDeleteDisciplina}
             cancel={this.cancelDelete}
           />
@@ -362,7 +411,7 @@ class Disciplina extends Component {
             {this.state.serieAtual > 0 && (
               <Tabela
                 titulo='Grade Curricular'
-                campos={campos}
+                campos={camposGrade}
                 dados={this.state.gradesCurriculares}
                 add={this.onAddGradeCurricularClick}
                 edit={this.onEditGradeCurricularClick}
@@ -370,15 +419,24 @@ class Disciplina extends Component {
               />
             )}
           </div>
+        ) : this.state.show === 'editAddGradeCurricular' ? (
+          <FormAddGradeCurricular
+            titulo='Grade Curricular'
+            dados={this.state.gradeCurricularAtual}
+            optionsDisciplina={this.state.disciplinas}
+            optionsProfessor={this.state.professores}
+            onSubmit={this.handleSubmitGradeCurricular}
+            onCancel={this.handleCancelForm}
+            errorMessage={this.state.errorMessage}
+          />
         ) : (
-          this.state.show === 'editAddGradeCurricular' && (
-            <FormOneSelect
-              titulo='Grade Curricular'
-              dados={this.state.gradeCurricularAtual}
-              options={this.state.disciplinas}
-              onSubmit={this.handleSubmitGradeCurricular}
-              onCancel={this.handleCancelForm}
-              errorMessage={this.state.errorMessage}
+          this.state.show === 'deleteGradeCurricular' && (
+            <ConfirmDelete
+              info={`da disciplina ${
+                this.state.gradeCurricularAtual.nome
+              } desta grade curricular`}
+              delete={this.handleDeleteGradeCurricular}
+              cancel={this.cancelDelete}
             />
           )
         )}

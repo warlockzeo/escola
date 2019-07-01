@@ -42,7 +42,7 @@ class AlunosDetalhes extends Component {
           <div className='alunosDetalhes__dados--show'>
             <Row className='alunosDetalhes__linhaDados'>
               <Col md={12}>
-                <span className='legenda__dados'>Nome</span>:
+                <span className='legenda__dados'>Nome:</span>
                 {this.props.dados.nome}
               </Col>
             </Row>

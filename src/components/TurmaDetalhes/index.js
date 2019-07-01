@@ -153,11 +153,13 @@ class TurmaDetalhes extends Component {
             />
           </Col>
         ) : this.state.show === 'alert' ? (
-          <ConfirmDelete
-            info={this.state.alunoAtual.nome}
-            delete={this.handleDeleteAlunos}
-            cancel={this.onCancel}
-          />
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <ConfirmDelete
+              info={`do aluno(a) ${this.state.alunoAtual.nome} desta turma`}
+              delete={this.handleDeleteAlunos}
+              cancel={this.onCancel}
+            />
+          </div>
         ) : (
           this.state.show === 'wait' && <Spinner />
         )}

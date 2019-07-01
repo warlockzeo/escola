@@ -6,8 +6,7 @@
         #exibir Grades Curriculares com Json
         public function listaGrades()
         {
-            $sql = "SELECT g.*, d.disciplina, p.nome FROM gradesCurriculares as g LEFT JOIN disciplinas as d on d.id = g.idDisciplina LEFT JOIN professores as p on p.id = g.idProfessor ORDER BY g.serie ASC, g.idTurma ASC, d.disciplina ASC";
-            $BFetch=$this->conectaDB()->prepare($sql);
+            $BFetch=$this->conectaDB()->prepare("SELECT g.*, d.disciplina FROM gradesCurriculares as g LEFT JOIN disciplinas as d on d.id = g.idDisciplina ORDER BY g.serie ASC, g.idTurma ASC, d.disciplina ASC");
             $BFetch->execute();
 
             $j=[];
@@ -20,14 +19,13 @@
                     "idDisciplina"=>$Fetch['idDisciplina'],
                     "disciplina"=>$Fetch['disciplina'],
                     "idTurma"=>$Fetch['idTurma'],
-                    "idProfessor"=>$Fetch['idProfessor'],
-                    "professor"=>$Fetch['nome']
+                    "idProfessor"=>$Fetch['idProfessor']
                 ];
                 $i++;
             }
 
-            header("Access-Control-Allow-Origin:*");
-            header("Content-type: application/json");
+            //header("Access-Control-Allow-Origin:*");
+            //header("Content-type: application/json");
 
             echo json_encode($j);
         }
@@ -42,7 +40,7 @@
                 $serie = $get_serie;
             }
 
-            $sql = "SELECT g.*, d.disciplina, p.nome FROM gradesCurriculares as g LEFT JOIN disciplinas as d on d.id = g.idDisciplina LEFT JOIN professores as p on p.id = g.idProfessor WHERE g.serie = '".$serie."' ORDER BY g.serie ASC, g.idTurma ASC, d.disciplina ASC";
+            $sql = "SELECT g.*, d.disciplina FROM gradesCurriculares as g LEFT JOIN disciplinas as d on d.id = g.idDisciplina WHERE g.serie = '".$serie."' ORDER BY g.serie ASC, g.idTurma ASC, d.disciplina ASC";
             $BFetch=$this->conectaDB()->prepare($sql);
             $BFetch->execute();
 
@@ -56,14 +54,13 @@
                     "idDisciplina"=>$Fetch['idDisciplina'],
                     "disciplina"=>$Fetch['disciplina'],
                     "idTurma"=>$Fetch['idTurma'],
-                    "idProfessor"=>$Fetch['idProfessor'],
-                    "professor"=>$Fetch['nome']
+                    "idProfessor"=>$Fetch['idProfessor']
                 ];
                 $i++;
             }
 
-            header("Access-Control-Allow-Origin:*");
-            header("Content-type: application/json");
+            //header("Access-Control-Allow-Origin:*");
+            //header("Content-type: application/json");
 
             //echo (sizeof($j));
             if(sizeof($j)>0){
@@ -73,7 +70,7 @@
                     echo json_encode($j);
                 }
             } else {
-                echo '{"resp":"erro", "sql":"'.$sql.'"}';
+                echo '{"resp":"erro","sql":"'.$sql.'"}';
             }
         }
 
@@ -82,8 +79,8 @@
             $BFetch=$this->conectaDB()->prepare("DELETE FROM gradesCurriculares WHERE id=$id");
             $BFetch->execute();
 
-            header("Access-Control-Allow-Origin:*");
-            header("Content-type: application/json");
+            //header("Access-Control-Allow-Origin:*");
+            //header("Content-type: application/json");
 
             echo '{"resp":"ok"}';
         }
@@ -101,8 +98,8 @@
             $BFetch=$this->conectaDB()->prepare($sql);
             $BFetch->execute();
 
-            header("Access-Control-Allow-Origin:*");
-            header("Content-type: application/json");
+            //header("Access-Control-Allow-Origin:*");
+            //header("Content-type: application/json");
   
             echo '{"resp":"ok", "sql":"'.$sql.'"}';
         }
