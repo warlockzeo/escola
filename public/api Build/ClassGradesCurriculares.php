@@ -16,6 +16,7 @@
                 $j[$i]=[
                     "id"=>$Fetch['id'],
                     "serie"=>$Fetch['serie'],
+                    "horario"=>$Fetch['horario'],
                     "idDisciplina"=>$Fetch['idDisciplina'],
                     "disciplina"=>$Fetch['disciplina'],
                     "idTurma"=>$Fetch['idTurma'],
@@ -51,6 +52,7 @@
                 $j[$i]=[
                     "id"=>$Fetch['id'],
                     "serie"=>$Fetch['serie'],
+                    "horario"=>$Fetch['horario'],
                     "idDisciplina"=>$Fetch['idDisciplina'],
                     "disciplina"=>$Fetch['disciplina'],
                     "idTurma"=>$Fetch['idTurma'],
@@ -90,11 +92,12 @@
             $json = file_get_contents('php://input');
             $obj = json_decode($json, TRUE);
             $serie = $obj['serie'];
+            $horario = $obj['horario'];
             $idDisciplina = $obj['idDisciplina'];
             $idTurma = isset($obj['idTurma']) ? $obj['idTurma'] : "0";
             $idProfessor = isset($obj['idProfessor']) ? $obj['idProfessor'] : "0";
          
-            $sql = "INSERT INTO gradesCurriculares (serie, idDisciplina, idTurma, idProfessor) VALUES ('$serie', $idDisciplina, $idTurma, $idProfessor)";
+            $sql = "INSERT INTO gradesCurriculares (serie, horario, idDisciplina, idTurma, idProfessor) VALUES ('$serie', '$horario', $idDisciplina, $idTurma, $idProfessor)";
             $BFetch=$this->conectaDB()->prepare($sql);
             $BFetch->execute();
 

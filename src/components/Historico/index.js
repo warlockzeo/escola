@@ -235,7 +235,9 @@ class Historico extends Component {
             </Button>
           </Card>
         ) : this.state.show === 'wait' ? (
-          <Spinner />
+          <div className='wrap100vh'>
+            <Spinner />
+          </div>
         ) : (
           <FormAddNotas
             dados={this.state.historicoAtual}

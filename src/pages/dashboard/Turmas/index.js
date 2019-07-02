@@ -215,7 +215,9 @@ class Turmas extends Component {
             cancel={this.cancelDelete}
           />
         ) : this.state.show === 'wait' ? (
-          <Spinner />
+          <div className='wrap100vh'>
+            <Spinner />
+          </div>
         ) : this.state.show === 'detalhes' ? (
           <Col md={12}>
             <TurmaDetalhes

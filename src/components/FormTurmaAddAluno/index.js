@@ -68,7 +68,11 @@ class FormTurmaAddAluno extends Component {
         </Fragment>
       );
     } else if (this.state.formStatus === 'wait') {
-      return <Spinner color='primary' />;
+      return (
+        <div className='wrap100vh'>
+          <Spinner color='primary' />
+        </div>
+      );
     } else if (
       this.state.formStatus === 'send' ||
       this.state.formStatus === 'erro'

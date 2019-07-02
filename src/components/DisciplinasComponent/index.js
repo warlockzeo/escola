@@ -84,7 +84,9 @@ class DisciplinasComponent extends Component {
     ) : this.state.show === 'alert' ? (
       <ConfirmDelete />
     ) : this.state.show === 'wait' ? (
-      <Spinner />
+      <div className='wrap100vh'>
+        <Spinner />
+      </div>
     ) : (
       <FormOneField
         titulo='Disciplina'

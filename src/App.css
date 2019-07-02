@@ -231,7 +231,7 @@ form span {
 }
 
 .wrap100vh {
-  width: 80%;
+  /*min-width: 80%;*/
   max-width: 500px;
   height: calc(100vh - 150px);
   display: flex;

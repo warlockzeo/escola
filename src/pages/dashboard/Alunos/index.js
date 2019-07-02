@@ -181,11 +181,13 @@ class Alunos extends Component {
         ) : this.state.show === 'alert' ? (
           <ConfirmDelete
             info={`do aluno(a) ${this.state.alunoAtual.nome}`}
-            delete={this.handleDeleteAlunos}
+            delete={this.handleDelete}
             cancel={this.cancelDelete}
           />
         ) : this.state.show === 'wait' ? (
-          <Spinner />
+          <div className='wrap100vh'>
+            <Spinner />
+          </div>
         ) : this.state.show === 'detalhes' ? (
           <AlunosDetalhes
             dados={this.state.alunoAtual}

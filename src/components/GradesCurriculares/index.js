@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Tabela from '../Tabela';
-import { Row, Col, Card, Button, Spinner } from 'reactstrap';
+import { Col, Spinner } from 'reactstrap';
 import { Select } from '@rocketseat/unform';
-import FormOneField from '../FormOneField';
 
 const optionsSeries = [
   { id: '1º Ano', title: '1º Ano' },
@@ -164,29 +163,42 @@ class GradesCurriculares extends Component {
   }
 
   render() {
-    return (
-      this.state.show === 'table' && (
-        <div className='container'>
-          <Col md={6}>Série: </Col>
-          <Col md={6}>
-            <Select
-              name='serie'
-              options={optionsSeries}
-              className='form-control'
-              title='Série'
-              onChange={this.onChangeSerie}
-            />
-          </Col>
-          <Tabela
-            titulo='Grade Curricular'
-            campos={campos}
-            dados={this.state.gradesCurriculares}
-            add={this.onAddDisciplinaClick}
-            edit={this.onEditDisciplinaClick}
-            delete={this.onDeleteClick}
+    return this.state.show === 'table' ? (
+      <div className='container'>
+        <Col md={6}>Séries: </Col>
+        <Col md={6}>
+          <Select
+            name='serie'
+            options={optionsSeries}
+            className='form-control'
+            title='Série'
+            onChange={this.onChangeSerie}
           />
-        </div>
-      )
+        </Col>
+        <Col md={6}>Horário: </Col>
+        <Col md={6}>
+          <Select
+            name='serie'
+            options={{ id: 'Manhã', title: 'Tarde' }}
+            className='form-control'
+            title='Série'
+            onChange={this.onChangeSerie}
+          />
+        </Col>
+
+        <Tabela
+          titulo='Grade Curricular'
+          campos={campos}
+          dados={this.state.gradesCurriculares}
+          add={this.onAddDisciplinaClick}
+          edit={this.onEditDisciplinaClick}
+          delete={this.onDeleteClick}
+        />
+      </div>
+    ) : (
+      <div className='wrap100vh'>
+        <Spinner />
+      </div>
     );
   }
 }

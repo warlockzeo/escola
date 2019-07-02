@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Fragment, Component } from 'react';
 import Tabela from '../../../components/Tabela';
 import { Row, Col, Spinner } from 'reactstrap';
 import { Form, Select } from '@rocketseat/unform';
@@ -55,10 +55,12 @@ const camposGrade = [
 class Disciplina extends Component {
   state = {
     serieAtual: '',
+    horarioAtual: 'Manhã',
     professores: [],
     disciplinas: [],
     disciplinaAtual: {},
     gradesCurriculares: [],
+    gradesCurricularesAtuais: [],
     gradeCurricularAtual: {},
     show: 'tableDisciplina',
     showAnterior: '',
@@ -158,7 +160,7 @@ class Disciplina extends Component {
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.resp !== 'erro') {
-          this.setState({ show: this.state.showAnterior, showAnterior: '' });
+          //this.setState({ show: this.state.showAnterior, showAnterior: '' });
           this.loadDisciplinas();
         } else {
           this.setState({ show: 'edit', errorMessage: responseJson.resp });
@@ -202,7 +204,10 @@ class Disciplina extends Component {
             professor: disciplina.professor
           };
         });
-        this.setState({ gradesCurriculares });
+        this.setState({
+          gradesCurriculares,
+          gradesCurricularesAtuais: gradesCurriculares
+        });
       });
   };
 
@@ -220,11 +225,13 @@ class Disciplina extends Component {
             return {
               id: disciplina.id,
               nome: disciplina.disciplina,
-              professor: disciplina.professor
+              professor: disciplina.professor,
+              horario: disciplina.horario
             };
           });
           this.setState({
             gradesCurriculares,
+            gradesCurricularesAtuais: gradesCurriculares,
             serieAtual: serie
           });
         } else {
@@ -237,8 +244,11 @@ class Disciplina extends Component {
   };
 
   onChangeSerie = e => {
-    const serie = e.currentTarget.value;
-    this.loadGradeCurricularDaSerie(serie);
+    this.loadGradeCurricularDaSerie(e.currentTarget.value);
+  };
+
+  onChangeHorario = e => {
+    this.setState({ horarioAtual: e.currentTarget.value });
   };
 
   onEditGradeCurricularClick = data => {
@@ -280,7 +290,7 @@ class Disciplina extends Component {
             showAnterior: '',
             gradeCurricularAtual: {}
           });
-          this.loadGradesCurriculares();
+          this.loadGradeCurricularDaSerie(this.state.serieAtual);
         } else {
           console.log(responseJson.resp);
         }
@@ -298,12 +308,14 @@ class Disciplina extends Component {
             id: data.id,
             idDisciplina: data.disciplina,
             idProfessor: data.professor,
-            serie: this.state.serieAtual
+            serie: this.state.serieAtual,
+            horario: this.state.horarioAtual
           }
         : {
             idDisciplina: data.disciplina,
             idProfessor: data.professor,
-            serie: this.state.serieAtual
+            serie: this.state.serieAtual,
+            horario: this.state.horarioAtual
           };
 
     this.setState({ show: 'wait' });
@@ -382,7 +394,9 @@ class Disciplina extends Component {
             errorMessage={this.state.errorMessage}
           />
         ) : this.state.show === 'wait' ? (
-          <Spinner />
+          <div className='wrap100vh'>
+            <Spinner />
+          </div>
         ) : this.state.show === 'tableGradeCurricular' ? (
           <div className='container'>
             <div
@@ -393,26 +407,58 @@ class Disciplina extends Component {
                 justifyContent: 'flex-start'
               }}
             >
-              <span className='legenda__dados'>Série: </span>
-              <Form
-                initialData={{
-                  serie: this.state.serieAtual
-                }}
-              >
-                <Select
-                  name='serie'
-                  options={optionsSeries}
-                  className='form-control'
-                  title='Série'
-                  onChange={this.onChangeSerie}
-                />
-              </Form>
+              <Col md={2}>
+                <span className='legenda__dados'>Série: </span>
+              </Col>
+              <Col md={4}>
+                <Form
+                  initialData={{
+                    serie: this.state.serieAtual
+                  }}
+                >
+                  <Select
+                    name='serie'
+                    options={optionsSeries}
+                    className='form-control'
+                    title='Série'
+                    onChange={this.onChangeSerie}
+                  />
+                </Form>
+              </Col>
+
+              {this.state.serieAtual > 0 && (
+                <Fragment>
+                  <Col md={2}>
+                    <span className='legenda__dados'>Horário: </span>
+                  </Col>
+                  <Col md={4}>
+                    <Form
+                      initialData={{
+                        horario: this.state.horarioAtual
+                      }}
+                    >
+                      <Select
+                        name='horario'
+                        options={[
+                          { id: 'Manhã', title: 'Manhã' },
+                          { id: 'Tarde', title: 'Tarde' }
+                        ]}
+                        className='form-control'
+                        title='Horário'
+                        onChange={this.onChangeHorario}
+                      />
+                    </Form>
+                  </Col>
+                </Fragment>
+              )}
             </div>
             {this.state.serieAtual > 0 && (
               <Tabela
                 titulo='Grade Curricular'
                 campos={camposGrade}
-                dados={this.state.gradesCurriculares}
+                dados={this.state.gradesCurriculares.filter(
+                  grade => grade.horario === this.state.horarioAtual && grade
+                )}
                 add={this.onAddGradeCurricularClick}
                 edit={this.onEditGradeCurricularClick}
                 delete={this.onDeleteGradeCurricularClick}

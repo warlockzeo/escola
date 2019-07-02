@@ -161,7 +161,11 @@ class TurmaDetalhes extends Component {
             />
           </div>
         ) : (
-          this.state.show === 'wait' && <Spinner />
+          this.state.show === 'wait' && (
+            <div className='wrap100vh'>
+              <Spinner />
+            </div>
+          )
         )}
       </Fragment>
     );

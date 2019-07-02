@@ -18,12 +18,10 @@ class FormAddGradeCurricular extends Component {
   };
 
   onSubmit = async data => {
-    console.log(data);
     await this.props.onSubmit(data);
   };
 
   componentWillMount() {
-    console.log(this.props);
     this.props.errorMessage
       ? this.setState({
           formMessage: this.props.errorMessage,
@@ -58,13 +56,21 @@ class FormAddGradeCurricular extends Component {
               initialData={this.props.dados}
             >
               <Row>
-                <Col md={12}>
-                  <Input name='id' className='d-none' />
+                <Input name='id' className='d-none' />
+                <Col md={1} className='legenda__dados'>
+                  Disciplina:
+                </Col>
+                <Col md={11}>
                   <Select
                     name='disciplina'
                     options={this.state.optionsDisciplina}
                     className='form-control'
                   />
+                </Col>
+                <Col md={1} className='legenda__dados'>
+                  Professor:
+                </Col>
+                <Col md={11}>
                   <Select
                     name='professor'
                     options={this.state.optionsProfessor}
@@ -92,7 +98,11 @@ class FormAddGradeCurricular extends Component {
         </Fragment>
       );
     } else if (this.state.formStatus === 'wait') {
-      return <Spinner color='primary' />;
+      return (
+        <div className='wrap100vh'>
+          <Spinner color='primary' />
+        </div>
+      );
     } else if (
       this.state.formStatus === 'send' ||
       this.state.formStatus === 'erro'
