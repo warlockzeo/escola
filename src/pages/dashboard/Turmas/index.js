@@ -3,6 +3,7 @@ import Tabela from '../../../components/Tabela';
 import { Row, Col, Spinner } from 'reactstrap';
 import { Select, Form } from '@rocketseat/unform';
 import * as Yup from 'yup';
+import moment from 'moment';
 
 import FormTurma from '../../../components/FormTurma';
 import TurmaDetalhes from '../../../components/TurmaDetalhes';
@@ -55,7 +56,7 @@ class Turmas extends Component {
     fetch(`http://api/listarAnos`)
       .then(response => response.json())
       .then(responseJson => {
-        const anos = responseJson.map(ano => {
+        const anosOptions = responseJson.map(ano => {
           const retorno = {};
 
           retorno.id = ano.ano;
@@ -63,6 +64,12 @@ class Turmas extends Component {
 
           return retorno;
         });
+
+        const anoAtual = moment().format('YYYY');
+        const ano = [{ id: anoAtual, title: anoAtual }];
+
+        const anos = anosOptions.length !== 0 ? anosOptions : ano;
+
         this.setState({ anos });
       });
   };

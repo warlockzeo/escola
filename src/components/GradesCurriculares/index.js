@@ -148,13 +148,18 @@ class GradesCurriculares extends Component {
     })
       .then(response => response.json())
       .then(responseJson => {
-        const gradesCurriculares = responseJson.map(disciplina => {
-          return {
-            id: disciplina.id,
-            nome: disciplina.disciplina
-          };
-        });
-        this.setState({ gradesCurriculares });
+        if (responseJson.resp !== 'erro') {
+          const gradesCurriculares = responseJson.map(disciplina => {
+            return {
+              id: disciplina.id,
+              nome: disciplina.disciplina
+            };
+          });
+
+          this.setState({ gradesCurriculares });
+        } else {
+          console.log(responseJson.resp);
+        }
       });
   };
 

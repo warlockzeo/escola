@@ -33,7 +33,7 @@
             echo json_encode($j);
         }
 
-        public function mostraGrade($get_serie)
+        public function mostraGrade($get_serie, $get_horario="")
         {
             if(!$get_serie>0){
                 $json = file_get_contents('php://input');
@@ -43,7 +43,10 @@
                 $serie = $get_serie;
             }
 
-            $sql = "SELECT g.*, d.disciplina, p.nome FROM gradesCurriculares as g LEFT JOIN disciplinas as d on d.id = g.idDisciplina LEFT JOIN professores as p on p.id = g.idProfessor WHERE g.serie = '".$serie."' ORDER BY g.serie ASC, g.idTurma ASC, d.disciplina ASC";
+            
+            $horario = $get_horario != "" ? " AND horario = '".$get_horario."'":"";
+
+            $sql = "SELECT g.*, d.disciplina, p.nome FROM gradesCurriculares as g LEFT JOIN disciplinas as d on d.id = g.idDisciplina LEFT JOIN professores as p on p.id = g.idProfessor WHERE g.serie = '".$serie."' ".$horario." ORDER BY g.serie ASC, g.idTurma ASC, d.disciplina ASC";
             $BFetch=$this->conectaDB()->prepare($sql);
             $BFetch->execute();
 
@@ -72,7 +75,8 @@
                 if($get_serie>0){
                     return json_encode($j);
                 } else {
-                    echo json_encode($j);
+                    $data = json_encode($j);
+                    echo '{"resp":"ok", "sql":"'.$sql.'", "data":'.$data.'}';
                 }
             } else {
                 echo '{"resp":"erro", "sql":"'.$sql.'"}';

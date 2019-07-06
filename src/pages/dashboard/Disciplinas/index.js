@@ -220,8 +220,9 @@ class Disciplina extends Component {
     })
       .then(response => response.json())
       .then(responseJson => {
+        console.log(responseJson);
         if (responseJson.resp !== 'erro') {
-          const gradesCurriculares = responseJson.map(disciplina => {
+          const gradesCurriculares = responseJson.data.map(disciplina => {
             return {
               id: disciplina.id,
               nome: disciplina.disciplina,
