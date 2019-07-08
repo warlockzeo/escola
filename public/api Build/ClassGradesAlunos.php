@@ -63,7 +63,7 @@
             //abre grade curricular da turma
             include("ClassGradesCurriculares.php");
             $grades = new ClassGradesCurriculares();
-            $disciplinas = json_decode($grades->mostraGrade($turma[0]['serie']), TRUE);
+            $disciplinas = json_decode($grades->mostraGrade($turma[0]['serie'], $turma[0]['horario']), TRUE);
 
             //print_r($disciplinas);
             include("ClassHistoricos.php");

@@ -6,6 +6,7 @@ import Tabela from '../../../components/Tabela';
 import FormAlunos from '../../../components/FormAlunos';
 import AlunosDetalhes from '../../../components/AlunosDetalhes';
 import FormPassword from '../../../components/FormPassword';
+import BarraBusca from '../../../components/BarraBusca';
 
 const campos = [
   {
@@ -35,7 +36,9 @@ const campos = [
 
 class Alunos extends Component {
   state = {
-    alunos: [],
+    filtro: '',
+    mostraFiltro: false,
+    alunosAtuais: [],
     alunoAtual: {},
     idSenha: '',
     show: 'table',
@@ -47,7 +50,18 @@ class Alunos extends Component {
     fetch('http://api/listar/alunos')
       .then(response => response.json())
       .then(responseJson => {
-        this.setState({ alunos: responseJson });
+        this.state.filtro
+          ? this.setState({
+              alunosAtuais: responseJson.filter(
+                aluno =>
+                  aluno.nome
+                    .toLowerCase()
+                    .indexOf(this.state.filtro.toLowerCase()) > -1
+              ),
+              mostraFiltro: true
+            })
+          : this.setState({ alunosAtuais: responseJson });
+        console.log(responseJson);
       });
   };
 
@@ -159,6 +173,20 @@ class Alunos extends Component {
     this.setState({ show: 'table', alunoAtual: {} });
   };
 
+  onChangeBusca = data => {
+    const retorno = this.filtroAlunos(data);
+    this.setState({ filtro: data, alunos: retorno });
+  };
+
+  filtroAlunos = data => {
+    this.setState({ filtro: data });
+    this.loadAlunos();
+  };
+
+  toggleFiltro = () => {
+    this.setState({ mostraFiltro: !this.state.mostraFiltro });
+  };
+
   componentWillMount() {
     this.loadAlunos();
   }
@@ -168,14 +196,18 @@ class Alunos extends Component {
       <div className='dashboard'>
         {this.state.show === 'table' ? (
           <div className='container'>
+            {this.state.mostraFiltro && (
+              <BarraBusca change={this.onChangeBusca} />
+            )}
             <Tabela
               titulo='Alunos'
               campos={campos}
-              dados={this.state.alunos}
+              dados={this.state.alunosAtuais}
               add={this.onAddClick}
               edit={this.onEditClick}
               delete={this.onDeleteClick}
               details={this.onDetalhesClick}
+              filter={this.toggleFiltro}
             />
           </div>
         ) : this.state.show === 'alert' ? (

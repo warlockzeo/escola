@@ -19,7 +19,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import DetailsIcon from '@material-ui/icons/AccountCircle';
-import FilterListIcon from '@material-ui/icons/FilterList';
+import FilterListIcon from '@material-ui/icons/Search';
 import { lighten } from '@material-ui/core/styles/colorManipulator';
 
 function desc(a, b, orderBy) {
@@ -183,12 +183,13 @@ const EnhancedTableToolbar = props => {
           ) : (
             numSelected === 0 && (
               <Fragment>
-                <Tooltip title='Filter list'>
-                  <IconButton aria-label='Filter list'>
-                    <FilterListIcon />
-                  </IconButton>
-                </Tooltip>
-
+                {props.btFilter && (
+                  <Tooltip title='Busca' onClick={props.filter}>
+                    <IconButton aria-label='Busca'>
+                      <FilterListIcon />
+                    </IconButton>
+                  </Tooltip>
+                )}
                 {props.btAdd && (
                   <Tooltip title='Incluir Novo' onClick={props.add}>
                     <IconButton aria-label='Add'>
@@ -297,6 +298,9 @@ function EnhancedTable(props) {
     props.details(lastRowSelectedData);
   }
 
+  function handleFilter() {
+    props.filter();
+  }
   const isSelected = name => selected.indexOf(name) !== -1;
 
   const emptyRows =
@@ -316,6 +320,8 @@ function EnhancedTable(props) {
           add={handleAdd}
           btDetails={props.details ? true : false}
           details={handleDetails}
+          btFilter={props.filter ? true : false}
+          filter={handleFilter}
         />
         <div className={classes.tableWrapper}>
           <Table
