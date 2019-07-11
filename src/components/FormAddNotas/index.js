@@ -36,7 +36,7 @@ class FormAddNotas extends Component {
       return (
         <Fragment>
           <div className='container'>
-            <h2>Informando Notas{this.props.dados.disciplina}</h2>
+            <h2>Informando Notas {this.props.dados.disciplina}</h2>
             <Form onSubmit={this.props.onSubmit} initialData={this.state.dados}>
               <Input name='id' className='d-none' />
               <Row className='justify-content-md-center'>

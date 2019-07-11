@@ -61,7 +61,6 @@ class Alunos extends Component {
               mostraFiltro: true
             })
           : this.setState({ alunosAtuais: responseJson });
-        console.log(responseJson);
       });
   };
 
@@ -103,7 +102,7 @@ class Alunos extends Component {
     })
       .then(response => response.json())
       .then(responseJson => {
-        //this.setState({ show: this.state.showAnterior, showAnterior: '' });
+        this.setState({ show: this.state.showAnterior, showAnterior: '' });
       });
   };
 

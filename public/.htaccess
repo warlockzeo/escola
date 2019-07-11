@@ -17,7 +17,7 @@
 	RewriteRule ^incluirAviso/?$ /api/index.php?opcao=gravar&tabela=avisos [NC]
 #Turmas	
 	RewriteRule ^listarAnos/?$ /api/index.php?opcao=listarAnos&tabela=turmas [NC]
-	
+	RewriteRule ^exibeTurma/?(.*)$ /api/index.php?opcao=mostrar&tabela=turmas&turma=$1 [NC]
 	RewriteRule ^gradeCurricular/?(.*)$ /api/index.php?opcao=mostrar&tabela=gradesCurriculares&serie=$1 [NC]
 	RewriteRule ^gradeAlunos/([0-9-]+)/?$ /api/index.php?opcao=mostrar&tabela=gradesAlunos&turma=$1 [NC]
 #Alunos

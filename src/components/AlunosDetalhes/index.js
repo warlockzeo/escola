@@ -112,7 +112,10 @@ class AlunosDetalhes extends Component {
         </Card>
 
         <Row>
-          <Faltas />
+          <Faltas
+            aluno={this.props.dados.id}
+            turma={this.props.dados.idTurma}
+          />
         </Row>
         <Row>
           <Historico

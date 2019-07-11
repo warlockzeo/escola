@@ -210,6 +210,7 @@ form span {
 /*=============================*/
 .dashboard {
   margin-top: -100px;
+  padding-top: 20px;
   width: 100%;
   display: flex;
   flex-direction: column;

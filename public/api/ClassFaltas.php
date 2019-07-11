@@ -6,7 +6,7 @@
         #exibir Faltas com Json
         public function listarFaltas($idAluno,$idTurma)
         {
-            $BFetch=$this->conectaDB()->prepare("SELECT * FROM faltas WHERE idAluno=$idAluno AND idTurma = $idTurma");
+            $BFetch=$this->conectaDB()->prepare("SELECT * FROM faltas WHERE idAluno=$idAluno AND idTurma = $idTurma GROUP BY data");
             $BFetch->execute();
 
             $j=[];
@@ -16,6 +16,7 @@
                 $j[$i]=[
                     "id"=>$Fetch['id'],
                     "data"=>$Fetch['data'],
+                    "disciplina"=>$Fetch['disciplina'],
                     "justificativa"=>$Fetch['justificativa']
                 ];
                 $i++;
@@ -34,9 +35,9 @@
             $data = $obj['data'];
             $idAluno = $obj['idAluno'];
             $idTurma = $obj['idTurma'];
-            $justificativa = $obj['justificativa'];
+            $disciplina = $obj['disciplina'];
          
-            $sql = "INSERT INTO faltas (data, idAluno, idTurma, justificativa) VALUES ('$data', $idAluno, $idTurma, '$justificativa')";
+            $sql = "INSERT INTO faltas (data, idAluno, idTurma, disciplina) VALUES ('$data', $idAluno, $idTurma, '$disciplina')";
             $BFetch=$this->conectaDB()->prepare($sql);
             $BFetch->execute();
 

@@ -29,7 +29,7 @@
                     "dataNasc" => $Fetch['dataNasc'],
                     "sexo" => $Fetch['sexo'],
                     "obs" => $Fetch['obs'],
-                    //"turma" => $Fetch['turma'],
+                    "turma" => $Fetch['turma'],
                     "turma" => $Fetch['descricao'],
                 ];
                 $i++;

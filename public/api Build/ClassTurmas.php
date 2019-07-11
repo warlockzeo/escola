@@ -52,7 +52,7 @@
             //header("Access-Control-Allow-Origin:*");
             //header("Content-type: application/json");
 
-            return json_encode($j);
+            echo json_encode($j);
         }
 
         public function listarAnos()

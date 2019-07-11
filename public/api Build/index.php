@@ -63,6 +63,10 @@
         elseif($_GET['opcao']=='apagar'){
             $turma->apagaTurma($_GET['id']);
         }
+
+        elseif($_GET['opcao']=='mostrar'){
+            $turma->exibeTurma($_GET['turma']);
+        }
     }
 
     elseif($_GET['tabela']=='gradesAlunos'){
