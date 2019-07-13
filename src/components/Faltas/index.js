@@ -4,12 +4,14 @@ import moment from 'moment';
 
 import './styles.css';
 import FormAddFalta from '../FormAddFalta';
+import FormJustificativa from '../FormJustificativa';
 class Faltas extends Component {
   state = {
     show: 'faltas',
     showAnterior: '',
     disciplinas: [],
-    faltas: []
+    faltas: [],
+    faltasJustificadas: []
   };
 
   loadTurmaParaGradeCurricular = turma => {
@@ -54,10 +56,15 @@ class Faltas extends Component {
           return {
             id: falta.id,
             nome: falta.disciplina,
-            date: falta.date
+            data: falta.data,
+            justificativa: falta.justificativa
           };
         });
-        this.setState({ faltas });
+
+        console.log(faltas);
+        const faltasJustificadas = faltas.filter(falta => falta.justificativa);
+
+        this.setState({ faltas, faltasJustificadas });
       });
   };
 
@@ -94,6 +101,24 @@ class Faltas extends Component {
       });
   };
 
+  handleSubmitJustificativa = data => {
+    this.setState({ show: 'wait' });
+
+    fetch(`http://api/justificarFalta`, {
+      method: 'POST',
+      body: JSON.stringify({
+        ...data
+      })
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson.resp !== 'erro') {
+          this.setState({ show: this.state.showAnterior, showAnterior: '' });
+          this.loadFaltas(this.props.aluno, this.props.turma);
+        }
+      });
+  };
+
   componentWillMount() {
     this.loadFaltas(this.props.aluno, this.props.turma);
     this.loadTurmaParaGradeCurricular(this.props.turma);
@@ -118,12 +143,20 @@ class Faltas extends Component {
                 style={{ display: 'flex', alignItems: 'center' }}
               >
                 {this.state.faltas.length > 0 ? (
-                  <Fragment>
-                    <span className='faltas__numFaltas'>
-                      {this.state.faltas.length}
-                    </span>{' '}
-                    faltas até agora no ano de {moment().format('YYYY')}.
-                  </Fragment>
+                  <div>
+                    <p>
+                      <span className='faltas__numFaltas'>
+                        {this.state.faltas.length}
+                      </span>{' '}
+                      falta(s) até agora no ano de {moment().format('YYYY')}.
+                    </p>
+                    <p>
+                      <span className='faltas__numFaltas'>
+                        {this.state.faltasJustificadas.length}
+                      </span>{' '}
+                      falta(s) justificada(s).
+                    </p>
+                  </div>
                 ) : (
                   <Fragment>
                     <span className='faltas__numFaltas'>
@@ -172,7 +205,11 @@ class Faltas extends Component {
               onCancel={this.handleCancel}
             />
           ) : (
-            <Row>Outra coisa</Row>
+            <FormJustificativa
+              faltas={this.state.faltas}
+              onSubmitJustificativa={this.handleSubmitJustificativa}
+              onCancel={this.handleCancel}
+            />
           )}
         </Card>
       </Col>

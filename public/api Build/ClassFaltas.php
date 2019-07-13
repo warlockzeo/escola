@@ -51,12 +51,12 @@
         {
             $json = file_get_contents('php://input');
             $obj = json_decode($json, TRUE);
-            $id = $obj['id'];
-            if($id){
-                $id = $obj['id'];
-                $justifictiva = $obj['justifictiva'];
+            $data = $obj['data'];
+            if($data){
+                $data = $obj['data'];
+                $justificativa = $obj['justificativa'];
 
-                $sql = "UPDATE faltas SET justificativa = '$justificativa' WHERE id = $id";
+                $sql = "UPDATE faltas SET justificativa = '$justificativa' WHERE data = '$data'";
                 $BFetch=$this->conectaDB()->prepare($sql);
                 $BFetch->execute();
             }

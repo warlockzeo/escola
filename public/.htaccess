@@ -10,7 +10,7 @@
 #Faltas
 	RewriteRule ^listarFaltas/([a-z0-9-]+)/?(.*)$ /api/index.php?opcao=listarFalta&tabela=faltas&idAluno=$1&idTurma=$2 [NC]
 	RewriteRule ^informarFalta/?$ /api/index.php?opcao=gravar&tabela=faltas [NC]
-	RewriteRule ^justificarFalta/([a-z0-9-]+)/?$ /api/index.php?opcao=atualizar&tabela=faltas&id=$1 [NC]	
+	RewriteRule ^justificarFalta/?$ /api/index.php?opcao=justificar&tabela=faltas [NC]	
 #Avisos
 	RewriteRule ^listarAvisosSite/?$ /api/index.php?opcao=listarAvisoSite&tabela=avisos [NC]
 	RewriteRule ^listarAvisosAluno/([0-9]+)/?$ /api/index.php?opcao=listarAvisoAluno&tabela=avisos&idAluno=$1 [NC]

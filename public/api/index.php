@@ -162,8 +162,8 @@
             $falta->gravaFalta();
         }
 
-        elseif($_GET['opcao']=='atualizar'){
-            $falta->atualizaFalta();
+        elseif($_GET['opcao']=='justificar'){
+            $falta->justificaFalta();
         }
     }
 
