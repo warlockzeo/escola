@@ -29,7 +29,7 @@
             echo json_encode($j);
         }
 
-        public function exibeTurma($id)
+        public function exibeTurma($id,$show='true')
         {
             $sql = "SELECT * FROM turmas WHERE id = $id";
             $BFetch=$this->conectaDB()->prepare($sql);
@@ -52,7 +52,11 @@
             //header("Access-Control-Allow-Origin:*");
             //header("Content-type: application/json");
 
-            echo json_encode($j);
+            if($show=='false') {
+                return json_encode($j);
+            } else {
+                echo json_encode($j);
+            }
         }
 
         public function listarAnos()

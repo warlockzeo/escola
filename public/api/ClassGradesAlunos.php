@@ -58,7 +58,7 @@
             //abre grade curricular da turma
             include("ClassTurmas.php");
             $turmas = new ClassTurmas();
-            $turma = json_decode($turmas->exibeTurma($idTurma), TRUE);
+            $turma = json_decode($turmas->exibeTurma($idTurma,'false'), TRUE);
             
             //abre grade curricular da turma
             include("ClassGradesCurriculares.php");

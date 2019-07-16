@@ -172,7 +172,7 @@
 
         $aviso=new ClassAvisos();
 
-        if($_GET['opcao']=='listarAvisoSite'){
+        if($_GET['opcao']=='listar'){
             $aviso->listarAvisos();
         }
 
@@ -182,6 +182,10 @@
 
         elseif($_GET['opcao']=='gravar'){
             $aviso->gravaAviso();
+        }
+
+        elseif($_GET['opcao']=='apagar'){
+            $aviso->apagaAviso($_GET['id']);
         }
     }
 
