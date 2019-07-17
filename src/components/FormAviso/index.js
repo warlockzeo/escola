@@ -2,25 +2,38 @@ import React, { Component, Fragment } from 'react';
 import { Button, Alert, Row, Col, Spinner } from 'reactstrap';
 import { Form, Input, Select, Textarea } from '@rocketseat/unform';
 import * as Yup from 'yup';
+import styled from 'styled-components';
 
 const schema = Yup.object().shape({
   id: Yup.number(),
+  turma: Yup.number(),
+  aluno: Yup.number(),
+  todos: Yup.number(),
   dataPostagem: Yup.string(),
   titulo: Yup.string().required('Este campo é obrigatório'),
   texto: Yup.string().required('Este campo é obrigatório')
 });
 
-const options = [
+const optionsDestinatario = [
   { id: 'Aluno', title: 'Aluno' },
   { id: 'Turma', title: 'Turma' },
   { id: 'TodosAlunos', title: 'TodosAlunos' },
   { id: 'Site', title: 'Site' }
 ];
 
+const Span = styled.span`
+  background-color: #ffffff;
+  text-align: left;
+  font-weight: bold;
+  color: black;
+  margin: 0;
+`;
+
 class FormAviso extends Component {
   state = {
     formStatus: 'fill',
-    formMessage: ''
+    formMessage: '',
+    destinatario: ''
   };
 
   onSubmit = async data => {
@@ -30,6 +43,20 @@ class FormAviso extends Component {
   onCancel = e => {
     e.preventDefault();
     this.props.onCancel();
+  };
+
+  onChangeDestinatario = e => {
+    this.setState({ destinatario: e.currentTarget.value });
+    if (
+      e.currentTarget.value === 'Turma' ||
+      e.currentTarget.value === 'Aluno'
+    ) {
+      this.props.onClickTurma();
+    }
+  };
+
+  onChangeTurma = e => {
+    this.props.onSelectTurma(e.currentTarget.value);
   };
 
   componentWillMount() {
@@ -49,20 +76,51 @@ class FormAviso extends Component {
             <Form
               schema={schema}
               onSubmit={this.props.onSubmit}
-              initialData={this.props.dados}
+              initialData={{ ...this.props.dados, destinatario: 'Site' }}
             >
               <Row>
-                <Col md={12}>
+                <Col md={4}>
+                  <Span>Destinatário: </Span>
                   <Select
                     name='destinatario'
-                    options={options}
+                    options={optionsDestinatario}
                     className='form-control'
                     title='Destinatário'
+                    onChange={this.onChangeDestinatario}
                   />
+                  {this.state.destinatario === 'TodosAlunos' && (
+                    <Input name='todos' className='d-none' />
+                  )}
                 </Col>
+
+                {(this.state.destinatario === 'Turma' ||
+                  this.state.destinatario === 'Aluno') && (
+                  <Col md={4}>
+                    <Span>Turma: </Span>
+                    <Select
+                      name='turma'
+                      options={this.props.turmas}
+                      className='form-control'
+                      title='Turma'
+                      onChange={this.onChangeTurma}
+                    />
+                  </Col>
+                )}
+                {this.state.destinatario === 'Aluno' && (
+                  <Col md={4}>
+                    <Span>Aluno: </Span>
+                    <Select
+                      name='aluno'
+                      options={this.props.alunos}
+                      className='form-control'
+                      title='Aluno'
+                    />
+                  </Col>
+                )}
               </Row>
               <Row>
                 <Col md={12}>
+                  <Span>Título: </Span>
                   <Input
                     name='titulo'
                     className='form-control'
@@ -76,6 +134,7 @@ class FormAviso extends Component {
               </Row>
               <Row>
                 <Col md={12}>
+                  <Span>Seu texto: </Span>
                   <Textarea
                     name='texto'
                     className='form-control'

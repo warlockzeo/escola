@@ -3,7 +3,7 @@
 
     class ClassGradeAlunos extends ClassConexao{
 
-        public function mostraGrade($turma)
+        public function mostraGrade($turma,$show='true')
         {
             $BFetch=$this->conectaDB()->prepare("SELECT g.*, a.nome FROM gradesAlunos as g LEFT JOIN alunos as a on g.idAluno = a.id WHERE g.idTurma = $turma");
             $BFetch->execute();
@@ -24,7 +24,11 @@
             header("Access-Control-Allow-Origin:*");
             header("Content-type: application/json");
 
-            echo json_encode($j);
+            if($show=='false'){
+                return json_encode($j);
+            } else {
+                echo json_encode($j);
+            }
         }
 
         public function apagaGrade($id)
@@ -51,22 +55,22 @@
             $BFetch->execute();
 
             //atualiza cadastro do aluno incluindo a turma
-            include("ClassAlunos.php");
+            include_once("ClassAlunos.php");
             $alunos = new ClassAlunos();
             $aluno = json_decode($alunos->atualizaTurmaDoAluno($idAluno, $idTurma), TRUE);
             
             //abre grade curricular da turma
-            include("ClassTurmas.php");
+            include_once("ClassTurmas.php");
             $turmas = new ClassTurmas();
             $turma = json_decode($turmas->exibeTurma($idTurma,'false'), TRUE);
             
             //abre grade curricular da turma
-            include("ClassGradesCurriculares.php");
+            include_once("ClassGradesCurriculares.php");
             $grades = new ClassGradesCurriculares();
             $disciplinas = json_decode($grades->mostraGrade($turma[0]['serie'], $turma[0]['horario']), TRUE);
 
             //print_r($disciplinas);
-            include("ClassHistoricos.php");
+            include_once("ClassHistoricos.php");
             $historico = new ClassHistoricos();
             //percorre disciplinas da grade
             foreach($disciplinas as $disciplina){
