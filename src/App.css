@@ -36,7 +36,18 @@ footer {
   background-color: #ffffff;
   box-shadow: 0 0 10px #000000;
   z-index: 999;
-  padding: 10px 0;
+  padding: 30px 0;
+}
+
+a {
+  text-decoration: none;
+  color: #9c5035;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: none;
+  color: #ff4400;
 }
 
 input,
@@ -56,6 +67,7 @@ select {
 h1,
 h2 {
   margin: 20px;
+  color: #9c5035;
 }
 
 h2 {

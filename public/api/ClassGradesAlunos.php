@@ -3,7 +3,7 @@
 
     class ClassGradeAlunos extends ClassConexao{
 
-        public function mostraGrade($turma,$show='true')
+        public function mostraGrade($turma, $show='true')
         {
             $BFetch=$this->conectaDB()->prepare("SELECT g.*, a.nome FROM gradesAlunos as g LEFT JOIN alunos as a on g.idAluno = a.id WHERE g.idTurma = $turma");
             $BFetch->execute();

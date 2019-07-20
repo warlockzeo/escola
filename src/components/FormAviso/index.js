@@ -76,7 +76,9 @@ class FormAviso extends Component {
             <Form
               schema={schema}
               onSubmit={this.props.onSubmit}
-              initialData={{ ...this.props.dados, destinatario: 'Site' }}
+              initialData={{
+                ...this.props.dados
+              }}
             >
               <Row>
                 <Col md={4}>

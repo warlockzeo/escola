@@ -45,21 +45,33 @@ class TopMenu extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className='ml-auto' navbar>
               <NavItem>
-                <NavLink href='/sobre'>
+                <NavLink href='/'>
                   <div className='efeito-menu' />
-                  <i className='fas fa-info-circle' /> A Escola
+                  <i className='fas fa-home' /> Início
                 </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href='/calendario'>
-                  <i className='far fa-calendar-alt' /> Calendário
+                <NavLink href='/sobrenos'>
                   <div className='efeito-menu' />
+                  Sobre Nós
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href='/ensino'>
+                  <div className='efeito-menu' />
+                  Ensino
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href='/circularesprovas'>
+                  <div className='efeito-menu' />
+                  Circulares / Provas
                 </NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href='/contato'>
                   <div className='efeito-menu' />
-                  <i className='far fa-address-book' /> Contato
+                  Contato
                 </NavLink>
               </NavItem>
               <NavItem>

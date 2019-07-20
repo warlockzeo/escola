@@ -21,6 +21,9 @@
                     "titulo"=>$Fetch['titulo'],
                     "texto"=>$Fetch['texto'],
                     "foto"=>$Fetch['foto'],
+                    "todos"=>$Fetch['todos'],
+                    "status"=>$Fetch['status'],
+                    "validade"=>$Fetch['validade'],
                     "dataPostagem"=>$Fetch['dataPostagem']
                 ];
                 $i++;

@@ -1,5 +1,5 @@
 <?php 
-    include("ClassConexao.php");
+    include_once("ClassConexao.php");
 
     class ClassAvisos extends ClassConexao{
 
@@ -37,8 +37,9 @@
             $json = file_get_contents('php://input');
             $obj = json_decode($json, TRUE);
             $id = isset($obj['id'])?$obj['id']:0;
-            $idAluno = isset($obj['idAluno'])?$obj['idAluno']:0;
-            $idTurma = isset($obj['idTurma'])?$obj['idTurma']:0;
+            $idAluno = isset($obj['aluno'])?$obj['aluno']:0;
+            $idTurma = isset($obj['turma'])?$obj['turma']:0;
+            $todos = isset($obj['todos'])?1:0;
             $titulo = $obj['titulo'];
             $texto = $obj['texto'];
             $dataPostagem = $obj['dataPostagem'];
@@ -46,9 +47,9 @@
             if($id>0){
                 $sql = "UPDATE avisos SET idAluno=$idAluno, idTurma=$idTurma, titulo='$titulo', texto='$texto', dataPostagem='$dataPostagem' WHERE id = $id";
             } else {
-                $sql = "INSERT INTO avisos (idAluno, idTurma, titulo, texto, dataPostagem) VALUES ($idAluno, $idTurma, '$titulo', '$texto', '$dataPostagem')";
+                $sql = "INSERT INTO avisos (idAluno, idTurma, titulo, texto, dataPostagem, todos) VALUES ($idAluno, $idTurma, '$titulo', '$texto', '$dataPostagem', $todos)";
             }
-            
+
             $BFetch=$this->conectaDB()->prepare($sql);
             $BFetch->execute();
 

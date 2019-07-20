@@ -22,6 +22,13 @@ const campos = [
     disablePadding: false,
     label: 'Título',
     align: 'left'
+  },
+  {
+    id: 'showDestinatario',
+    numeric: false,
+    disablePadding: false,
+    label: 'Destinatário',
+    align: 'left'
   }
 ];
 
@@ -46,10 +53,20 @@ class Avisos extends Component {
           const retorno = {};
 
           retorno.id = aviso.id;
-          retorno.idAluno = aviso.idAluno;
-          retorno.idTurma = aviso.idTurma;
           retorno.titulo = aviso.titulo;
           retorno.texto = aviso.texto;
+          retorno.showStatus = aviso.status && 'Sim';
+          retorno.showDestinatario =
+            aviso.todos === '1'
+              ? 'Todos os Alunos'
+              : aviso.idTurma & aviso.idAluno
+              ? 'Aluno'
+              : (aviso.idTurma === '0') & (aviso.idAluno === '0')
+              ? 'Site'
+              : 'Turma';
+          retorno.validade = aviso.validade
+            ? moment(aviso.validade).format('DD/MM/YYYY')
+            : 'Indeterminado';
           retorno.dataPostagem = moment(aviso.dataPostagem).format(
             'DD/MM/YYYY'
           );
@@ -74,14 +91,6 @@ class Avisos extends Component {
 
   onAddClick = () => {
     this.setState({ showAnterior: this.state.show, show: 'form' });
-  };
-
-  onEditClick = data => {
-    this.setState({
-      showAnterior: this.state.show,
-      show: 'edit',
-      avisoAtual: data
-    });
   };
 
   onDeleteClick = data => {
@@ -197,7 +206,6 @@ class Avisos extends Component {
               campos={campos}
               dados={this.state.avisosAtuais}
               add={this.onAddClick}
-              edit={this.onEditClick}
               delete={this.onDeleteClick}
               details={this.onDetalhesClick}
               filter={this.toggleFiltro}
@@ -208,20 +216,6 @@ class Avisos extends Component {
             info={`do aviso ${this.state.avisoAtual.titulo}`}
             delete={this.handleDelete}
             cancel={this.handleCancel}
-          />
-        ) : this.state.show === 'edit' ? (
-          <FormAviso
-            dados={{
-              ...this.state.avisoAtual,
-              dataPostagem: moment().format('YYYY-MM-DD')
-            }}
-            onSubmit={this.handleSubmit}
-            onCancel={this.handleCancel}
-            errorMessage={this.state.errorMessage}
-            turmas={this.state.turmas}
-            alunos={this.state.alunos}
-            onClickTurma={this.onClickTurma}
-            onSelectTurma={this.onSelectTurma}
           />
         ) : (
           <FormAviso

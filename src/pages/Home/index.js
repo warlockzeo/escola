@@ -1,7 +1,6 @@
 import React from 'react';
 import { Row, Col, Card } from 'reactstrap';
 
-import GoogleApiWrapper from '../../components/GoogleApiWrapper';
 import Slideshow from '../../components/Slides';
 
 const images = [
@@ -29,9 +28,9 @@ const Home = () => {
               backgroundImage: 'url(/assets/images/equipe.jpg)'
             }}
           >
-            <a href='/sobre'>
+            <a href='/login'>
               <div className='home__bloco'>
-                <span className='home__bloco__texto'>Nossa Equipe</span>
+                <span className='home__bloco__texto'>Portal do Aluno</span>
               </div>
             </a>
           </Card>
@@ -45,9 +44,9 @@ const Home = () => {
               backgroundImage: 'url(/assets/images/calendario.jpg)'
             }}
           >
-            <a href='/calendario'>
+            <a href='/login'>
               <div className='home__bloco'>
-                <span className='home__bloco__texto'>Calendário</span>
+                <span className='home__bloco__texto'>Portal do Professor</span>
               </div>
             </a>
           </Card>
@@ -61,16 +60,15 @@ const Home = () => {
               backgroundImage: 'url(/assets/images/eventos.jpg)'
             }}
           >
-            <a href='/eventos'>
+            <a href='/circularesprovas'>
               <div className='home__bloco'>
-                <span className='home__bloco__texto'>Eventos</span>
+                <span className='home__bloco__texto'>
+                  Informativos e Provas
+                </span>
               </div>
             </a>
           </Card>
         </Col>
-      </Row>
-      <Row className='mapa'>
-        <GoogleApiWrapper />
       </Row>
     </Col>
   );
