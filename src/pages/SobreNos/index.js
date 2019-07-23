@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Sobre = props => {
+const SobreNos = props => {
   return (
     <div style={{ width: '40%', textAlign: 'left' }}>
       <h1 className='text-center'>
@@ -33,4 +33,4 @@ const Sobre = props => {
   );
 };
 
-export default Sobre;
+export default SobreNos;

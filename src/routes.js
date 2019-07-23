@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import PrivateRoute from './components/PrivateRoute';
 
 import Home from './pages/Home';
-import Sobre from './pages/Sobre';
+import SobreNos from './pages/SobreNos';
 import Calendario from './pages/Calendario';
 import Contato from './pages/Contato';
 import Eventos from './pages/Eventos';
@@ -20,7 +20,7 @@ const Routes = props => (
   <BrowserRouter>
     <Switch>
       <Route exact path='/' component={Home} />
-      <Route path='/sobre' component={Sobre} />
+      <Route path='/sobrenos' component={SobreNos} />
       <Route path='/calendario' component={Calendario} />
       <Route path='/contato' component={Contato} />
       <Route path='/eventos' component={Eventos} />

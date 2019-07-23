@@ -33,10 +33,10 @@
 /*============================*/
 
 footer {
+  width: 100%;
   background-color: #ffffff;
   box-shadow: 0 0 10px #000000;
   z-index: 999;
-  padding: 30px 0;
 }
 
 a {
@@ -88,9 +88,20 @@ h2 {
   font-weight: bold;
 }
 
+.btn-success {
+  background-color: #ff4400;
+  border-color: #ffffff;
+}
+
 .btn-success:hover {
   background-color: #ffffff;
-  color: #28a745;
+  color: #ff4400;
+  border-color: #ff4400;
+}
+
+.btn-success:active {
+  background-color: #ff4400 !important;
+  border-color: #ffffff !important;
 }
 
 .btn-danger:hover {
@@ -109,7 +120,7 @@ h2 {
 }
 
 .btnCancel:hover {
-  color: red;
+  color: #dc3545;
 }
 
 .card {
@@ -170,7 +181,7 @@ form span {
 }
 
 .home__bloco:hover {
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 68, 0, 0.4);
 }
 
 .home__bloco__texto {

@@ -21,7 +21,6 @@
   border: none;
   border-radius: 2px;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
-  cursor: hand;
   border-radius: 50%;
   background: #9c5035;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -34,6 +33,7 @@
 }
 
 .material-scrolltop:hover {
+  cursor: pointer !important;
   background-color: #ff4400;
   text-decoration: none;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5), 0 3px 15px rgba(0, 0, 0, 0.5);

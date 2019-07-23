@@ -25,7 +25,7 @@ const Home = () => {
             data-wow-delay='0.1s'
             body
             style={{
-              backgroundImage: 'url(/assets/images/equipe.jpg)'
+              backgroundImage: 'url(/assets/images/eventos.jpg)'
             }}
           >
             <a href='/login'>
@@ -41,7 +41,7 @@ const Home = () => {
             data-wow-delay='0.3s'
             body
             style={{
-              backgroundImage: 'url(/assets/images/calendario.jpg)'
+              backgroundImage: 'url(/assets/images/equipe.jpg)'
             }}
           >
             <a href='/login'>
@@ -57,7 +57,7 @@ const Home = () => {
             data-wow-delay='0.5s'
             body
             style={{
-              backgroundImage: 'url(/assets/images/eventos.jpg)'
+              backgroundImage: 'url(/assets/images/calendario.jpg)'
             }}
           >
             <a href='/circularesprovas'>

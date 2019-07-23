@@ -1,27 +1,39 @@
 import React from 'react';
-import { Col, Row } from 'reactstrap';
+import { Col } from 'reactstrap';
 
 const Footer = () => {
-  return (
-    <footer className='col-md-12'>
-      <Row>
+  return window.location.href.includes('dashboard') ? (
+    <footer>2019 © sagradocoracaovertentes.com.br | All Rights Reserved</footer>
+  ) : (
+    <footer className=''>
+      <div
+        className='text-left'
+        style={{ display: 'flex', flexDirection: 'row', padding: 30 }}
+      >
         <Col md={4}>
-          <h3>(81) 99128-2508</h3>
+          <h3 className='text-left'>(81) 99128-2508</h3>
         </Col>
         <Col md={4}>
-          <h3>Institucional</h3>
+          <h3 className='text-left'>Institucional</h3>
           <a href='/sobrenos'>Sobre Nós</a>
           <br />
           <a href='/ensino'>Ensino</a>
         </Col>
         <Col md={4}>
-          <h3>Acesso Rápido</h3>
+          <h3 className='text-left'>Acesso Rápido</h3>
           <a href='/contato'>Contato</a>
           <br />
           <a href='/circularesprovas'>Circulares / Provas</a>
         </Col>
-      </Row>
-      <div className='container text-left' style={{ paddingTop: 50 }}>
+      </div>
+      <div
+        className='text-left'
+        style={{
+          padding: 20,
+          backgroundColor: '#9c5035',
+          color: '#ffffff'
+        }}
+      >
         2019 © sagradocoracaovertentes.com.br | All Rights Reserved
       </div>
     </footer>

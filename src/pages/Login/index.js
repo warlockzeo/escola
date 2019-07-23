@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Card, CardTitle, Spinner } from 'reactstrap';
+import { Row, Col, Alert, Card, CardTitle, Spinner } from 'reactstrap';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
@@ -63,26 +63,38 @@ Nivel 10 - Aluno
         <div className='container'>
           <Card
             body
-            style={{ margin: 'auto', width: 400, maxWidth: '95%' }}
+            style={{
+              margin: 'auto',
+              width: 400,
+              maxWidth: '95%',
+              height: 200,
+              padding: 10
+            }}
             className='wow bounceInRight animated'
           >
             <CardTitle>
-              <h1>Login</h1>
+              <h1 style={{ margin: 0 }}>Login</h1>
             </CardTitle>
 
             <Form schema={schema} onSubmit={this.onSubmit}>
-              <Input
-                name='user'
-                className='form-control'
-                placeholder='Login'
-                autoFocus
-              />
-              <Input
-                name='senha'
-                type='password'
-                className='form-control'
-                placeholder='Senha'
-              />
+              <Row>
+                <Col md={6}>
+                  <Input
+                    name='user'
+                    className='form-control'
+                    placeholder='Login'
+                    autoFocus
+                  />
+                </Col>
+                <Col md={6}>
+                  <Input
+                    name='senha'
+                    type='password'
+                    className='form-control'
+                    placeholder='Senha'
+                  />
+                </Col>
+              </Row>
               {this.state.errorMessage && (
                 <Alert color='danger'>{this.state.errorMessage}</Alert>
               )}
