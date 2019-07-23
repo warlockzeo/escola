@@ -36,7 +36,7 @@ footer {
   width: 100%;
   background-color: #ffffff;
   box-shadow: 0 0 10px #000000;
-  z-index: 999;
+  /*z-index: 999;*/
 }
 
 a {
@@ -139,6 +139,22 @@ h2 {
   font-weight: bold;
 }
 
+@media only screen and (min-width: 361px) {
+  .login__card {
+    margin: auto;
+    width: 400px;
+    max-width: 95%;
+    height: 200px;
+    padding: 10px;
+  }
+}
+
+@media only screen and (max-width: 360px) {
+  .login__card {
+    margin: 30px auto;
+    max-width: 90%;
+  }
+}
 /*============================*/
 /* Mensagem de validação */
 /*============================*/

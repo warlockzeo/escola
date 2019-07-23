@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Fragment, Component } from 'react';
 import { Row, Col, Alert, Card, CardTitle, Spinner } from 'reactstrap';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
@@ -60,18 +60,8 @@ Nivel 10 - Aluno
   render() {
     if (this.state.formStatus === 'fill') {
       return (
-        <div className='container'>
-          <Card
-            body
-            style={{
-              margin: 'auto',
-              width: 400,
-              maxWidth: '95%',
-              height: 200,
-              padding: 10
-            }}
-            className='wow bounceInRight animated'
-          >
+        <div>
+          <Card body className='login__card'>
             <CardTitle>
               <h1 style={{ margin: 0 }}>Login</h1>
             </CardTitle>

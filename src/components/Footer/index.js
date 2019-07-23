@@ -1,5 +1,5 @@
 import React from 'react';
-import { Col } from 'reactstrap';
+import { Row, Col } from 'reactstrap';
 
 const Footer = () => {
   return window.location.href.includes('dashboard') ? (
@@ -8,23 +8,29 @@ const Footer = () => {
     <footer className=''>
       <div
         className='text-left'
-        style={{ display: 'flex', flexDirection: 'row', padding: 30 }}
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          padding: 30
+        }}
       >
-        <Col md={4}>
-          <h3 className='text-left'>(81) 99128-2508</h3>
-        </Col>
-        <Col md={4}>
-          <h3 className='text-left'>Institucional</h3>
-          <a href='/sobrenos'>Sobre Nós</a>
-          <br />
-          <a href='/ensino'>Ensino</a>
-        </Col>
-        <Col md={4}>
-          <h3 className='text-left'>Acesso Rápido</h3>
-          <a href='/contato'>Contato</a>
-          <br />
-          <a href='/circularesprovas'>Circulares / Provas</a>
-        </Col>
+        <Row style={{ width: '100%' }}>
+          <Col md={4}>
+            <h3 className='text-left'>(81) 99128-2508</h3>
+          </Col>
+          <Col md={4}>
+            <h3 className='text-left'>Institucional</h3>
+            <a href='/sobrenos'>Sobre Nós</a>
+            <br />
+            <a href='/ensino'>Ensino</a>
+          </Col>
+          <Col md={4}>
+            <h3 className='text-left'>Acesso Rápido</h3>
+            <a href='/contato'>Contato</a>
+            <br />
+            <a href='/circularesprovas'>Circulares / Provas</a>
+          </Col>
+        </Row>
       </div>
       <div
         className='text-left'
