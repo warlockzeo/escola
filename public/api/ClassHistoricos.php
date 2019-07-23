@@ -82,18 +82,14 @@
             $obj = json_decode($json, TRUE);
 
             $id = $obj['id'];
-            $teste1 = $obj['teste1'];
-            $prova1 = $obj['prova1'];
-            $teste2 = $obj['teste2'];
-            $prova2 = $obj['prova2'];
-            $teste3 = $obj['teste3'];
-            $prova3 = $obj['prova3'];
-            $teste4 = $obj['teste4'];
-            $prova4 = $obj['prova4'];
+            $media1 = $obj['media1'];
+            $media2 = $obj['media2'];
+            $media3 = $obj['media3'];
+            $media4 = $obj['media4'];
             $recup = $obj['recup'];
             $mediaFinal = $obj['mediaFinal'];
 
-            $sql = "UPDATE historicos SET teste1 = '$teste1', teste2 = '$teste2', teste3 = '$teste3', teste4 = '$teste4', prova1 = '$prova1', prova2 = '$prova2',  prova3 = '$prova3',  prova4 = '$prova4', recup = '$recup', mediaFinal = '$mediaFinal' WHERE id = $id";
+            $sql = "UPDATE historicos SET media1 = '$media1', media2 = '$media2', media3 = '$media3', media4 = '$media4', recup = '$recup', mediaFinal = '$mediaFinal' WHERE id = $id";
             $BFetch=$this->conectaDB()->prepare($sql);
             $BFetch->execute();
 

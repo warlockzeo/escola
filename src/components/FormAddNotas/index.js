@@ -41,83 +41,39 @@ class FormAddNotas extends Component {
               <Input name='id' className='d-none' />
               <Row className='justify-content-md-center'>
                 <Col md={1} className='text-center'>
-                  Teste
                   <br />
                   1º Bim
                   <Input
-                    name='teste1'
+                    name='media1'
                     className='form-control historico__notas__input'
-                    title='Teste 1º Bim'
+                    title='Média 1º Bim'
                   />
                 </Col>
                 <Col md={1} className='text-center'>
-                  Prova
-                  <br />
-                  1º Bim
-                  <Input
-                    name='prova1'
-                    className='form-control historico__notas__input'
-                    title='Prova 1º Bim'
-                  />
-                </Col>
-                <Col md={1} className='text-center'>
-                  Teste
                   <br />
                   2º Bim
                   <Input
-                    name='teste2'
+                    name='media2'
                     className='form-control historico__notas__input'
-                    title='Teste 2º Bim'
+                    title='Média 2º Bim'
                   />
                 </Col>
                 <Col md={1} className='text-center'>
-                  Prova
-                  <br />
-                  2º Bim
-                  <Input
-                    name='prova2'
-                    className='form-control historico__notas__input'
-                    title='Prova 2º Bim'
-                  />
-                </Col>
-                <Col md={1} className='text-center'>
-                  Teste
                   <br />
                   3º Bim
                   <Input
-                    name='teste3'
+                    name='media3'
                     className='form-control historico__notas__input'
-                    title='Teste 3º Bim'
+                    title='Média 3º Bim'
                   />
                 </Col>
                 <Col md={1} className='text-center'>
-                  Prova
-                  <br />
-                  3º Bim
-                  <Input
-                    name='prova3'
-                    className='form-control historico__notas__input'
-                    title='Prova 3º Bim'
-                  />
-                </Col>
-                <Col md={1} className='text-center'>
-                  Teste
                   <br />
                   4º Bim
                   <Input
-                    name='teste4'
+                    name='media4'
                     className='form-control historico__notas__input'
-                    title='Teste 4º Bim'
-                  />
-                </Col>
-                <Col md={1} className='text-center'>
-                  Prova
-                  <br />
-                  4º Bim
-                  <Input
-                    name='prova4'
-                    className='form-control historico__notas__input'
-                    title='Prova 4º Bim'
+                    title='Média 4º Bim'
                   />
                 </Col>
                 <Col md={1} className='text-center'>

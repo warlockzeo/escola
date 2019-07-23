@@ -15,50 +15,10 @@ const campos = [
     padding: 'none'
   },
   {
-    id: 'teste1',
-    numeric: false,
-    disablePadding: true,
-    label: '1º Bim Teste',
-    component: 'th',
-    scope: 'row',
-    padding: 'none',
-    align: 'center'
-  },
-  {
-    id: 'prova1',
-    numeric: false,
-    disablePadding: true,
-    label: '1º Bim Prova',
-    component: 'th',
-    scope: 'row',
-    padding: 'none',
-    align: 'center'
-  },
-  {
     id: 'media1',
     numeric: false,
     disablePadding: true,
-    label: '1º Bim Média',
-    component: 'th',
-    scope: 'row',
-    padding: 'none',
-    align: 'center'
-  },
-  {
-    id: 'teste2',
-    numeric: false,
-    disablePadding: true,
-    label: '2º Bim Teste',
-    component: 'th',
-    scope: 'row',
-    padding: 'none',
-    align: 'center'
-  },
-  {
-    id: 'prova2',
-    numeric: false,
-    disablePadding: true,
-    label: '2º Bim Prova',
+    label: '1º Bim',
     component: 'th',
     scope: 'row',
     padding: 'none',
@@ -68,27 +28,7 @@ const campos = [
     id: 'media2',
     numeric: false,
     disablePadding: true,
-    label: '2º Bim Média',
-    component: 'th',
-    scope: 'row',
-    padding: 'none',
-    align: 'center'
-  },
-  {
-    id: 'teste3',
-    numeric: false,
-    disablePadding: true,
-    label: '3º Bim Teste',
-    component: 'th',
-    scope: 'row',
-    padding: 'none',
-    align: 'center'
-  },
-  {
-    id: 'prova3',
-    numeric: false,
-    disablePadding: true,
-    label: '3º Bim Prova',
+    label: '2º Bim',
     component: 'th',
     scope: 'row',
     padding: 'none',
@@ -98,27 +38,7 @@ const campos = [
     id: 'media3',
     numeric: false,
     disablePadding: true,
-    label: '3º Bim Média',
-    component: 'th',
-    scope: 'row',
-    padding: 'none',
-    align: 'center'
-  },
-  {
-    id: 'teste4',
-    numeric: false,
-    disablePadding: true,
-    label: '4º Bim Teste',
-    component: 'th',
-    scope: 'row',
-    padding: 'none',
-    align: 'center'
-  },
-  {
-    id: 'prova4',
-    numeric: false,
-    disablePadding: true,
-    label: '4º Bim Prova',
+    label: '3º Bim',
     component: 'th',
     scope: 'row',
     padding: 'none',
@@ -128,7 +48,7 @@ const campos = [
     id: 'media4',
     numeric: false,
     disablePadding: true,
-    label: '4º Bim Média',
+    label: '4º Bim',
     component: 'th',
     scope: 'row',
     padding: 'none',
@@ -164,7 +84,7 @@ class Historico extends Component {
     errorMessage: ''
   };
 
-  loadHistorico = (turma, aluno) => {
+  loadHistorico = aluno => {
     fetch(`http://api/listar/historicos/${aluno}`)
       .then(response => response.json())
       .then(responseJson => {
@@ -177,7 +97,6 @@ class Historico extends Component {
   };
 
   handleSubmit = data => {
-    console.log(data);
     const url = data.id
       ? 'http://api/atualizar/historicos'
       : 'http://api/gravar/historicos';
@@ -194,7 +113,7 @@ class Historico extends Component {
       .then(responseJson => {
         if (responseJson.resp !== 'erro') {
           this.setState({ show: 'table' });
-          this.loadHistorico(this.props.ano, this.props.aluno);
+          this.loadHistorico(this.props.aluno);
         } else {
           this.setState({ show: 'edit', errorMessage: responseJson.resp });
         }
@@ -206,7 +125,7 @@ class Historico extends Component {
   };
 
   componentWillMount() {
-    this.loadHistorico(this.props.ano, this.props.aluno);
+    this.loadHistorico(this.props.aluno);
   }
 
   render() {

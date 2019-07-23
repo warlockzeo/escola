@@ -18,7 +18,6 @@ class Faltas extends Component {
     fetch(`http://api/exibeTurma/${turma}`)
       .then(response => response.json())
       .then(responseJson => {
-        console.log(responseJson);
         this.setState({ turma: responseJson[0] });
         this.loadGradeCurricularDaSerie(responseJson[0].serie);
       });
@@ -62,7 +61,6 @@ class Faltas extends Component {
           };
         });
 
-        console.log(faltas);
         const faltasJustificadas = faltas.filter(falta => falta.justificativa);
 
         this.setState({ faltas, faltasJustificadas });
