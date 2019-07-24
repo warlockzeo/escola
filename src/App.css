@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap');
+
 .App {
   min-height: 100vh;
   padding-top: 100px;
@@ -65,9 +67,22 @@ select {
 }
 
 h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Roboto Slab', serif;
+}
+
+h1,
 h2 {
   margin: 20px;
   color: #9c5035;
+}
+
+h1 {
+  font-weight: bold;
 }
 
 h2 {
@@ -244,6 +259,9 @@ form span {
   font-size: 200%;
 }
 
+.contato__form {
+  padding: 0 50px;
+}
 /*=============================*/
 /* Dashboard */
 /*=============================*/
