@@ -1,0 +1,35 @@
+
+.navbar {
+    position: fixed;
+    box-shadow: #333333 -5px 5px 15px;
+    height: 101px;
+    background-color: #ffffff;
+    z-index: 999;
+}
+
+.nav-link {
+    color: #000000;
+}
+
+.navbar-toggler {
+    border-color: #000;
+    width: 44px;
+    height: 34px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    padding: 4px 2px 2px;
+}
+
+.icon-bar{
+    border-color:#000;
+}
+
+@media(width<=767px){
+    .navbar-collapse {
+        background-color: #ffffff;
+        box-shadow: #333333 -5px 5px 15px;
+        border-radius: 5px;
+        padding: 20px;
+        text-align: center;
+    }
+}

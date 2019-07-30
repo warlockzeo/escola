@@ -1,5 +1,6 @@
 import React from 'react';
 import TopMenu from '../TopMenu';
+import MenuAluno from '../MenuAluno';
 import DashboardSideMenu from '../DashboardSideMenu';
 
 const Header = props => {
@@ -8,6 +9,8 @@ const Header = props => {
       logout={props.logout}
       nivelAcesso={props.nivelAcessoUsuarioLogado}
     />
+  ) : window.location.href.includes('aluno') ? (
+    <MenuAluno logout={props.logout} />
   ) : (
     <TopMenu user={props.nomeUsuarioLogado} logout={props.logout} />
   );

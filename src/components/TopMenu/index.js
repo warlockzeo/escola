@@ -92,8 +92,10 @@ class TopMenu extends Component {
           {this.props.user && (
             <div className='headerNomeAluno'>
               Olá {this.props.user}{' '}
-              {this.props.user === 'admin' && (
+              {localStorage.getItem('userAccessLevel') >= 90 ? (
                 <a href='/dashboard/'>- Painel de Controle</a>
+              ) : (
+                <a href='/aluno/'>- Meu painel</a>
               )}
             </div>
           )}

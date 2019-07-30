@@ -4,10 +4,11 @@
     class ClassAvisos extends ClassConexao{
 
         #exibir Avisos com Json
-        public function listarAvisos($idAluno='')
+        public function listarAvisos($idAluno = "")
         {
-            $where = $idAluno ? 'WHERE idAluno = $idaluno' : '';
-            $BFetch=$this->conectaDB()->prepare("SELECT * FROM avisos $where");
+            $where = $idAluno ? "WHERE idAluno = $idAluno" : "";
+            $sql = "SELECT * FROM avisos $where";
+            $BFetch=$this->conectaDB()->prepare($sql);
             $BFetch->execute();
 
             $j=[];

@@ -1,4 +1,4 @@
-import React, { Fragment, Component } from 'react';
+import React, { Component } from 'react';
 import { Row, Col, Alert, Card, CardTitle, Spinner } from 'reactstrap';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
@@ -46,7 +46,7 @@ Nivel 10 - Aluno
             localStorage.setItem('user', nome || user);
             localStorage.setItem('userId', id);
             this.setState({ errorMessage: '' });
-            window.location.href = '/alunos/';
+            window.location.href = '/aluno/';
           }
         } else {
           this.setState({
