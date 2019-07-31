@@ -48,13 +48,7 @@ class MenuAluno extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className='ml-auto' navbar>
               <NavItem>
-                <NavLink href='/aluno/calendario/'>Calendário</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href='/aluno/faltas/'>Faltas</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href='/aluno/provas/'>Provas</NavLink>
+                <NavLink href='/aluno/'>Início</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href='/aluno/notas/'>Notas</NavLink>

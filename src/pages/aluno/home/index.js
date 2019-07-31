@@ -15,11 +15,13 @@ const P = style.p`
 
 export default class Home extends Component {
   state = {
-    usuarioLogado: localStorage.getItem('user') || '',
-    idUsuarioLogado: localStorage.getItem('userId') || '',
+    //usuarioLogado: localStorage.getItem('user') || '',
+    //idUsuarioLogado: localStorage.getItem('userId') || '',
     aluno: {},
     avisos: [],
-    faltas: []
+    avisoAtual: '',
+    faltas: [],
+    show: 'inicio'
   };
 
   carregaAluno = () => {
@@ -27,7 +29,7 @@ export default class Home extends Component {
       .then(response => response.json())
       .then(responseJson => {
         const aluno = responseJson.filter(
-          aluno => aluno.id === this.state.idUsuarioLogado
+          aluno => aluno.id === localStorage.getItem('userId')
         )[0];
         this.setState({ aluno });
         this.carregaAvisos(aluno.id);
@@ -64,23 +66,51 @@ export default class Home extends Component {
       });
   };
 
+  showAviso = idAviso => {
+    this.setState({ show: 'aviso', avisoAtual: idAviso });
+  };
+
+  voltar = () => {
+    this.setState({ show: 'inicio', avisoAtual: '' });
+  };
+
   componentDidMount() {
-    this.state.idUsuarioLogado && this.carregaAluno();
+    localStorage.getItem('userId') && this.carregaAluno();
   }
 
   render() {
     const mostraAvisos =
       this.state.avisos.length > 0 &&
       this.state.avisos.map(aviso => (
-        <div key={aviso.id} style={{ textAlign: 'left' }}>
+        <div
+          key={aviso.id}
+          data-id={aviso.id}
+          style={{ textAlign: 'left', cursor: 'pointer' }}
+          onClick={this.showAviso.bind(null, aviso.id)}
+        >
           <span style={{ fontWeight: 'bold' }}>
             {moment(aviso.dataPostagem).format('DD/MM/YYYY')} - {aviso.titulo}
           </span>
           <br />
           {aviso.foto && <img src={aviso.foto} alt={aviso.titulo} />}
-          <p>{aviso.texto}</p>
+          <p>{aviso.texto.substr(0, 50)}</p>
         </div>
       ));
+
+    if (this.state.show === 'aviso') {
+      return this.state.avisos
+        .filter(aviso => aviso.id === this.state.avisoAtual)
+        .map(aviso => (
+          <div className='aluno' key={aviso.id}>
+            <H1>{aviso.titulo}</H1>
+            <p>{aviso.texto}</p>
+
+            <button className='btn btn-danger' onClick={this.voltar}>
+              Voltar
+            </button>
+          </div>
+        ));
+    }
     return (
       <div className='aluno'>
         <P>Aluno: {this.state.aluno.nome}</P>

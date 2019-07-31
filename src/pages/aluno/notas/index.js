@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Col, Row } from 'reactstrap';
 import style from 'styled-components';
 
@@ -21,7 +21,6 @@ export default class Notas extends Component {
       fetch(`http://escj/listar/historicos/${this.state.idUsuarioLogado}`)
         .then(response => response.json())
         .then(responseJson => {
-          console.log(responseJson);
           this.setState({
             historico: responseJson
           });
@@ -43,7 +42,8 @@ export default class Notas extends Component {
               className='negrito text-left'
               style={{
                 backgroundColor: '#9c5035',
-                borderBottom: 'solid 2px #ffffff'
+                borderBottom: 'solid 2px #ffffff',
+                color: '#ffffff'
               }}
             >
               Disciplina
@@ -51,7 +51,7 @@ export default class Notas extends Component {
             <Col
               xs={2}
               className='negrito'
-              style={{ backgroundColor: '#9c5035' }}
+              style={{ backgroundColor: '#9c5035', color: '#ffffff' }}
             >
               1º <br />
               Bim
@@ -59,7 +59,7 @@ export default class Notas extends Component {
             <Col
               xs={2}
               className='negrito'
-              style={{ backgroundColor: '#9c5035' }}
+              style={{ backgroundColor: '#9c5035', color: '#ffffff' }}
             >
               2º <br />
               Bim
@@ -67,7 +67,7 @@ export default class Notas extends Component {
             <Col
               xs={2}
               className='negrito'
-              style={{ backgroundColor: '#9c5035' }}
+              style={{ backgroundColor: '#9c5035', color: '#ffffff' }}
             >
               3º <br />
               Bim
@@ -75,7 +75,7 @@ export default class Notas extends Component {
             <Col
               xs={2}
               className='negrito'
-              style={{ backgroundColor: '#9c5035' }}
+              style={{ backgroundColor: '#9c5035', color: '#ffffff' }}
             >
               4º <br />
               Bim
@@ -83,7 +83,7 @@ export default class Notas extends Component {
             <Col
               xs={2}
               className='negrito'
-              style={{ backgroundColor: '#9c5035' }}
+              style={{ backgroundColor: '#9c5035', color: '#ffffff' }}
             >
               <br />
               Rec
@@ -91,7 +91,7 @@ export default class Notas extends Component {
             <Col
               xs={2}
               className='negrito'
-              style={{ backgroundColor: '#9c5035' }}
+              style={{ backgroundColor: '#9c5035', color: '#ffffff' }}
             >
               <br />
               Final
@@ -99,7 +99,7 @@ export default class Notas extends Component {
           </Row>
           {this.state.historico.map(nota => {
             return (
-              <Row>
+              <Row key={nota.id}>
                 <Col
                   xs={12}
                   className='text-left'
