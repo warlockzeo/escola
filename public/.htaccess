@@ -36,7 +36,8 @@
 	RewriteRule ^atualizar/([a-z0-9-]+)/?$ /api/index.php?opcao=atualizar&tabela=$1 [NC]
 	RewriteRule ^apagar/([a-z0-9-]+)/([0-9-]+)/?$ /api/index.php?opcao=apagar&tabela=$1&id=$2 [NC]
 
-	RewriteRule ^alunos/?$ /alunos/ [NC]
+	RewriteRule ^aluno/?$ /index.html [NC]
+	RewriteRule ^dashboard/([a-z0-9-]+)/?$ /index.html [NC]
 	RewriteRule ^([a-z0-9-]+)/?$ /index.html [NC]
 	
 </IfModule>

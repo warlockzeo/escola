@@ -110,37 +110,39 @@ export default class Home extends Component {
             </button>
           </div>
         ));
+    } else {
+      return (
+        <div className='aluno'>
+          <P>Aluno: {this.state.aluno.nome}</P>
+          <H1>Meus Avisos</H1>
+          {mostraAvisos}
+          <H1>Minhas Faltas</H1>
+          {this.state.faltas.length > 0 ? (
+            <div>
+              <p>
+                <span className='faltas__numFaltas'>
+                  {this.state.faltas.length}
+                </span>{' '}
+                falta{this.state.faltas.length > 1 && 's'} até agora este ano.
+              </p>
+              <p>
+                <span className='faltas__numFaltas'>
+                  {this.state.faltasJustificadas.length}
+                </span>{' '}
+                falta{this.state.faltasJustificadas.length > 1 && 's'}{' '}
+                justificada
+                {this.state.faltasJustificadas.length > 1 && 's'} .
+              </p>
+            </div>
+          ) : (
+            <Fragment>
+              <span className='faltas__numFaltas'>
+                Nenhuma falta até agora este ano.
+              </span>
+            </Fragment>
+          )}
+        </div>
+      );
     }
-    return (
-      <div className='aluno'>
-        <P>Aluno: {this.state.aluno.nome}</P>
-        <H1>Meus Avisos</H1>
-        {mostraAvisos}
-        <H1>Minhas Faltas</H1>
-        {this.state.faltas.length > 0 ? (
-          <div>
-            <p>
-              <span className='faltas__numFaltas'>
-                {this.state.faltas.length}
-              </span>{' '}
-              falta{this.state.faltas.length > 1 && 's'} até agora este ano.
-            </p>
-            <p>
-              <span className='faltas__numFaltas'>
-                {this.state.faltasJustificadas.length}
-              </span>{' '}
-              falta{this.state.faltasJustificadas.length > 1 && 's'} justificada
-              {this.state.faltasJustificadas.length > 1 && 's'} .
-            </p>
-          </div>
-        ) : (
-          <Fragment>
-            <span className='faltas__numFaltas'>
-              Nenhuma falta até agora este ano.
-            </span>
-          </Fragment>
-        )}
-      </div>
-    );
   }
 }
