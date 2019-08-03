@@ -12,7 +12,6 @@ const PrivateRoute = ({ component, ...rest }) => {
       ? true
       : false;
 
-  console.log(rest);
   return (
     <Fragment>
       <Route

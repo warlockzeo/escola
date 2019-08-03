@@ -1,28 +1,23 @@
 import React, { Component, Fragment } from 'react';
 import { Button, Alert, Row, Col, Spinner } from 'reactstrap';
-import { Form, Input, Select, Textarea } from '@rocketseat/unform';
+import { Form, Input, Select } from '@rocketseat/unform';
 import * as Yup from 'yup';
+import style from 'styled-components';
+
+const Label = style.label`
+  display: block;
+  text-align: left;
+  font-weight: bold;
+  padding-left: 10px;
+`;
 
 const schema = Yup.object().shape({
-  id: Yup.string(),
-  nome: Yup.string().required('Este campo é obrigatório'),
-  mae: Yup.string().required('Este campo é obrigatório'),
-  pai: Yup.string(),
-  fonePai: Yup.string(),
-  foneMae: Yup.string(),
-  responsavel: Yup.string().required('Este campo é obrigatório'),
+  telefones: Yup.string().required('Este campo é obrigatório'),
+  email: Yup.string('Este não é um email válido'),
   endereco: Yup.string().required('Este campo é obrigatório'),
   cidade: Yup.string().required('Este campo é obrigatório'),
-  uf: Yup.string().required('Este campo é obrigatório'),
-  sexo: Yup.string().required('Este campo é obrigatório'),
-  dataNasc: Yup.string().required('Este campo é obrigatório'),
-  obs: Yup.string()
+  uf: Yup.string().required('Este campo é obrigatório')
 });
-
-const optionsSexo = [
-  { id: 'M', title: 'Masculino' },
-  { id: 'F', title: 'Feminino' }
-];
 
 const optionsUf = [
   { id: 'AC', title: 'Acre' },
@@ -54,7 +49,7 @@ const optionsUf = [
   { id: 'TO', title: 'Tocantins' }
 ];
 
-class FormAlunos extends Component {
+class EscolaContatoForm extends Component {
   state = {
     formStatus: 'fill',
     formMessage: ''
@@ -67,6 +62,10 @@ class FormAlunos extends Component {
   onCancel = e => {
     e.preventDefault();
     this.props.onCancel();
+  };
+
+  onChange = () => {
+    this.props.onChange();
   };
 
   componentWillMount() {
@@ -82,142 +81,86 @@ class FormAlunos extends Component {
       return (
         <Fragment>
           <div className='container'>
-            <h2>Cadastro Aluno</h2>
+            <h2>Contatos</h2>
             <Form
               schema={schema}
               onSubmit={this.props.onSubmit}
               initialData={this.props.dados}
             >
               <Row>
-                <Col md={12}>
+                <Col md={8}>
+                  <Label>Telefones</Label>
                   <Input
-                    name='nome'
+                    name='telefones'
                     className='form-control'
-                    placeholder='Nome completo'
-                    title='Nome'
-                    autoFocus
-                  />
-                  <Input name='id' className='d-none' />
-                </Col>
-              </Row>
-              <Row>
-                <Col md={4}>
-                  <Input
-                    name='mae'
-                    className='form-control'
-                    placeholder='Nome completo da mãe'
-                    title='Mãe'
-                  />
-                </Col>
-                <Col md={2}>
-                  <Input
-                    name='foneMae'
-                    className='form-control'
-                    placeholder='Telefone da mãe'
-                    title='Telefone da Mãe'
+                    placeholder='Telefones'
+                    title='Telefones'
+                    onChange={this.onChange}
                   />
                 </Col>
                 <Col md={4}>
-                  <Input
-                    name='pai'
-                    className='form-control'
-                    placeholder='Nome completo do Pai'
-                    title='Pai'
-                  />
-                </Col>
-                <Col md={2}>
-                  <Input
-                    name='fonePai'
-                    className='form-control'
-                    placeholder='Telefone do pai'
-                    title='Telefone do Pai'
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col md={4}>
-                  <Input
-                    name='responsavel'
-                    className='form-control'
-                    placeholder='Responsavel'
-                    title='Responsável'
-                  />
-                </Col>
-                <Col md={3}>
-                  <Input
-                    name='dataNasc'
-                    type='date'
-                    className='form-control'
-                    placeholder='Data de Nascimento'
-                    title='Data de Nascimento'
-                  />
-                </Col>
-                <Col md={2}>
-                  <Select
-                    name='sexo'
-                    options={optionsSexo}
-                    className='form-control'
-                    title='Sexo'
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col md={3}>
+                  <Label>E-mail</Label>
                   <Input
                     name='email'
                     type='email'
                     className='form-control'
                     placeholder='E-mail'
                     title='E-mail'
+                    onChange={this.onChange}
                   />
                 </Col>
-                <Col md={4}>
+              </Row>
+              <Row>
+                <Col md={7}>
+                  <Label>Endereço</Label>
                   <Input
                     name='endereco'
                     className='form-control'
                     placeholder='Endereço'
                     title='Endereço'
+                    onChange={this.onChange}
                   />
                 </Col>
                 <Col md={3}>
+                  <Label>Cidade</Label>
                   <Input
                     name='cidade'
                     className='form-control'
                     placeholder='Cidade'
                     title='Cidade'
+                    onChange={this.onChange}
                   />
                 </Col>
                 <Col md={2}>
+                  <Label>UF</Label>
                   <Select
                     name='uf'
                     options={optionsUf}
                     className='form-control'
                     title='UF'
+                    onChange={this.onChange}
                   />
                 </Col>
               </Row>
-              <Row>
-                <Col md={12}>
-                  <Textarea
-                    name='obs'
-                    className='form-control'
-                    placeholder='Observações'
-                    title='Obs'
-                  />
-                </Col>
-              </Row>
-              <Row>
-                <Col md={6}>
-                  <button type='submit' className='btn btn-success'>
-                    Gravar
-                  </button>
-                </Col>
-                <Col md={6}>
-                  <button className='btn btn-danger' onClick={this.onCancel}>
-                    Cancelar
-                  </button>
-                </Col>
-              </Row>
+              {this.props.showButtons && (
+                <Fragment>
+                  <Row>
+                    <Col md={6}>
+                      <button type='submit' className='btn btn-success'>
+                        Gravar
+                      </button>
+                    </Col>
+                    <Col md={6}>
+                      <button
+                        className='btn btn-danger'
+                        onClick={this.onCancel}
+                      >
+                        Cancelar
+                      </button>
+                    </Col>
+                  </Row>
+                </Fragment>
+              )}
             </Form>
           </div>
         </Fragment>
@@ -244,4 +187,4 @@ class FormAlunos extends Component {
   }
 }
 
-export default FormAlunos;
+export default EscolaContatoForm;
