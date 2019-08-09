@@ -15,8 +15,6 @@ const P = style.p`
 
 export default class Home extends Component {
   state = {
-    //usuarioLogado: localStorage.getItem('user') || '',
-    //idUsuarioLogado: localStorage.getItem('userId') || '',
     aluno: {},
     avisos: [],
     avisoAtual: '',
@@ -25,12 +23,15 @@ export default class Home extends Component {
   };
 
   carregaAluno = () => {
-    fetch(`http://escj/listar/alunos/`)
+    fetch(`http://api/listar/alunos/`)
       .then(response => response.json())
       .then(responseJson => {
+        console.log(responseJson);
+        console.group(localStorage.getItem('userId'));
         const aluno = responseJson.filter(
-          aluno => aluno.id === localStorage.getItem('userId')
+          alunoAtual => alunoAtual.id === localStorage.getItem('userId')
         )[0];
+        console.log(aluno);
         this.setState({ aluno });
         this.carregaAvisos(aluno.id);
         this.carregaFaltas(aluno.id, aluno.idTurma);

@@ -11,7 +11,7 @@ export default class Faltas extends Component {
 
   carregaFaltas() {
     this.state.idUsuarioLogado &&
-      fetch(`http://escj/listar/faltas/${this.state.idUsuarioLogado}`)
+      fetch(`http://api/listar/faltas/${this.state.idUsuarioLogado}`)
         .then(response => response.json())
         .then(responseJson => {
           this.setState({

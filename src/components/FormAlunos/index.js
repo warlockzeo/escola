@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Button, Alert, Row, Col, Spinner } from 'reactstrap';
-import { Form, Input, Select, Textarea } from '@rocketseat/unform';
+import { Form, Input, Select } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
 const schema = Yup.object().shape({
@@ -86,7 +86,7 @@ class FormAlunos extends Component {
             <Form
               schema={schema}
               onSubmit={this.props.onSubmit}
-              initialData={this.props.dados}
+              initialData={this.props.data}
             >
               <Row>
                 <Col md={12}>
@@ -198,7 +198,8 @@ class FormAlunos extends Component {
               </Row>
               <Row>
                 <Col md={12}>
-                  <Textarea
+                  <Input
+                    multiline
                     name='obs'
                     className='form-control'
                     placeholder='Observações'

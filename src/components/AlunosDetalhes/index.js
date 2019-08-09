@@ -16,11 +16,11 @@ class AlunosDetalhes extends Component {
   };
 
   handleEdit = () => {
-    this.props.editar(this.props.dados);
+    this.props.editar(this.props.data);
   };
 
   handlePassword = () => {
-    this.props.password(this.props.dados.id);
+    this.props.password(this.props.data.id);
   };
 
   render() {
@@ -43,25 +43,25 @@ class AlunosDetalhes extends Component {
             <Row className='alunosDetalhes__linhaDados'>
               <Col md={12}>
                 <span className='legenda__dados'>Nome:</span>
-                {this.props.dados.nome}
+                {this.props.data.nome}
               </Col>
             </Row>
             <Row className='alunosDetalhes__linhaDados'>
               <Col md={3}>
                 <span className='legenda__dados'>Mãe:</span>
-                {this.props.dados.mae}
+                {this.props.data.mae}
               </Col>
               <Col md={3}>
                 <span className='legenda__dados'>Fone Mãe:</span>
-                {this.props.dados.foneMae}
+                {this.props.data.foneMae}
               </Col>
               <Col md={3}>
                 <span className='legenda__dados'>Pai:</span>
-                {this.props.dados.pai}
+                {this.props.data.pai}
               </Col>
               <Col md={3}>
                 <span className='legenda__dados'>Fone Pai:</span>
-                {this.props.dados.fonePai}
+                {this.props.data.fonePai}
               </Col>
             </Row>
             <span className='btnToggle' onClick={this.toggle}>
@@ -73,55 +73,49 @@ class AlunosDetalhes extends Component {
             <Row className='alunosDetalhes__linhaDados'>
               <Col md={4}>
                 <span className='legenda__dados'>Responsável:</span>
-                {this.props.dados.responsavel}
+                {this.props.data.responsavel}
               </Col>
               <Col md={4}>
                 <span className='legenda__dados'>Data de Nascimento:</span>
-                {moment(this.props.dados.dataNasc).format('DD/MM/YYYY')}
+                {moment(this.props.data.dataNasc).format('DD/MM/YYYY')}
               </Col>
               <Col md={4}>
                 <span className='legenda__dados'>Sexo:</span>
-                {this.props.dados.sexo}
+                {this.props.data.sexo}
               </Col>
             </Row>
             <Row className='alunosDetalhes__linhaDados'>
               <Col md={2}>
                 <span className='legenda__dados'>E-mail:</span>
-                {this.props.dados.email}
+                {this.props.data.email}
               </Col>
               <Col md={4}>
                 <span className='legenda__dados'>Endereço:</span>
-                {this.props.dados.endereco}
+                {this.props.data.endereco}
               </Col>
               <Col md={4}>
                 <span className='legenda__dados'>Cidade:</span>
-                {this.props.dados.cidade}
+                {this.props.data.cidade}
               </Col>
               <Col md={2}>
                 <span className='legenda__dados'>UF:</span>
-                {this.props.dados.uf}
+                {this.props.data.uf}
               </Col>
             </Row>
             <Row className='alunosDetalhes__linhaDados'>
               <Col md={12}>
                 <span className='legenda__dados'>Observação:</span>
-                {this.props.dados.obs}
+                {this.props.data.obs}
               </Col>
             </Row>
           </Collapse>
         </Card>
 
         <Row>
-          <Faltas
-            aluno={this.props.dados.id}
-            turma={this.props.dados.idTurma}
-          />
+          <Faltas aluno={this.props.data.id} turma={this.props.data.idTurma} />
         </Row>
         <Row>
-          <Historico
-            aluno={this.props.dados.id}
-            tuma={this.props.dados.turma}
-          />
+          <Historico aluno={this.props.data.id} tuma={this.props.data.turma} />
         </Row>
       </Col>
     );

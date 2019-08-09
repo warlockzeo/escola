@@ -24,7 +24,7 @@ const Abas = style.div`
 
 class Escola extends Component {
   state = {
-    activeTab: '1',
+    activeTab: '',
     showButtons: false,
     escola: {}
   };
@@ -39,7 +39,7 @@ class Escola extends Component {
   }
 
   loadEscola = () => {
-    fetch('http://api/listar/escola')
+    fetch('http://api/escola')
       .then(response => response.json())
       .then(responseJson => {
         this.setState({ escola: responseJson, showButtons: false });
@@ -47,19 +47,16 @@ class Escola extends Component {
   };
 
   handleSubmit = data => {
-    const url = this.state.escola.id
-      ? 'http://api/atualizar/escola'
-      : 'http://api/gravar/escola';
-
     this.setState({ show: 'wait' });
 
-    fetch(`${url}`, {
-      method: 'POST',
+    fetch(`http://api/escola/${this.state.escola.id}`, {
+      method: 'PUT',
       body: JSON.stringify({
-        ...data
+        ...data,
+        id: this.state.escola.id
       })
     })
-      .then(response => response.json())
+      .then(response => response)
       .then(responseJson => {
         if (responseJson.resp !== 'erro') {
           this.setState({
@@ -73,7 +70,8 @@ class Escola extends Component {
             errorMessage: responseJson.resp
           });
         }
-      });
+      })
+      .catch(err => console.error(`Caught error:  ${err}`));
   };
 
   handleCancel = () => {
@@ -85,7 +83,7 @@ class Escola extends Component {
     this.setState({ showButtons: true });
   };
 
-  componentDidMount() {
+  componentWillMount() {
     this.loadEscola();
   }
 
@@ -154,52 +152,63 @@ class Escola extends Component {
               <TabPane tabId='1'>
                 <Row>
                   <Col sm='12'>
-                    <EscolaContatoForm
-                      onSubmit={this.handleSubmit}
-                      onCancel={this.handleCancel}
-                      onChange={this.onChangeFields}
-                      showButtons={this.state.showButtons}
-                      errorMessage={this.state.errorMessage}
-                    />
+                    {this.state.activeTab === '1' && (
+                      <EscolaContatoForm
+                        data={this.state.escola}
+                        onSubmit={this.handleSubmit}
+                        onCancel={this.handleCancel}
+                        onChange={this.onChangeFields}
+                        showButtons={this.state.showButtons}
+                        errorMessage={this.state.errorMessage}
+                      />
+                    )}
                   </Col>
                 </Row>
               </TabPane>
               <TabPane tabId='2'>
                 <Row>
                   <Col sm='12'>
-                    <EscolaSobreForm
-                      onSubmit={this.handleSubmit}
-                      onCancel={this.handleCancel}
-                      onChange={this.onChangeFields}
-                      showButtons={this.state.showButtons}
-                      errorMessage={this.state.errorMessage}
-                    />
+                    {this.state.activeTab === '2' && (
+                      <EscolaSobreForm
+                        data={this.state.escola}
+                        onSubmit={this.handleSubmit}
+                        onCancel={this.handleCancel}
+                        onChange={this.onChangeFields}
+                        showButtons={this.state.showButtons}
+                        errorMessage={this.state.errorMessage}
+                      />
+                    )}
                   </Col>
                 </Row>
               </TabPane>
               <TabPane tabId='3'>
                 <Row>
                   <Col sm='12'>
-                    <EscolaEnsinoForm
-                      onSubmit={this.handleSubmit}
-                      onCancel={this.handleCancel}
-                      onChange={this.onChangeFields}
-                      showButtons={this.state.showButtons}
-                      errorMessage={this.state.errorMessage}
-                    />
+                    {this.state.activeTab === '3' && (
+                      <EscolaEnsinoForm
+                        data={this.state.escola}
+                        onSubmit={this.handleSubmit}
+                        onCancel={this.handleCancel}
+                        onChange={this.onChangeFields}
+                        showButtons={this.state.showButtons}
+                        errorMessage={this.state.errorMessage}
+                      />
+                    )}
                   </Col>
                 </Row>
               </TabPane>
               <TabPane tabId='4'>
                 <Row>
                   <Col sm='12'>
-                    <EscolaCircularesForm
-                      onSubmit={this.handleSubmit}
-                      onCancel={this.handleCancel}
-                      onChange={this.onChangeFields}
-                      showButtons={this.state.showButtons}
-                      errorMessage={this.state.errorMessage}
-                    />
+                    {this.state.activeTab === '4' && (
+                      <EscolaCircularesForm
+                        onSubmit={this.handleSubmit}
+                        onCancel={this.handleCancel}
+                        onChange={this.onChangeFields}
+                        showButtons={this.state.showButtons}
+                        errorMessage={this.state.errorMessage}
+                      />
+                    )}
                   </Col>
                 </Row>
               </TabPane>

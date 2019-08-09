@@ -18,7 +18,7 @@ export default class Notas extends Component {
 
   carregaNotas = () => {
     this.state.idUsuarioLogado &&
-      fetch(`http://escj/listar/historicos/${this.state.idUsuarioLogado}`)
+      fetch(`http://api/listar/historicos/${this.state.idUsuarioLogado}`)
         .then(response => response.json())
         .then(responseJson => {
           this.setState({

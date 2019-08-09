@@ -1,10 +1,10 @@
 import React, { Component, Fragment } from 'react';
 import { Button, Alert, Row, Col, Spinner } from 'reactstrap';
-import { Form, Textarea } from '@rocketseat/unform';
+import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
 const schema = Yup.object().shape({
-  sobre: Yup.string().required('Este campo é obrigatório')
+  sobre: Yup.string()
 });
 
 class EscolaSobreForm extends Component {
@@ -42,12 +42,13 @@ class EscolaSobreForm extends Component {
             <h2>Sobre a Escola</h2>
             <Form
               schema={schema}
-              onSubmit={this.props.onSubmit}
-              initialData={this.props.dados}
+              onSubmit={this.onSubmit}
+              initialData={this.props.data}
             >
               <Row>
                 <Col md={12}>
-                  <Textarea
+                  <Input
+                    multiline
                     name='sobre'
                     className='form-control'
                     placeholder='Seu texto sobre a escola'

@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Button, Alert, Row, Col, Spinner } from 'reactstrap';
-import { Form, Textarea } from '@rocketseat/unform';
+import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 import style from 'styled-components';
 
@@ -37,6 +37,7 @@ class EscolaEnsinoForm extends Component {
   };
 
   componentWillMount() {
+    console.log(this.props.data);
     this.props.errorMessage &&
       this.setState({
         formMessage: this.props.errorMessage,
@@ -53,12 +54,13 @@ class EscolaEnsinoForm extends Component {
             <Form
               schema={schema}
               onSubmit={this.props.onSubmit}
-              initialData={this.props.dados}
+              initialData={this.props.data}
             >
               <Row>
                 <Col md={12}>
                   <Label>Educação Infantil</Label>
-                  <Textarea
+                  <Input
+                    multiline
                     name='infantil'
                     className='form-control'
                     placeholder='Educação Infantil'
@@ -70,7 +72,8 @@ class EscolaEnsinoForm extends Component {
               <Row>
                 <Col md={12}>
                   <Label>Fundamental I</Label>
-                  <Textarea
+                  <Input
+                    multiline
                     name='fundamental1'
                     className='form-control'
                     placeholder='Fundamental I'
@@ -82,7 +85,8 @@ class EscolaEnsinoForm extends Component {
               <Row>
                 <Col md={12}>
                   <Label>Fundamental II</Label>
-                  <Textarea
+                  <Input
+                    multiline
                     name='fundamental2'
                     className='form-control'
                     placeholder='Fundamental II'

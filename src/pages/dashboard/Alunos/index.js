@@ -221,7 +221,7 @@ class Alunos extends Component {
           </div>
         ) : this.state.show === 'detalhes' ? (
           <AlunosDetalhes
-            dados={this.state.alunoAtual}
+            data={this.state.alunoAtual}
             cancel={this.cancelDetalhes}
             editar={this.onEditClick}
             password={this.onPasswordClick}
@@ -234,7 +234,7 @@ class Alunos extends Component {
           />
         ) : (
           <FormAlunos
-            dados={this.state.alunoAtual}
+            data={this.state.alunoAtual}
             onSubmit={this.handleSubmit}
             onCancel={this.handleCancel}
             errorMessage={this.state.errorMessage}

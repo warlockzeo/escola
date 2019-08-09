@@ -12,6 +12,7 @@ const Label = style.label`
 `;
 
 const schema = Yup.object().shape({
+  nomeEscola: Yup.string().required('Este campo é obrigatório'),
   telefones: Yup.string().required('Este campo é obrigatório'),
   email: Yup.string('Este não é um email válido'),
   endereco: Yup.string().required('Este campo é obrigatório'),
@@ -56,6 +57,7 @@ class EscolaContatoForm extends Component {
   };
 
   onSubmit = async data => {
+    console.log(data);
     await this.props.onSubmit(data);
   };
 
@@ -77,6 +79,7 @@ class EscolaContatoForm extends Component {
   }
 
   render() {
+    console.log(this.props.data);
     if (this.state.formStatus === 'fill') {
       return (
         <Fragment>
@@ -84,9 +87,21 @@ class EscolaContatoForm extends Component {
             <h2>Contatos</h2>
             <Form
               schema={schema}
-              onSubmit={this.props.onSubmit}
-              initialData={this.props.dados}
+              onSubmit={this.onSubmit}
+              initialData={this.props.data}
             >
+              <Row>
+                <Col md={12}>
+                  <Label>Nome da Escola</Label>
+                  <Input
+                    name='nomeEscola'
+                    className='form-control'
+                    placeholder='Nome da Escola'
+                    title='Nome da Escola'
+                    onChange={this.onChange}
+                  />
+                </Col>
+              </Row>
               <Row>
                 <Col md={8}>
                   <Label>Telefones</Label>
@@ -135,10 +150,10 @@ class EscolaContatoForm extends Component {
                   <Label>UF</Label>
                   <Select
                     name='uf'
-                    options={optionsUf}
                     className='form-control'
                     title='UF'
                     onChange={this.onChange}
+                    options={optionsUf}
                   />
                 </Col>
               </Row>
