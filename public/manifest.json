@@ -1,15 +1,22 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "dir": "ltr",
+  "lang": "id",
+  "name": "Educandário Sagrado Coração de Jesus",
+  "scope": "/",
+  "display": "standalone",
+  "start_url": "www.sagradocoracaovertentes.com.br",
+  "short_name": "Sagrado Coração",
+  "theme_color": "transparent",
+  "description": "Educandário Sagrado Coração de Jesus. Os pais criam, nós educamos!",
+  "orientation": "any",
+  "background_color": "#ff8000",
+  "related_applications": [],
+  "prefer_related_applications": false,
+  "generated": "true",
   "icons": [
     {
-      "src": "favicon.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "https://www.sagradocoracaovertentes.com.br/assets/images/144x144.png",
+      "sizes": "144x144"
     }
-  ],
-  "start_url": ".",
-  "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  ]
 }

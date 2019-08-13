@@ -26,7 +26,8 @@ class Escola extends Component {
   state = {
     activeTab: '',
     showButtons: false,
-    escola: {}
+    escola: {},
+    files: []
   };
 
   toggle(tab) {
@@ -43,6 +44,14 @@ class Escola extends Component {
       .then(response => response.json())
       .then(responseJson => {
         this.setState({ escola: responseJson, showButtons: false });
+      });
+  };
+
+  loadFiles = () => {
+    fetch('http://api/files')
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({ files: responseJson, showButtons: false });
       });
   };
 
@@ -64,6 +73,32 @@ class Escola extends Component {
             show: this.state.showAnterior
           });
           this.loadEscola();
+        } else {
+          this.setState({
+            show: 'edit',
+            errorMessage: responseJson.resp
+          });
+        }
+      })
+      .catch(err => console.error(`Caught error:  ${err}`));
+  };
+
+  handleSubmitUploadFiles = data => {
+    this.setState({ show: 'wait' });
+
+    fetch(`http://api/files`, {
+      method: 'POST',
+      body: JSON.stringify({
+        ...data
+      })
+    })
+      .then(response => response)
+      .then(responseJson => {
+        if (responseJson.resp !== 'erro') {
+          this.setState({
+            show: this.state.showAnterior
+          });
+          this.loadFiles();
         } else {
           this.setState({
             show: 'edit',
@@ -202,7 +237,7 @@ class Escola extends Component {
                   <Col sm='12'>
                     {this.state.activeTab === '4' && (
                       <EscolaCircularesForm
-                        onSubmit={this.handleSubmit}
+                        onSubmit={this.handleSubmitUploadFiles}
                         onCancel={this.handleCancel}
                         onChange={this.onChangeFields}
                         showButtons={this.state.showButtons}

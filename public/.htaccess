@@ -4,9 +4,14 @@
 
 <IfModule mod_rewrite.c>
 	RewriteEngine on
+	RewriteCond %{http_host} ^sagradocoracaovertentes.com.br [nc]
+	RewriteRule ^(.*)$ https://www.sagradocoracaovertentes.com.br/$1 [r=301,nc]
 
 #Escola
 	RewriteRule ^escola/?(.*)$ /api/ClassEscola.php?id=$1 [NC]
+
+#Files
+	RewriteRule ^files/?(.*)$ /api/ClassFiles.php?id=$1 [NC]
 
 #Contato/Email
 	RewriteRule ^enviarEmail/?$ /api/index.php?opcao=enviarEmail&tabela= [NC]

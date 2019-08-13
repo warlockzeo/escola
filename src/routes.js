@@ -19,10 +19,10 @@ import Professores from './pages/dashboard/Professores';
 import Avisos from './pages/dashboard/Avisos';
 import CircularesProvas from './pages/CircularesProvas';
 
-import AlunoHome from './pages/aluno/home';
+import AlunoHome from './pages/aluno/Home';
 import AlunoCalendario from './pages/aluno/calendario';
-import AlunoFaltas from './pages/aluno/faltas';
-import AlunoNotas from './pages/aluno/notas';
+import AlunoFaltas from './pages/aluno/Faltas';
+import AlunoNotas from './pages/aluno/Notas';
 import AlunoProvas from './pages/aluno/provas';
 
 const Routes = () => (

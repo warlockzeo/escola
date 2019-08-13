@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import { Button, Alert, Row, Col, Spinner } from 'reactstrap';
-import { Form, Input, Select } from '@rocketseat/unform';
 import * as Yup from 'yup';
 import style from 'styled-components';
 
@@ -14,18 +13,8 @@ const Label = style.label`
 `;
 
 const schema = Yup.object().shape({
-  telefones: Yup.string().required('Este campo é obrigatório'),
-  email: Yup.string('Este não é um email válido'),
-  endereco: Yup.string().required('Este campo é obrigatório'),
-  cidade: Yup.string().required('Este campo é obrigatório'),
-  uf: Yup.string().required('Este campo é obrigatório')
+  destinatario: Yup.string().required('Este campo é obrigatório')
 });
-
-const optionDestinatario = [
-  { id: 'Educação Infantil', title: 'Educação Infantil' },
-  { id: 'Fundamental I', title: 'Fundamental I' },
-  { id: 'Fundamental II', title: 'Fundamental II' }
-];
 
 class EscolaCircularesForm extends Component {
   state = {
@@ -33,16 +22,47 @@ class EscolaCircularesForm extends Component {
     formMessage: ''
   };
 
-  onSubmit = async data => {
-    await this.props.onSubmit(data);
+  uploadFile = file => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    fetch('http://api/files', {
+      method: 'POST',
+      body: formData
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson.resp !== 'erro') {
+          console.log(responseJson.resp);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
+
+  onSubmit = e => {
+    e.preventDefault();
+    this.uploadFile(this.state.targetFile);
+  };
+
+  //  onSubmit = async data => {
+  // await this.props.onSubmit(data);
+  //};
 
   onCancel = e => {
     e.preventDefault();
     this.props.onCancel();
   };
 
-  onChange = () => {
+  onChange = event => {
+    const reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]);
+    this.setState({
+      file: event.target.value,
+      targetFile: event.target.files[0],
+      reader: reader
+    });
     this.props.onChange();
   };
 
@@ -60,16 +80,11 @@ class EscolaCircularesForm extends Component {
         <Fragment>
           <div className='container'>
             <h2>Circulares / Provas</h2>
-            <Form
-              schema={schema}
-              onSubmit={this.props.onSubmit}
-              initialData={this.props.dados}
-              enctype='multipart/form-data'
-            >
+            <form schema={schema} onSubmit={this.onSubmit}>
               <Row>
                 <Col md={8}>
                   <Label>Arquivo PDF</Label>
-                  <Input
+                  <input
                     name='file'
                     className='form-control inputFile'
                     title='Arquivos a gravar'
@@ -80,13 +95,16 @@ class EscolaCircularesForm extends Component {
                 </Col>
                 <Col md={4}>
                   <Label>Destinatário</Label>
-                  <Select
+                  <select
                     name='destinatario'
-                    options={optionDestinatario}
                     className='form-control'
                     title='Destinatário'
                     onChange={this.onChange}
-                  />
+                  >
+                    <option value='Educação Infantil'>Educação Infantil</option>
+                    <option value='Fundamental I'>Fundamental I</option>
+                    <option value='Fundamental II'>Fundamental II</option>
+                  </select>
                 </Col>
               </Row>
               {this.props.showButtons && (
@@ -108,7 +126,7 @@ class EscolaCircularesForm extends Component {
                   </Row>
                 </Fragment>
               )}
-            </Form>
+            </form>
           </div>
         </Fragment>
       );
