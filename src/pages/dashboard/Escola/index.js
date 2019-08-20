@@ -25,6 +25,7 @@ const Abas = style.div`
 class Escola extends Component {
   state = {
     activeTab: '',
+    show: '',
     showButtons: false,
     escola: {},
     files: []
@@ -34,7 +35,8 @@ class Escola extends Component {
     if (this.state.activeTab !== tab) {
       this.setState({
         activeTab: tab,
-        showButtons: false
+        showButtons: false,
+        show: ''
       });
     }
   }
@@ -44,15 +46,53 @@ class Escola extends Component {
       .then(response => response.json())
       .then(responseJson => {
         this.setState({ escola: responseJson, showButtons: false });
-      });
+      })
+      .catch(error => console.error(`Caught error:  ${error}`));
   };
 
   loadFiles = () => {
     fetch('http://api/files')
       .then(response => response.json())
       .then(responseJson => {
-        this.setState({ files: responseJson, showButtons: false });
-      });
+        this.setState({
+          files: responseJson,
+          showButtons: false,
+          show: 'table'
+        });
+      })
+      .catch(error => console.error(`Caught error:  ${error}`));
+  };
+
+  uploadFile = file => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    fetch('http://api/files', {
+      method: 'POST',
+      body: formData
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson.resp !== 'error') {
+          console.log(responseJson.resp);
+        }
+        return true;
+      })
+      .catch(error => console.error(`Caught error:  ${error}`));
+  };
+
+  saveFileDb = data => {
+    fetch('http://api/files', {
+      method: 'POST',
+      body: JSON.stringify(data)
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson.resp !== 'error') {
+          console.log(responseJson.resp);
+        }
+      })
+      .catch(error => console.error(`Caught error:  ${error}`));
   };
 
   handleSubmit = data => {
@@ -67,46 +107,28 @@ class Escola extends Component {
     })
       .then(response => response)
       .then(responseJson => {
-        if (responseJson.resp !== 'erro') {
+        if (responseJson.resp !== 'error') {
           this.setState({
             escola: data,
             show: this.state.showAnterior
           });
           this.loadEscola();
-        } else {
-          this.setState({
-            show: 'edit',
-            errorMessage: responseJson.resp
-          });
         }
       })
-      .catch(err => console.error(`Caught error:  ${err}`));
+      .catch(error => console.error(`Caught error:  ${error}`));
   };
 
   handleSubmitUploadFiles = data => {
     this.setState({ show: 'wait' });
+    const { arquivo, nomeArquivo, destinatario } = data;
 
-    fetch(`http://api/files`, {
-      method: 'POST',
-      body: JSON.stringify({
-        ...data
-      })
-    })
-      .then(response => response)
-      .then(responseJson => {
-        if (responseJson.resp !== 'erro') {
-          this.setState({
-            show: this.state.showAnterior
-          });
-          this.loadFiles();
-        } else {
-          this.setState({
-            show: 'edit',
-            errorMessage: responseJson.resp
-          });
-        }
-      })
-      .catch(err => console.error(`Caught error:  ${err}`));
+    this.uploadFile(arquivo);
+    this.saveFileDb({
+      nomeArquivo: nomeArquivo,
+      destinatario: destinatario
+    });
+    this.setState({ show: this.state.showAnterior });
+    this.loadFiles();
   };
 
   handleCancel = () => {
@@ -114,12 +136,26 @@ class Escola extends Component {
     this.loadEscola();
   };
 
-  onChangeFields = () => {
+  onChangeFieldsShowButtons = () => {
     this.setState({ showButtons: true });
+  };
+
+  handleDeleteFiles = data => {
+    this.setState({ show: 'wait' });
+    fetch(`http://api/files/${data}`, {
+      method: 'DELETE',
+      body: JSON.stringify({ id: data })
+    })
+      .then(response => response)
+      .then(() => {
+        this.loadFiles();
+      })
+      .catch(error => console.error(`Caught error:  ${error}`));
   };
 
   componentWillMount() {
     this.loadEscola();
+    this.loadFiles();
   }
 
   render() {
@@ -192,7 +228,7 @@ class Escola extends Component {
                         data={this.state.escola}
                         onSubmit={this.handleSubmit}
                         onCancel={this.handleCancel}
-                        onChange={this.onChangeFields}
+                        onChange={this.onChangeFieldsShowButtons}
                         showButtons={this.state.showButtons}
                         errorMessage={this.state.errorMessage}
                       />
@@ -208,7 +244,7 @@ class Escola extends Component {
                         data={this.state.escola}
                         onSubmit={this.handleSubmit}
                         onCancel={this.handleCancel}
-                        onChange={this.onChangeFields}
+                        onChange={this.onChangeFieldsShowButtons}
                         showButtons={this.state.showButtons}
                         errorMessage={this.state.errorMessage}
                       />
@@ -224,7 +260,7 @@ class Escola extends Component {
                         data={this.state.escola}
                         onSubmit={this.handleSubmit}
                         onCancel={this.handleCancel}
-                        onChange={this.onChangeFields}
+                        onChange={this.onChangeFieldsShowButtons}
                         showButtons={this.state.showButtons}
                         errorMessage={this.state.errorMessage}
                       />
@@ -238,10 +274,13 @@ class Escola extends Component {
                     {this.state.activeTab === '4' && (
                       <EscolaCircularesForm
                         onSubmit={this.handleSubmitUploadFiles}
+                        onDelete={this.handleDeleteFiles}
                         onCancel={this.handleCancel}
-                        onChange={this.onChangeFields}
+                        onChange={this.onChangeFieldsShowButtons}
                         showButtons={this.state.showButtons}
                         errorMessage={this.state.errorMessage}
+                        files={this.state.files}
+                        show={this.state.show}
                       />
                     )}
                   </Col>

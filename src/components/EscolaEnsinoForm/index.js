@@ -37,7 +37,6 @@ class EscolaEnsinoForm extends Component {
   };
 
   componentWillMount() {
-    console.log(this.props.data);
     this.props.errorMessage &&
       this.setState({
         formMessage: this.props.errorMessage,

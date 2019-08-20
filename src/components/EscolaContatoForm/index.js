@@ -57,7 +57,6 @@ class EscolaContatoForm extends Component {
   };
 
   onSubmit = async data => {
-    console.log(data);
     await this.props.onSubmit(data);
   };
 
@@ -79,7 +78,6 @@ class EscolaContatoForm extends Component {
   }
 
   render() {
-    console.log(this.props.data);
     if (this.state.formStatus === 'fill') {
       return (
         <Fragment>
