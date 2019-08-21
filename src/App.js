@@ -12,7 +12,8 @@ class App extends Component {
     isLogged: localStorage.getItem('user') ? true : false,
     nomeUsuarioLogado: localStorage.getItem('user') || '',
     idUsuarioLogado: localStorage.getItem('userId') || '',
-    nivelAcessoUsuarioLogado: localStorage.getItem('userAccessLevel') || ''
+    nivelAcessoUsuarioLogado: localStorage.getItem('userAccessLevel') || '',
+    escola: {}
   };
 
   logout = () => {
@@ -22,13 +23,26 @@ class App extends Component {
     window.location.href = '/';
   };
 
+  loadEscola = () => {
+    fetch('http://api/escola')
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({ escola: responseJson });
+      })
+      .catch(error => console.error(`Caught error:  ${error}`));
+  };
+
+  componentWillMount() {
+    this.loadEscola();
+  }
+
   render() {
     return (
       <BrowserRouter>
         <div className='App'>
           <Header {...this.state} logout={this.logout} />
-          <Routes />
-          <Footer />
+          <Routes escola={this.state.escola} />
+          <Footer escola={this.state.escola} />
         </div>
       </BrowserRouter>
     );

@@ -38,6 +38,7 @@ footer {
   width: 100%;
   background-color: #ffffff;
   box-shadow: 0 0 10px #000000;
+  margin-top: 20px;
   /*z-index: 999;*/
 }
 
@@ -157,9 +158,10 @@ h2 {
 @media only screen and (min-width: 361px) {
   .login__card {
     margin: auto;
-    width: 400px;
+    margin-top: 30px;
+    width: 600px;
     max-width: 95%;
-    height: 200px;
+    height: auto;
     padding: 10px;
   }
 }

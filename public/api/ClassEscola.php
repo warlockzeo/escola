@@ -106,7 +106,7 @@
                 $fundamental1 = isset($obj['fundamental1'])? "fundamental1='".$obj['fundamental1']."'".$virgula:'';
                 $fundamental2 = isset($obj['fundamental2'])? "fundamental2='".$obj['fundamental2']."'":'';
 
-                $sql = "UPDATE escola SET $nomeEscola $telefones $email $cidade $uf $sobre $infantil $fundamental1 $fundamental2 WHERE id = $id";
+                $sql = "UPDATE escola SET $nomeEscola $telefones $email $endereco $cidade $uf $sobre $infantil $fundamental1 $fundamental2 WHERE id = $id";
                 $BFetch=$this->conectaDB()->prepare($sql);
                 $BFetch->execute();
             }

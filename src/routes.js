@@ -25,16 +25,16 @@ import AlunoFaltas from './pages/aluno/Faltas';
 import AlunoNotas from './pages/aluno/Notas';
 import AlunoProvas from './pages/aluno/provas';
 
-const Routes = () => (
+const Routes = props => (
   <BrowserRouter>
     <Switch>
       <Route exact path='/' component={Home} />
-      <Route path='/sobrenos' component={SobreNos} />
+      <Route path='/sobrenos' render={() => <SobreNos {...props} />} />
       <Route path='/calendario' component={Calendario} />
-      <Route path='/contato' component={Contato} />
-      <Route path='/eventos' component={Eventos} />
+      <Route path='/contato' render={() => <Contato {...props} />} />
+      <Route path='/ensino' render={() => <Ensino {...props} />} />
       <Route path='/circularesprovas' component={CircularesProvas} />
-      <Route path='/ensino' component={Ensino} />
+      <Route path='/eventos' component={Eventos} />
       <Route path='/login' component={Login} />
 
       <PrivateRoute exact path='/dashboard' component={Dashboard} />

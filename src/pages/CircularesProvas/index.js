@@ -17,7 +17,8 @@ const Abas = style.div`
 
 class CircularesProvas extends Component {
   state = {
-    activeTab: '1'
+    activeTab: '1',
+    files: []
   };
 
   toggle(tab) {
@@ -26,6 +27,23 @@ class CircularesProvas extends Component {
         activeTab: tab
       });
     }
+  }
+
+  loadFiles = () => {
+    fetch('http://api/files')
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({
+          files: responseJson,
+          showButtons: false,
+          show: 'table'
+        });
+      })
+      .catch(error => console.error(`Caught error:  ${error}`));
+  };
+
+  componentWillMount() {
+    this.loadFiles();
   }
 
   render() {
@@ -76,6 +94,19 @@ class CircularesProvas extends Component {
               <Row>
                 <Col sm='12'>
                   <h4>Conteúdo Educação Infantil</h4>
+                  {this.state.files
+                    .filter(file => file.destinatario === 'Educação Infantil')
+                    .map(file => (
+                      <a
+                        key={file.id}
+                        href={`/circulares/${file.nomeArquivo}`}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        <br />
+                        {file.nomeArquivo}
+                      </a>
+                    ))}
                 </Col>
               </Row>
             </TabPane>
@@ -83,6 +114,19 @@ class CircularesProvas extends Component {
               <Row>
                 <Col sm='12'>
                   <h4>Conteúdo Fundamental I</h4>
+                  {this.state.files
+                    .filter(file => file.destinatario === 'Fundamental I')
+                    .map(file => (
+                      <a
+                        key={file.id}
+                        href={`/circulares/${file.nomeArquivo}`}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        <br />
+                        {file.nomeArquivo}
+                      </a>
+                    ))}
                 </Col>
               </Row>
             </TabPane>
@@ -90,6 +134,19 @@ class CircularesProvas extends Component {
               <Row>
                 <Col sm='12'>
                   <h4>Conteúdo Fundamental II</h4>
+                  {this.state.files
+                    .filter(file => file.destinatario === 'Fundamental II')
+                    .map(file => (
+                      <a
+                        key={file.id}
+                        href={`/circulares/${file.nomeArquivo}`}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                      >
+                        <br />
+                        {file.nomeArquivo}
+                      </a>
+                    ))}
                 </Col>
               </Row>
             </TabPane>

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Row, Col } from 'reactstrap';
 
-const Footer = () => {
+const Footer = props => {
+  const escola = props.escola;
   return window.location.href.includes('dashboard') ? (
     <footer>2019 © sagradocoracaovertentes.com.br | All Rights Reserved</footer>
   ) : (
@@ -16,7 +17,7 @@ const Footer = () => {
       >
         <Row style={{ width: '100%' }}>
           <Col md={4}>
-            <h3 className='text-left'>(81) 99128-2508</h3>
+            <h3 className='text-left'>{escola.telefones}</h3>
           </Col>
           <Col md={4}>
             <h3 className='text-left'>Institucional</h3>
