@@ -65,6 +65,7 @@ class Escola extends Component {
 
   uploadFile = file => {
     const formData = new FormData();
+
     formData.append('file', file);
 
     fetch('http://api/files', {
