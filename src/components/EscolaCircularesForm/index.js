@@ -57,7 +57,6 @@ class EscolaCircularesForm extends Component {
       destinatario: this.state.destinatario || ''
     };
     if (await schema.isValid(dataToValid)) {
-      this.setState({ showAnterior: '', show: 'table' });
       await this.props.onSubmit({
         arquivo: this.state.targetFile,
         nomeArquivo: this.state.targetFile.name,
