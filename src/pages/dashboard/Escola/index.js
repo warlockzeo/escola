@@ -63,25 +63,6 @@ class Escola extends Component {
       .catch(error => console.error(`Caught error:  ${error}`));
   };
 
-  uploadFile = file => {
-    const formData = new FormData();
-
-    formData.append('file', file);
-
-    fetch('http://api/files', {
-      method: 'POST',
-      body: formData
-    })
-      .then(response => response.json())
-      .then(responseJson => {
-        if (responseJson.resp !== 'error') {
-          console.log(responseJson.resp);
-        }
-        return true;
-      })
-      .catch(error => console.error(`Caught error:  ${error}`));
-  };
-
   saveFileDb = data => {
     fetch('http://api/files', {
       method: 'POST',
@@ -92,6 +73,34 @@ class Escola extends Component {
         if (responseJson.resp !== 'error') {
           console.log(responseJson.resp);
         }
+      })
+      .catch(error => console.error(`Caught error:  ${error}`));
+  };
+
+  uploadFile = data => {
+    const { arquivo, nomeArquivo, destinatario } = data;
+
+    const formData = new FormData();
+    formData.append('file', arquivo);
+
+    fetch('http://api/files', {
+      method: 'POST',
+      body: formData
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson.resp !== 'error') {
+          console.log(responseJson.resp);
+        }
+      })
+      .then(() => {
+        this.saveFileDb({
+          nomeArquivo: nomeArquivo,
+          destinatario: destinatario
+        });
+      })
+      .then(() => {
+        this.loadFiles();
       })
       .catch(error => console.error(`Caught error:  ${error}`));
   };
@@ -121,16 +130,8 @@ class Escola extends Component {
 
   handleSubmitUploadFiles = data => {
     this.setState({ show: 'wait' });
-    const { arquivo, nomeArquivo, destinatario } = data;
 
-    this.uploadFile(arquivo);
-    /*
-    this.saveFileDb({
-      nomeArquivo: nomeArquivo,
-      destinatario: destinatario
-    });
-    */
-    this.loadFiles();
+    this.uploadFile(data);
   };
 
   handleCancel = () => {
