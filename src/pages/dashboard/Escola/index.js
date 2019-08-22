@@ -56,8 +56,8 @@ class Escola extends Component {
       .then(responseJson => {
         this.setState({
           files: responseJson,
-          showButtons: false
-          //show: 'table'
+          showButtons: false,
+          show: ''
         });
       })
       .catch(error => console.error(`Caught error:  ${error}`));
@@ -75,9 +75,8 @@ class Escola extends Component {
       .then(responseJson => {
         if (responseJson.resp !== 'error') {
           console.log(responseJson.resp);
-          this.setState({ show: 'table' });
-          this.loadFiles();
         }
+        return true;
       })
       .catch(error => console.error(`Caught error:  ${error}`));
   };
@@ -124,10 +123,13 @@ class Escola extends Component {
     const { arquivo, nomeArquivo, destinatario } = data;
 
     this.uploadFile(arquivo);
+    /*
     this.saveFileDb({
       nomeArquivo: nomeArquivo,
       destinatario: destinatario
     });
+    */
+    this.loadFiles();
   };
 
   handleCancel = () => {
@@ -136,7 +138,7 @@ class Escola extends Component {
   };
 
   onChangeFieldsShowButtons = () => {
-    this.setState({ showButtons: true });
+    this.setState({ showButtons: true, show: '' });
   };
 
   handleDeleteFiles = data => {

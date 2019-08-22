@@ -96,7 +96,11 @@ class EscolaCircularesForm extends Component {
   onAddClick = () => {
     this.setState({
       show: 'form',
-      fileAtual: {}
+      fileAtual: {},
+      destinatario: '',
+      file: '',
+      reader: {},
+      targetFile: {}
     });
   };
 
@@ -129,9 +133,16 @@ class EscolaCircularesForm extends Component {
   }
 
   render() {
-    if (this.state.show === 'form') {
-      return (
-        <Fragment>
+    return (
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}
+      >
+        {this.state.show === 'form' ? (
           <div className='container'>
             <h2>Circulares / Provas</h2>
             <form schema={schema} onSubmit={this.onSubmit}>
@@ -184,48 +195,43 @@ class EscolaCircularesForm extends Component {
               )}
             </form>
           </div>
-        </Fragment>
-      );
-    } else if (this.state.show === 'table') {
-      return (
-        <Tabela
-          titulo='Circulares e provas para download'
-          campos={campos}
-          dados={this.props.files}
-          add={this.onAddClick}
-          delete={this.onDeleteClick}
-        />
-      );
-    } else if (this.state.show === 'wait') {
-      return (
-        <div className='wrap100vh'>
-          <Spinner color='primary' />
-        </div>
-      );
-    } else if (this.state.show === 'delete') {
-      return (
-        <ConfirmDelete
-          info={`do arquivo ${this.state.fileAtual.nomeArquivo}`}
-          delete={this.handleDelete}
-          cancel={this.cancelDelete}
-        />
-      );
-    } else if (this.state.show === 'send' || this.state.show === 'error') {
-      return (
-        <Alert color={this.state.show === 'send' ? 'success' : 'danger'}>
-          <p>{this.state.formMessage}</p>
-          <Button
-            onClick={() =>
-              this.setState({
-                show: this.state.show === 'send' ? 'table' : 'form'
-              })
-            }
-          >
-            OK
-          </Button>
-        </Alert>
-      );
-    }
+        ) : this.state.show === 'table' ? (
+          <Tabela
+            titulo='Circulares e provas para download'
+            campos={campos}
+            dados={this.props.files}
+            add={this.onAddClick}
+            delete={this.onDeleteClick}
+          />
+        ) : this.state.show === 'wait' ? (
+          <div className='wrap100vh'>
+            Aguarde enquanto o arquivo é enviado!
+            <Spinner color='primary' />
+          </div>
+        ) : this.state.show === 'delete' ? (
+          <ConfirmDelete
+            info={`do arquivo ${this.state.fileAtual.nomeArquivo}`}
+            delete={this.handleDelete}
+            cancel={this.cancelDelete}
+          />
+        ) : (
+          (this.state.show === 'send' || this.state.show === 'error') && (
+            <Alert color={this.state.show === 'send' ? 'success' : 'danger'}>
+              <p>{this.state.formMessage}</p>
+              <Button
+                onClick={() =>
+                  this.setState({
+                    show: this.state.show === 'send' ? 'table' : 'form'
+                  })
+                }
+              >
+                OK
+              </Button>
+            </Alert>
+          )
+        )}
+      </div>
+    );
   }
 }
 
