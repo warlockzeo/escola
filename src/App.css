@@ -166,10 +166,11 @@ h2 {
   }
 }
 
-@media only screen and (max-width: 360px) {
+@media only screen and (max-width: 720px) {
   .login__card {
     margin: 30px auto;
     max-width: 90%;
+    width: 80%;
   }
 }
 /*============================*/

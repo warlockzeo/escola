@@ -106,6 +106,7 @@ class EscolaCircularesForm extends Component {
 
   onDeleteClick = data => {
     this.setState({
+      file: '',
       showAnterior: this.state.show,
       show: 'delete',
       fileAtual: data
@@ -205,7 +206,7 @@ class EscolaCircularesForm extends Component {
           />
         ) : this.state.show === 'wait' ? (
           <div className='wrap100vh'>
-            Aguarde enquanto o arquivo é enviado!
+            {this.state.file && `Aguarde enquanto o arquivo é enviado!`}
             <Spinner color='primary' />
           </div>
         ) : this.state.show === 'delete' ? (

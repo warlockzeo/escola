@@ -74,6 +74,9 @@ class Escola extends Component {
           console.log(responseJson.resp);
         }
       })
+      .then(() => {
+        this.loadFiles();
+      })
       .catch(error => console.error(`Caught error:  ${error}`));
   };
 
@@ -98,9 +101,6 @@ class Escola extends Component {
           nomeArquivo: nomeArquivo,
           destinatario: destinatario
         });
-      })
-      .then(() => {
-        this.loadFiles();
       })
       .catch(error => console.error(`Caught error:  ${error}`));
   };
