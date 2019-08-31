@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
 import { Alert, Row, Col, Card, CardTitle, Spinner } from 'reactstrap';
 import { Form, Input, Select } from '@rocketseat/unform';
 import * as Yup from 'yup';
@@ -90,8 +91,7 @@ class Contato extends Component {
                     <br />
                     Nossa Localização
                   </CardTitle>
-                  {this.props.escola.endereco}, {this.props.escola.cidade} -{' '}
-                  {this.props.escola.uf}
+                  {this.props.endereco}, {this.props.cidade} - {this.props.uf}
                 </Card>
               </Col>
               <Col md={4}>
@@ -105,7 +105,7 @@ class Contato extends Component {
                     <br />
                     Ligue-nos
                   </CardTitle>
-                  {this.props.escola.telefones}
+                  {this.props.telefones}
                 </Card>
               </Col>
               <Col md={4}>
@@ -119,7 +119,7 @@ class Contato extends Component {
                     <br />
                     Escreva-nos por e-mail
                   </CardTitle>
-                  {this.props.escola.email}
+                  {this.props.email}
                 </Card>
               </Col>
             </Row>
@@ -201,4 +201,8 @@ class Contato extends Component {
   }
 }
 
-export default Contato;
+const mapStateToProps = state => ({
+  ...state.escola.data
+});
+
+export default connect(mapStateToProps)(Contato);

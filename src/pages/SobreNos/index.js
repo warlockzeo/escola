@@ -1,9 +1,12 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 const SobreNos = props => {
-  return (
-    <div style={{ width: '40%', textAlign: 'left' }}>{props.escola.sobre}</div>
-  );
+  return <div style={{ width: '40%', textAlign: 'left' }}>{props.sobre}</div>;
 };
 
-export default SobreNos;
+const mapStateToProps = state => ({
+  ...state.escola.data
+});
+
+export default connect(mapStateToProps)(SobreNos);

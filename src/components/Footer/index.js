@@ -1,8 +1,8 @@
 import React from 'react';
 import { Row, Col } from 'reactstrap';
+import { connect } from 'react-redux';
 
 const Footer = props => {
-  const escola = props.escola;
   return window.location.href.includes('dashboard') ? (
     <footer>2019 © sagradocoracaovertentes.com.br | All Rights Reserved</footer>
   ) : (
@@ -17,7 +17,7 @@ const Footer = props => {
       >
         <Row style={{ width: '100%' }}>
           <Col md={4}>
-            <h3 className='text-left'>{escola.telefones}</h3>
+            <h3 className='text-left'>{props.telefones}</h3>
           </Col>
           <Col md={4}>
             <h3 className='text-left'>Institucional</h3>
@@ -47,4 +47,8 @@ const Footer = props => {
   );
 };
 
-export default Footer;
+const mapStateToProps = state => ({
+  ...state.escola.data
+});
+
+export default connect(mapStateToProps)(Footer);
