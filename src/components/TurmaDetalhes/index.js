@@ -4,6 +4,7 @@ import { Row, Col, Spinner } from 'reactstrap';
 
 import FormTurmaAddAluno from '../FormTurmaAddAluno';
 import ConfirmDelete from '../ConfirmDelete';
+import urlBaseApi from '../config';
 
 const gradeAlunos = [
   {
@@ -29,7 +30,7 @@ class TurmaDetalhes extends Component {
   };
 
   loadAlunos = () => {
-    fetch(`http://api/listarAlunosSemMatricula/${this.state.turma.ano}`)
+    fetch(`${urlBaseApi}api/listarAlunosSemMatricula/${this.state.turma.ano}`)
       .then(response => response.json())
       .then(responseJson => {
         const alunosSemMatricula = responseJson.map(aluno => {
@@ -45,7 +46,7 @@ class TurmaDetalhes extends Component {
   };
 
   loadGradeAlunos = () => {
-    fetch(`http://api/gradeAlunos/${this.state.turma.id}`)
+    fetch(`${urlBaseApi}api/gradeAlunos/${this.state.turma.id}`)
       .then(response => response.json())
       .then(responseJson => {
         this.setState({ gradeAlunos: responseJson });
@@ -54,7 +55,7 @@ class TurmaDetalhes extends Component {
 
   handleSubmit = data => {
     this.setState({ show: 'wait' });
-    fetch('http://api/gravar/gradesAlunos', {
+    fetch(`${urlBaseApi}api/gravar/gradesAlunos`, {
       method: 'POST',
       body: JSON.stringify({
         idAluno: data.aluno,
@@ -79,7 +80,7 @@ class TurmaDetalhes extends Component {
 
   handleDeleteAlunos = () => {
     this.setState({ show: 'wait' });
-    fetch(`http://api/apagar/gradesAlunos/${this.state.alunoAtual.id}`)
+    fetch(`${urlBaseApi}api/apagar/gradesAlunos/${this.state.alunoAtual.id}`)
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.resp === 'ok') {

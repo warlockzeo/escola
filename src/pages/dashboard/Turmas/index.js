@@ -9,6 +9,8 @@ import FormTurma from '../../../components/FormTurma';
 import TurmaDetalhes from '../../../components/TurmaDetalhes';
 import ConfirmDelete from '../../../components/ConfirmDelete';
 
+import urlBaseApi from '../../../components/config';
+
 import './styles.css';
 
 const schema = Yup.object().shape({
@@ -53,7 +55,7 @@ class Turmas extends Component {
   };
 
   loadAnos = () => {
-    fetch(`http://api/listarAnos`)
+    fetch(`${urlBaseApi}api/listarAnos`)
       .then(response => response.json())
       .then(responseJson => {
         const anosOptions = responseJson.map(ano => {
@@ -75,7 +77,7 @@ class Turmas extends Component {
   };
 
   loadTurmas = ano => {
-    fetch(`http://api/listar/turmas/${ano}`)
+    fetch(`${urlBaseApi}api/listar/turmas/${ano}`)
       .then(response => response.json())
       .then(responseJson => {
         const turmas = responseJson.map(turma => {
@@ -111,8 +113,8 @@ class Turmas extends Component {
 
   handleSubmit = data => {
     const url = data.id
-      ? 'http://api/atualizar/turmas'
-      : 'http://api/gravar/turmas';
+      ? `${urlBaseApi}api/atualizar/turmas`
+      : `${urlBaseApi}api/gravar/turmas`;
 
     this.setState({ show: 'wait' });
 
@@ -147,7 +149,7 @@ class Turmas extends Component {
 
   handleDelete = () => {
     this.setState({ show: 'wait' });
-    fetch(`http://api/apagar/turmas/${this.state.turmaAtual.id}`)
+    fetch(`${urlBaseApi}api/apagar/turmas/${this.state.turmaAtual.id}`)
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.resp === 'ok') {

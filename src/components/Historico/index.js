@@ -3,6 +3,7 @@ import Tabela from '../Tabela';
 import { Card, Button, Spinner, Col } from 'reactstrap';
 
 import FormAddNotas from '../FormAddNotas';
+import urlBaseApi from '../config';
 
 const campos = [
   {
@@ -85,7 +86,7 @@ class Historico extends Component {
   };
 
   loadHistorico = aluno => {
-    fetch(`http://api/listar/historicos/${aluno}`)
+    fetch(`${urlBaseApi}api/listar/historicos/${aluno}`)
       .then(response => response.json())
       .then(responseJson => {
         this.setState({ historico: responseJson });
@@ -98,8 +99,8 @@ class Historico extends Component {
 
   handleSubmit = data => {
     const url = data.id
-      ? 'http://api/atualizar/historicos'
-      : 'http://api/gravar/historicos';
+      ? `${urlBaseApi}api/atualizar/historicos`
+      : `${urlBaseApi}api/gravar/historicos`;
 
     this.setState({ show: 'wait' });
 

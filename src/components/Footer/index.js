@@ -48,7 +48,7 @@ const Footer = props => {
 };
 
 const mapStateToProps = state => ({
-  ...state.escola.data
+    ...state.escola.data
 });
 
 export default connect(mapStateToProps)(Footer);

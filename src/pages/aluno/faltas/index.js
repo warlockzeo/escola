@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
+import urlBaseApi from '../../../components/config';
+
 import './styles.css';
 
 export default class Faltas extends Component {
@@ -11,7 +13,7 @@ export default class Faltas extends Component {
 
   carregaFaltas() {
     this.state.idUsuarioLogado &&
-      fetch(`http://api/listar/faltas/${this.state.idUsuarioLogado}`)
+      fetch(`${urlBaseApi}api/listar/faltas/${this.state.idUsuarioLogado}`)
         .then(response => response.json())
         .then(responseJson => {
           this.setState({

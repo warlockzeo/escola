@@ -11,6 +11,8 @@ import {
 import classnames from 'classnames';
 import style from 'styled-components';
 
+import urlBaseApi from '../../components/config';
+
 const Abas = style.div`
     width: 95%;
 `;
@@ -30,7 +32,7 @@ class CircularesProvas extends Component {
   }
 
   loadFiles = () => {
-    fetch('http://api/files')
+    fetch(`${urlBaseApi}api/files`)
       .then(response => response.json())
       .then(responseJson => {
         this.setState({

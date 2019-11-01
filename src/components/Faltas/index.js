@@ -5,6 +5,8 @@ import moment from 'moment';
 import './styles.css';
 import FormAddFalta from '../FormAddFalta';
 import FormJustificativa from '../FormJustificativa';
+
+import urlBaseApi from '../config';
 class Faltas extends Component {
   state = {
     show: 'faltas',
@@ -15,7 +17,7 @@ class Faltas extends Component {
   };
 
   loadTurmaParaGradeCurricular = turma => {
-    fetch(`http://api/exibeTurma/${turma}`)
+    fetch(`${urlBaseApi}api/exibeTurma/${turma}`)
       .then(response => response.json())
       .then(responseJson => {
         this.setState({ turma: responseJson[0] });
@@ -24,7 +26,7 @@ class Faltas extends Component {
   };
 
   loadGradeCurricularDaSerie = serie => {
-    fetch(`http://api/gradeCurricular/`, {
+    fetch(`${urlBaseApi}api/gradeCurricular/`, {
       method: 'POST',
       body: JSON.stringify({
         serie
@@ -49,7 +51,7 @@ class Faltas extends Component {
   };
 
   loadFaltas = (aluno, turma) => {
-    fetch(`http://api/listarFaltas/${aluno}/${turma}`)
+    fetch(`${urlBaseApi}api/listarFaltas/${aluno}/${turma}`)
       .then(response => response.json())
       .then(responseJson => {
         const faltas = responseJson.map(falta => {
@@ -82,7 +84,7 @@ class Faltas extends Component {
   handleSubmit = data => {
     this.setState({ show: 'wait' });
 
-    fetch(`http://api/gravar/faltas`, {
+    fetch(`${urlBaseApi}api/gravar/faltas`, {
       method: 'POST',
       body: JSON.stringify({
         ...data,
@@ -103,7 +105,7 @@ class Faltas extends Component {
   handleSubmitJustificativa = data => {
     this.setState({ show: 'wait' });
 
-    fetch(`http://api/justificarFalta`, {
+    fetch(`${urlBaseApi}api/justificarFalta`, {
       method: 'POST',
       body: JSON.stringify({
         ...data

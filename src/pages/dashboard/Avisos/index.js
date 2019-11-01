@@ -6,6 +6,8 @@ import Tabela from '../../../components/Tabela';
 import FormAviso from '../../../components/FormAviso';
 import ConfirmDelete from '../../../components/ConfirmDelete';
 
+import urlBaseApi from '../../../components/config';
+
 const campos = [
   {
     id: 'dataPostagem',
@@ -46,7 +48,7 @@ class Avisos extends Component {
   };
 
   loadAvisos = () => {
-    fetch('http://api/listar/avisos')
+    fetch(`${urlBaseApi}api/listar/avisos`)
       .then(response => response.json())
       .then(responseJson => {
         const avisos = responseJson.map(aviso => {
@@ -103,7 +105,7 @@ class Avisos extends Component {
 
   handleSubmit = data => {
     this.setState({ show: 'wait' });
-    fetch(`http://api/gravar/avisos/`, {
+    fetch(`${urlBaseApi}api/gravar/avisos/`, {
       method: 'POST',
       body: JSON.stringify({ ...data })
     })
@@ -120,7 +122,7 @@ class Avisos extends Component {
 
   handleDelete = () => {
     this.setState({ show: 'wait' });
-    fetch(`http://api/apagar/avisos/${this.state.avisoAtual.id}`)
+    fetch(`${urlBaseApi}api/apagar/avisos/${this.state.avisoAtual.id}`)
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.resp === 'ok') {
@@ -154,7 +156,7 @@ class Avisos extends Component {
   };
 
   loadTurmas = () => {
-    fetch(`http://api/listar/turmas/${moment().format('YYYY')}`)
+    fetch(`${urlBaseApi}api/listar/turmas/${moment().format('YYYY')}`)
       .then(response => response.json())
       .then(responseJson => {
         const turmas = responseJson.map(turma => {
@@ -168,7 +170,7 @@ class Avisos extends Component {
   };
 
   loadGradeAlunos = turma => {
-    fetch(`http://api/gradeAlunos/${turma}`)
+    fetch(`${urlBaseApi}api/gradeAlunos/${turma}`)
       .then(response => response.json())
       .then(responseJson => {
         const alunos = responseJson.map(aluno => {

@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Col, Row } from 'reactstrap';
 import style from 'styled-components';
 
+import urlBaseApi from '../../../components/config';
+
 import './styles.css';
 
 const H1 = style.h1`
@@ -18,7 +20,7 @@ export default class Notas extends Component {
 
   carregaNotas = () => {
     this.state.idUsuarioLogado &&
-      fetch(`http://api/listar/historicos/${this.state.idUsuarioLogado}`)
+      fetch(`${urlBaseApi}api/listar/historicos/${this.state.idUsuarioLogado}`)
         .then(response => response.json())
         .then(responseJson => {
           this.setState({

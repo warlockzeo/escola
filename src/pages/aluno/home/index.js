@@ -2,6 +2,8 @@ import React, { Fragment, Component } from 'react';
 import moment from 'moment';
 import style from 'styled-components';
 
+import urlBaseApi from '../../../components/config';
+
 import './styles.css';
 
 const H1 = style.h1`
@@ -23,7 +25,7 @@ export default class Home extends Component {
   };
 
   carregaAluno = () => {
-    fetch(`http://api/listar/alunos/`)
+    fetch(`${urlBaseApi}api/listar/alunos/`)
       .then(response => response.json())
       .then(responseJson => {
         console.log(responseJson);
@@ -39,7 +41,7 @@ export default class Home extends Component {
   };
 
   carregaAvisos = idUsuario => {
-    fetch(`http://api/listarAvisosAluno/${idUsuario}`)
+    fetch(`${urlBaseApi}api/listarAvisosAluno/${idUsuario}`)
       .then(response => response.json())
       .then(responseJson => {
         this.setState({
@@ -49,7 +51,7 @@ export default class Home extends Component {
   };
 
   carregaFaltas = (idUsuario, idTurma) => {
-    fetch(`http://api/listarFaltas/${idUsuario}/${idTurma}`)
+    fetch(`${urlBaseApi}api/listarFaltas/${idUsuario}/${idTurma}`)
       .then(response => response.json())
       .then(responseJson => {
         const faltas = responseJson.map(falta => {

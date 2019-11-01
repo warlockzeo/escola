@@ -3,6 +3,8 @@ import { Row, Col, Alert, Card, CardTitle, Spinner } from 'reactstrap';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
+import urlBaseApi from '../../components/config';
+
 const schema = Yup.object().shape({
   user: Yup.string().required('Um login é necessário'),
   senha: Yup.string().required('Uma senha é obrigatória')
@@ -17,7 +19,7 @@ class Login extends Component {
   onSubmit = data => {
     this.setState({ formStatus: 'wait' });
     const { user, senha } = data;
-    fetch('http://api/verificarSenha', {
+    fetch(`${urlBaseApi}api/verificarSenha`, {
       method: 'POST',
       body: JSON.stringify({
         user,

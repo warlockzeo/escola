@@ -8,6 +8,8 @@ import AlunosDetalhes from '../../../components/AlunosDetalhes';
 import FormPassword from '../../../components/FormPassword';
 import BarraBusca from '../../../components/BarraBusca';
 
+import urlBaseApi from '../../../components/config';
+
 const campos = [
   {
     id: 'nome',
@@ -47,7 +49,7 @@ class Alunos extends Component {
   };
 
   loadAlunos = () => {
-    fetch('http://api/listar/alunos')
+    fetch(`${urlBaseApi}api/listar/alunos`)
       .then(response => response.json())
       .then(responseJson => {
         this.state.filtro
@@ -73,7 +75,7 @@ class Alunos extends Component {
   };
 
   onPasswordClick = data => {
-    fetch(`http://api/verificaUser/${data}`)
+    fetch(`${urlBaseApi}api/verificaUser/${data}`)
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.resp === 'erro') {
@@ -90,8 +92,8 @@ class Alunos extends Component {
 
   handlePassword = data => {
     const url = this.state.idSenha
-      ? 'http://api/atualizar/users/'
-      : 'http://api/gravar/users/';
+      ? `${urlBaseApi}api/atualizar/users/`
+      : `${urlBaseApi}api/gravar/users/`;
     fetch(url, {
       method: 'POST',
       body: JSON.stringify({
@@ -116,8 +118,8 @@ class Alunos extends Component {
 
   handleSubmit = data => {
     const url = data.id
-      ? 'http://api/atualizar/alunos'
-      : 'http://api/gravar/alunos';
+      ? `${urlBaseApi}api/atualizar/alunos`
+      : `${urlBaseApi}api/gravar/alunos`;
 
     this.setState({ show: 'wait' });
 
@@ -148,7 +150,7 @@ class Alunos extends Component {
 
   handleDelete = () => {
     this.setState({ show: 'wait' });
-    fetch(`http://api/apagar/alunos/${this.state.alunoAtual.id}`)
+    fetch(`${urlBaseApi}api/apagar/alunos/${this.state.alunoAtual.id}`)
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.resp === 'ok') {

@@ -4,6 +4,9 @@ import { Spinner } from 'reactstrap';
 
 import ConfirmDelete from '../../../components/ConfirmDelete';
 import FormOneField from '../../../components/FormOneField';
+
+import urlBaseApi from '../../../components/config';
+
 const campos = [
   {
     id: 'nome',
@@ -25,7 +28,7 @@ class Professores extends Component {
   };
 
   loadProfessores = () => {
-    fetch('http://api/listar/professores')
+    fetch(`${urlBaseApi}api/listar/professores`)
       .then(response => response.json())
       .then(responseJson => {
         responseJson.resp === 'ok' &&
@@ -47,7 +50,7 @@ class Professores extends Component {
 
   handleDelete = () => {
     this.setState({ show: 'wait' });
-    fetch(`http://api/apagar/professores/${this.state.professorAtual.id}`)
+    fetch(`${urlBaseApi}api/apagar/professores/${this.state.professorAtual.id}`)
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.resp === 'ok') {
@@ -66,8 +69,8 @@ class Professores extends Component {
   handleSubmit = data => {
     console.log(data);
     const url = data.id
-      ? 'http://api/atualizar/professores'
-      : 'http://api/gravar/professores';
+      ? `${urlBaseApi}api/atualizar/professores`
+      : `${urlBaseApi}api/gravar/professores`;
 
     this.setState({ show: 'wait' });
 

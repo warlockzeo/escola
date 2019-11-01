@@ -4,6 +4,8 @@ import { Alert, Row, Col, Card, CardTitle, Spinner } from 'reactstrap';
 import { Form, Input, Select } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
+import urlBaseApi from '../../components/config';
+
 const schema = Yup.object().shape({
   nome: Yup.string().required('Este campo é obrigatório'),
   telefone: Yup.string().required('Este campo é obrigatório'),
@@ -53,7 +55,7 @@ class Contato extends Component {
 
   onSubmit = data => {
     this.setState({ formStatus: 'wait' });
-    fetch('http://api/enviarEmail', {
+    fetch(`${urlBaseApi}api/enviarEmail`, {
       method: 'POST',
       body: JSON.stringify({
         ...data

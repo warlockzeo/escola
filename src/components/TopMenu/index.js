@@ -12,7 +12,8 @@ import './styles.css';
 
 class TopMenu extends Component {
   state = {
-    isOpen: false
+    isOpen: false,
+    activeItem: window.location.pathname
   };
 
   toggle = () => {
@@ -44,37 +45,62 @@ class TopMenu extends Component {
 
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className='ml-auto' navbar>
-              <NavItem>
+              <NavItem
+                className={this.state.activeItem === '/' ? 'nav-item__active' : ''}
+              >
                 <NavLink href='/'>
                   <div className='efeito-menu' />
                   <i className='fas fa-home' /> Início
                 </NavLink>
               </NavItem>
-              <NavItem>
+              <NavItem
+                className={
+                  this.state.activeItem.includes('sobrenos') ?
+                  'nav-item__active' : ''
+                }
+              >
                 <NavLink href='/sobrenos'>
                   <div className='efeito-menu' />
                   Sobre Nós
                 </NavLink>
               </NavItem>
-              <NavItem>
+              <NavItem
+                className={
+                  this.state.activeItem.includes('ensino') ? 'nav-item__active' : ''
+                }
+              >
                 <NavLink href='/ensino'>
                   <div className='efeito-menu' />
                   Ensino
                 </NavLink>
               </NavItem>
-              <NavItem>
+              <NavItem
+                className={
+                  this.state.activeItem.includes('circulares') ?
+                  'nav-item__active' : ''
+                }
+              >
                 <NavLink href='/circularesprovas'>
                   <div className='efeito-menu' />
                   Circulares / Provas
                 </NavLink>
               </NavItem>
-              <NavItem>
+              <NavItem
+                className={
+                  this.state.activeItem.includes('contato') ?
+                  'nav-item__active' : ''
+                }
+              >
                 <NavLink href='/contato'>
                   <div className='efeito-menu' />
                   Contato
                 </NavLink>
               </NavItem>
-              <NavItem>
+              <NavItem
+                className={
+                  this.state.activeItem.includes('login') ? 'nav-item__active' : ''
+                }
+              >
                 {this.props.user ? (
                   <NavLink href='#' onClick={this.props.logout}>
                     <div className='efeito-menu' />

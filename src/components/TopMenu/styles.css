@@ -26,6 +26,10 @@
   height: 70px;
 }
 
+.nav-item__active a {
+  color: #ff4400 !important;
+}
+
 .headerNomeAluno {
   position: absolute;
   right: 20px;

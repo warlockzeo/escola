@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 
-import Site from './site';
+import Site from './Site';
 import './App.css';
 
 import store from './store';

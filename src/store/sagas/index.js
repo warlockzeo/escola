@@ -1,12 +1,14 @@
 import { takeLatest, put } from 'redux-saga/effects';
 
+import urlBaseApi from '../../components/config';
+
 function* getEscolaDados() {
   try {
-    let response = yield fetch('http://api/escola');
-    yield response.json().then(resp => (response = resp));
+    const response = yield fetch(`${urlBaseApi}api/escola`);
+    const responseJson = yield response.json().then(resp => resp);
     yield put({
       type: 'SUCCESS_ESCOLA_DADOS',
-      payload: { data: response }
+      payload: { data: responseJson }
     });
   } catch (err) {
     yield put({ type: 'FAILURE_ESCOLA_DADOS' });

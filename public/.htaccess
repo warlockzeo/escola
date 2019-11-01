@@ -10,6 +10,9 @@
 #Escola
 	RewriteRule ^escola/?(.*)$ /api/ClassEscola.php?id=$1 [NC]
 
+#Banners
+	RewriteRule ^banners/?(.*)$ /api/ClassBanners.php [NC]
+
 #Files
 	RewriteRule ^files/?(.*)$ /api/ClassFiles.php?id=$1 [NC]
 

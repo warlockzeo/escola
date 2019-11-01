@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import urlBaseApi from '../../../components/config';
+
 import './styles.css';
 
 export default class Provas extends Component {
@@ -14,7 +16,7 @@ export default class Provas extends Component {
 
   carregaProvas() {
     this.state.aluno.length &&
-      fetch(`http://api/listar/provas/${this.state.aluno.id}`)
+      fetch(`${urlBaseApi}api/listar/provas/${this.state.aluno.id}`)
         .then(response => response.json())
         .then(responseJson => {
           this.setState({

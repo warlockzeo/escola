@@ -3,6 +3,8 @@ import Tabela from '../Tabela';
 import { Col, Spinner } from 'reactstrap';
 import { Select } from '@rocketseat/unform';
 
+import urlBaseApi from '../config';
+
 const optionsSeries = [
   { id: '1º Ano', title: '1º Ano' },
   { id: '2º Ano', title: '2º Ano' },
@@ -38,7 +40,7 @@ class GradesCurriculares extends Component {
   };
 
   loadDisciplinas = () => {
-    fetch('http://api/listar/disciplinas')
+    fetch(`${urlBaseApi}api/listar/disciplinas`)
       .then(response => response.json())
       .then(responseJson => {
         const disciplinas = responseJson.map(disciplina => {
@@ -73,7 +75,7 @@ class GradesCurriculares extends Component {
 
   handleDeleteDisciplina = () => {
     this.setState({ show: 'wait' });
-    fetch(`http://api/apagar/disciplinas/${this.state.disciplinaAtual.id}`)
+    fetch(`${urlBaseApi}api/apagar/disciplinas/${this.state.disciplinaAtual.id}`)
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.resp === 'ok') {
@@ -100,8 +102,8 @@ class GradesCurriculares extends Component {
   handleSubmitDisciplina = data => {
     console.log(data);
     const url = data.id
-      ? 'http://api/atualizar/disciplinas'
-      : 'http://api/gravar/disciplinas';
+      ? `${urlBaseApi}api/atualizar/disciplinas`
+      : `${urlBaseApi}api/gravar/disciplinas`;
 
     const dados = data.id
       ? { id: data.id, disciplina: data.nome }
@@ -140,7 +142,7 @@ class GradesCurriculares extends Component {
   };
 
   onChangeSerie = e => {
-    fetch(`http://api/gradeCurricular/`, {
+    fetch(`${urlBaseApi}api/gradeCurricular/`, {
       method: 'POST',
       body: JSON.stringify({
         serie: e.currentTarget.value

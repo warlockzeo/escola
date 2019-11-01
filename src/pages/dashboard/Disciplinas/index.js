@@ -7,6 +7,8 @@ import FormOneField from '../../../components/FormOneField';
 import FormAddGradeCurricular from '../../../components/FormAddGradeCurricular';
 import ConfirmDelete from '../../../components/ConfirmDelete';
 
+import urlBaseApi from '../../../components/config';
+
 const optionsSeries = [
   { id: '1', title: '1º Ano' },
   { id: '2', title: '2º Ano' },
@@ -68,7 +70,7 @@ class Disciplina extends Component {
   };
 
   loadProfessores = () => {
-    fetch('http://api/listar/professores')
+    fetch(`${urlBaseApi}api/listar/professores`)
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.resp === 'ok') {
@@ -84,7 +86,7 @@ class Disciplina extends Component {
   };
 
   loadDisciplinas = () => {
-    fetch('http://api/listar/disciplinas')
+    fetch(`${urlBaseApi}api/listar/disciplinas`)
       .then(response => response.json())
       .then(responseJson => {
         const disciplinas = responseJson.map(disciplina => {
@@ -123,7 +125,7 @@ class Disciplina extends Component {
 
   handleDeleteDisciplina = () => {
     this.setState({ show: 'wait' });
-    fetch(`http://api/apagar/disciplinas/${this.state.disciplinaAtual.id}`)
+    fetch(`${urlBaseApi}api/apagar/disciplinas/${this.state.disciplinaAtual.id}`)
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.resp === 'ok') {
@@ -141,8 +143,8 @@ class Disciplina extends Component {
 
   handleSubmitDisciplina = data => {
     const url = data.id
-      ? 'http://api/atualizar/disciplinas'
-      : 'http://api/gravar/disciplinas';
+      ? `${urlBaseApi}api/atualizar/disciplinas`
+      : `${urlBaseApi}api/gravar/disciplinas`;
 
     const dados = data.id
       ? { id: data.id, disciplina: data.nome }
@@ -194,7 +196,7 @@ class Disciplina extends Component {
   };
 
   loadGradesCurriculares = () => {
-    fetch('http://api/listar/gradesCurriculares')
+    fetch(`${urlBaseApi}api/listar/gradesCurriculares`)
       .then(response => response.json())
       .then(responseJson => {
         const gradesCurriculares = responseJson.map(disciplina => {
@@ -212,7 +214,7 @@ class Disciplina extends Component {
   };
 
   loadGradeCurricularDaSerie = serie => {
-    fetch(`http://api/gradeCurricular/`, {
+    fetch(`${urlBaseApi}api/gradeCurricular/`, {
       method: 'POST',
       body: JSON.stringify({
         serie
@@ -279,7 +281,7 @@ class Disciplina extends Component {
   handleDeleteGradeCurricular = () => {
     this.setState({ show: 'wait' });
     fetch(
-      `http://api/apagar/gradesCurriculares/${
+      `${urlBaseApi}api/apagar/gradesCurriculares/${
         this.state.gradeCurricularAtual.id
       }`
     )
@@ -300,8 +302,8 @@ class Disciplina extends Component {
 
   handleSubmitGradeCurricular = data => {
     const url = data.id
-      ? 'http://api/atualizar/gradesCurriculares'
-      : 'http://api/gravar/gradesCurriculares';
+      ? `${urlBaseApi}api/atualizar/gradesCurriculares`
+      : `${urlBaseApi}api/gravar/gradesCurriculares`;
 
     const dados =
       data.id !== ''

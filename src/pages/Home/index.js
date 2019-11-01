@@ -1,16 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Row, Col, Card } from 'reactstrap';
 
 import Slideshow from '../../components/Slides';
-
-const images = [
-  '/assets/banners/banner1.jpg',
-  '/assets/banners/banner2.jpg',
-  '/assets/banners/banner3.jpg',
-  '/assets/banners/banner4.jpg'
-];
+import urlBaseApi from '../../components/config';
 
 const Home = () => {
+  const [images, setImages] = useState([]);
+
+  (() => {
+    fetch(`${urlBaseApi}api/banners`)
+      .then(response => response.json())
+      .then(responseJson => {
+        setImages(responseJson.map(resp => resp.urlImage));
+      });
+  })();
+
   return (
     <Col md={12}>
       <Row>

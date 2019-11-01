@@ -16,6 +16,8 @@ import EscolaSobreForm from '../../../components/EscolaSobreForm';
 import EscolaEnsinoForm from '../../../components/EscolaEnsinoForm';
 import EscolaCircularesForm from '../../../components/EscolaCircularesForm';
 
+import urlBaseApi from '../../../components/config';
+
 import './styles.css';
 
 const Abas = style.div`
@@ -42,7 +44,7 @@ class Escola extends Component {
   }
 
   loadEscola = () => {
-    fetch('http://api/escola')
+    fetch(`${urlBaseApi}api/escola`)
       .then(response => response.json())
       .then(responseJson => {
         this.setState({ escola: responseJson, showButtons: false });
@@ -51,7 +53,7 @@ class Escola extends Component {
   };
 
   loadFiles = () => {
-    fetch('http://api/files')
+    fetch(`${urlBaseApi}api/files`)
       .then(response => response.json())
       .then(responseJson => {
         this.setState({
@@ -64,7 +66,7 @@ class Escola extends Component {
   };
 
   saveFileDb = data => {
-    fetch('http://api/files', {
+    fetch(`${urlBaseApi}api/files`, {
       method: 'POST',
       body: JSON.stringify(data)
     })
@@ -86,7 +88,7 @@ class Escola extends Component {
     const formData = new FormData();
     formData.append('file', arquivo);
 
-    fetch('http://api/files', {
+    fetch(`${urlBaseApi}api/files`, {
       method: 'POST',
       body: formData
     })
@@ -108,7 +110,7 @@ class Escola extends Component {
   handleSubmit = data => {
     this.setState({ show: 'wait' });
 
-    fetch(`http://api/escola/${this.state.escola.id}`, {
+    fetch(`${urlBaseApi}api/escola/${this.state.escola.id}`, {
       method: 'PUT',
       body: JSON.stringify({
         ...data,
@@ -145,7 +147,7 @@ class Escola extends Component {
 
   handleDeleteFiles = data => {
     this.setState({ show: 'wait' });
-    fetch(`http://api/files/${data}`, {
+    fetch(`${urlBaseApi}api/files/${data}`, {
       method: 'DELETE',
       body: JSON.stringify({ id: data })
     })
