@@ -6,18 +6,32 @@ import urlBaseApi from '../../components/config';
 
 class Home extends Component {
   state = {
-    banners: []
+    slides: []
   };
 
   loadBanners = () => {
     fetch(`${urlBaseApi}banners`)
     .then(response => response.json())
     .then(responseJson => {
-      const banners = responseJson.map(banner => {
-        return(`/assets/banners/${banner.urlImage}`);
-      });
-      this.setState({banners});
-    }).catch(()=>this.setState({banners:[]}));
+      const slides = responseJson
+        .filter(banner => banner.posicao === 'carrossel')
+        .map(banner => `/assets/banners/${banner.urlImage}`);
+
+      const bannerAluno = responseJson
+        .filter(banner => banner.posicao === 'portalAluno')
+        .map(banner => `/assets/banners/${banner.urlImage}`);
+
+      const bannerProfessor = responseJson
+        .filter(banner => banner.posicao === 'portalProfessor')
+        .map(banner => `/assets/banners/${banner.urlImage}`);
+
+      this.setState({slides, bannerAluno, bannerProfessor});
+    })
+    .catch(() => this.setState({
+      slides:[], 
+      bannerAluno: '', 
+      bannerProfessor: ''
+    }));
   };
 
   componentDidMount() {
@@ -29,7 +43,7 @@ class Home extends Component {
       <Col md={12}>
         <Row>
           <div md={12} className='slides'>
-            <Slideshow images={this.state.banners} />
+            <Slideshow images={this.state.slides} />
           </div>
         </Row>
         <Row style={{ marginTop: 20, marginBottom: 20 }}>
@@ -39,7 +53,7 @@ class Home extends Component {
               data-wow-delay='0.1s'
               body
               style={{
-                backgroundImage: 'url(/assets/images/eventos.jpg)'
+                backgroundImage: `url(${this.state.bannerAluno})`
               }}
             >
               <a href='/login'>
@@ -55,7 +69,7 @@ class Home extends Component {
               data-wow-delay='0.3s'
               body
               style={{
-                backgroundImage: 'url(/assets/images/equipe.jpg)'
+                backgroundImage: `url(${this.state.bannerProfessor})`
               }}
             >
               <a href='/login'>
