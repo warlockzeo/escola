@@ -1,9 +1,16 @@
+@media(max-width: 767px){
+  .aluno * {
+    font-size: 95%;
+  }
+}
+
 .row {
   margin: 0;
 }
 
 .negrito {
   font-weight: bolder;
+  width: 14.2%;
 }
 
 .notas-tabela {

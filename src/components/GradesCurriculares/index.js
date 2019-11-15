@@ -40,7 +40,7 @@ class GradesCurriculares extends Component {
   };
 
   loadDisciplinas = () => {
-    fetch(`${urlBaseApi}api/listar/disciplinas`)
+    fetch(`${urlBaseApi}listar/disciplinas`)
       .then(response => response.json())
       .then(responseJson => {
         const disciplinas = responseJson.map(disciplina => {
@@ -75,7 +75,7 @@ class GradesCurriculares extends Component {
 
   handleDeleteDisciplina = () => {
     this.setState({ show: 'wait' });
-    fetch(`${urlBaseApi}api/apagar/disciplinas/${this.state.disciplinaAtual.id}`)
+    fetch(`${urlBaseApi}apagar/disciplinas/${this.state.disciplinaAtual.id}`)
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.resp === 'ok') {
@@ -102,8 +102,8 @@ class GradesCurriculares extends Component {
   handleSubmitDisciplina = data => {
     console.log(data);
     const url = data.id
-      ? `${urlBaseApi}api/atualizar/disciplinas`
-      : `${urlBaseApi}api/gravar/disciplinas`;
+      ? `${urlBaseApi}atualizar/disciplinas`
+      : `${urlBaseApi}gravar/disciplinas`;
 
     const dados = data.id
       ? { id: data.id, disciplina: data.nome }
@@ -142,7 +142,7 @@ class GradesCurriculares extends Component {
   };
 
   onChangeSerie = e => {
-    fetch(`${urlBaseApi}api/gradeCurricular/`, {
+    fetch(`${urlBaseApi}gradeCurricular/`, {
       method: 'POST',
       body: JSON.stringify({
         serie: e.currentTarget.value

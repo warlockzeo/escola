@@ -9,6 +9,7 @@
   min-height: 50px;
   border: none;
   padding: 5px 15px 25px 15px;
+  min-height: auto !important;
 }
 
 .alunosDetalhes__dados--show {

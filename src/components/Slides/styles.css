@@ -1,52 +1,75 @@
-.slide-container {
-  width: 100%;
-  margin: auto;
+.back-slider {
+    position: relative;
+    height: auto;
+    width: 100%;
 }
 
-h3 {
-  text-align: center;
+.cb-slideshow {
+    list-style: none;
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+	padding:0;
+    margin:0;
+    overflow: hidden;
+    z-index: 1;
 }
 
-.each-slide > div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-size: cover;
-  height: 450px;
+.cb-slideshow li { 
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+	padding:0;
+	margin:0;
+    opacity: 0;
+    z-index: -1;
+    animation: imageAnimation 20s linear infinite 0s; 
 }
 
-.each-slide span {
-  padding: 20px;
-  font-size: 20px;
-  background: #efefef;
-  text-align: center;
+.cb-slideshow li:last-child { 
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+	padding:0;
+	margin:0;
+    opacity: 0;
+    z-index: -1;
+    animation: imageAnimationLastImage 20s linear infinite 0s;
 }
 
-.each-image {
-  width: 100%;
-  height: 450px;
-  background-size: cover;
-  background-position: center;
+.cb-slideshow li img{ 
+    width: 100%;
+    height: auto;
 }
 
-.each-fade {
-  display: flex;
+/* Animation for the slideshow images */
+@keyframes imageAnimation { 
+    0% { opacity: 0;
+        animation-timing-function: ease-in; }
+    5% { opacity: 1;
+         animation-timing-function: ease-out; }
+    25% { opacity: 1 }
+    30% { opacity: 0 }
+    100% { opacity: 0 }
 }
 
-.each-fade .image-container {
-  width: 75%;
-  overflow: hidden;
+@keyframes imageAnimationLastImage { 
+    0% { opacity: 0;
+        animation-timing-function: ease-in; }
+    5% { opacity: 1;
+         animation-timing-function: ease-out; }
+    15% { opacity: 1 }
+    20% { opacity: 0 }
+    100% { opacity: 0 }
 }
 
-.each-fade .image-container img {
-  width: 100%;
-}
-
-.each-fade h2 {
-  width: 25%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  background: #adceed;
+/* Show at least something when animations not supported */
+.no-cssanimations .cb-slideshow li span{
+	opacity: 1;
 }

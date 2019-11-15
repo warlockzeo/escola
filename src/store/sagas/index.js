@@ -4,7 +4,7 @@ import urlBaseApi from '../../components/config';
 
 function* getEscolaDados() {
   try {
-    const response = yield fetch(`${urlBaseApi}api/escola`);
+    const response = yield fetch(`${urlBaseApi}escola`);
     const responseJson = yield response.json().then(resp => resp);
     yield put({
       type: 'SUCCESS_ESCOLA_DADOS',

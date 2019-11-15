@@ -55,7 +55,7 @@ class Contato extends Component {
 
   onSubmit = data => {
     this.setState({ formStatus: 'wait' });
-    fetch(`${urlBaseApi}api/enviarEmail`, {
+    fetch(`${urlBaseApi}enviarEmail`, {
       method: 'POST',
       body: JSON.stringify({
         ...data

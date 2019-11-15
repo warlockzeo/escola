@@ -1,29 +1,23 @@
 import React from 'react';
-import { Zoom } from 'react-slideshow-image';
-import './styles.css';
-
-const zoomOutProperties = {
-  duration: 5000,
-  transitionDuration: 500,
-  infinite: true,
-  indicators: false,
-  scale: 0.4,
-  arrows: false
-};
+import './styles.css'
 
 const Slideshow = props => {
   return (
-    <Zoom {...zoomOutProperties}>
-      {props.images.map((each, index) => (
-        <div
-          className='each-image'
-          key={index}
-          style={{
-            backgroundImage: `url(${each})`
-          }}
-        />
-      ))}
-    </Zoom>
+    <div className="back-slider">
+      <img src={`${props.images[0]}`} style={{width: '100%', height: 'auto'}} alt='' />
+      <ul className="cb-slideshow">
+        {props.images.map((each, index, arr) => {
+          return(
+          <li key={index} style={{
+            animationDelay: `${index * (20 / arr.length)}s`
+          }}>
+            <a href="#">
+              <img src={`${each}`} alt='Foto de banner' />
+            </a>
+          </li>)
+        })}
+      </ul>
+    </div>
   );
 };
 

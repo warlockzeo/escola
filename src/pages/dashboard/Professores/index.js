@@ -28,7 +28,7 @@ class Professores extends Component {
   };
 
   loadProfessores = () => {
-    fetch(`${urlBaseApi}api/listar/professores`)
+    fetch(`${urlBaseApi}listar/professores`)
       .then(response => response.json())
       .then(responseJson => {
         responseJson.resp === 'ok' &&
@@ -50,7 +50,7 @@ class Professores extends Component {
 
   handleDelete = () => {
     this.setState({ show: 'wait' });
-    fetch(`${urlBaseApi}api/apagar/professores/${this.state.professorAtual.id}`)
+    fetch(`${urlBaseApi}apagar/professores/${this.state.professorAtual.id}`)
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.resp === 'ok') {
@@ -69,8 +69,8 @@ class Professores extends Component {
   handleSubmit = data => {
     console.log(data);
     const url = data.id
-      ? `${urlBaseApi}api/atualizar/professores`
-      : `${urlBaseApi}api/gravar/professores`;
+      ? `${urlBaseApi}atualizar/professores`
+      : `${urlBaseApi}gravar/professores`;
 
     this.setState({ show: 'wait' });
 

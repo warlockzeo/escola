@@ -22,16 +22,28 @@
 
         public function uploadFile() {
             $fileName = $_FILES['file']['name'];
-            $targetFolder = '../circulares/';
-            $targetFile = $targetFolder . $fileName;
+            //$targetFolder = '../circulares/';
+            //$targetFile = $targetFolder . $fileName;
             $fileType=$_FILES['file']['type'];
         
-            if ($fileType=="application/pdf") {
-        
-                if(move_uploaded_file($_FILES['file']['tmp_name'], $targetFile)){
-                echo '{"resp":"O arquivo ' . basename( $_FILES['file']['name']) . ' foi enviado"}';
-                } else { echo '{"resp":"Problema ao enviar arquivo"}'; }
-            } else { echo '{"resp":"Somente arquivos do tipo PDF"}'; }
+            switch($fileType) {
+                case "application/pdf":
+                    if(move_uploaded_file($_FILES['file']['tmp_name'], '../circulares/'.$fileName)){
+                        echo '{"resp":"O arquivo ' . basename( $_FILES['file']['name']) . ' foi enviado"}';
+                    } else { 
+                        echo '{"resp":"Problema ao enviar arquivo"}'; 
+                    }
+                    break;
+                case "image/jpeg":
+                    if(move_uploaded_file($_FILES['file']['tmp_name'], '../assets/banners/'.$fileName)){
+                        echo '{"resp":"O arquivo ' . basename( $_FILES['file']['name']) . ' foi enviado"}';
+                    } else { 
+                        echo '{"resp":"Problema ao enviar arquivo"}'; 
+                    }
+                    break;
+                default:
+                    echo '{"resp":"Tipo de arquivo não permitido" . '.$fileType.'}'; 
+            }
         }
 
         public function listFiles() {

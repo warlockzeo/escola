@@ -34,6 +34,7 @@
                     "media2"=>$Fetch['media2'],
                     "media3"=>$Fetch['media3'],
                     "media4"=>$Fetch['media4'],
+                    "mediaAnual"=>$Fetch['mediaAnual'],
                     "recup"=>$Fetch['recup'],
                     "mediaFinal"=>$Fetch['mediaFinal']
                 ];
@@ -86,10 +87,11 @@
             $media2 = $obj['media2'];
             $media3 = $obj['media3'];
             $media4 = $obj['media4'];
+            $mediaAnual = $obj['mediaAnual'];
             $recup = $obj['recup'];
             $mediaFinal = $obj['mediaFinal'];
 
-            $sql = "UPDATE historicos SET media1 = '$media1', media2 = '$media2', media3 = '$media3', media4 = '$media4', recup = '$recup', mediaFinal = '$mediaFinal' WHERE id = $id";
+            $sql = "UPDATE historicos SET media1 = '$media1', media2 = '$media2', media3 = '$media3', media4 = '$media4', mediaAnual = '$mediaAnual', recup = '$recup', mediaFinal = '$mediaFinal' WHERE id = $id";
             $BFetch=$this->conectaDB()->prepare($sql);
             $BFetch->execute();
 

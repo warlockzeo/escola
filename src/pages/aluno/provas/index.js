@@ -16,7 +16,7 @@ export default class Provas extends Component {
 
   carregaProvas() {
     this.state.aluno.length &&
-      fetch(`${urlBaseApi}api/listar/provas/${this.state.aluno.id}`)
+      fetch(`${urlBaseApi}listar/provas/${this.state.aluno.id}`)
         .then(response => response.json())
         .then(responseJson => {
           this.setState({

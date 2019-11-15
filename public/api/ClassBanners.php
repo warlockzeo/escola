@@ -3,7 +3,7 @@
 
     header("Access-Control-Allow-Origin:*");
     header("Content-type: application/json");
-    header("Access-Control-Allow-Methods: POST, PUT, GET, OPTIONS");
+    header("Access-Control-Allow-Methods: POST, PUT, DELETE, GET, OPTIONS");
 
     class ClassBanner extends ClassConexao{
 
@@ -20,25 +20,39 @@
                 $j[$i]=[
                     "id"=>$Fetch['id'],
                     "urlImage"=>$Fetch['urlImage'],
+                    "posicao"=>$Fetch['posicao'],
                 ];
                 $i++;
             }
 
-            if(count($j)>1){
+            if(count($j)>0){
                 echo json_encode($j);
-            }else if(count($j)==0){
+            } else {
                 header("HTTP/1.0 404 - NOT FOUND");
-            }else {
-                echo json_encode($j[0]);
             };
         }
 
         public function deleteBanner($id)
         {
-            $BFetch=$this->conectaDB()->prepare("DELETE FROM banners WHERE id=$id");
+            $sql = "SELECT * FROM banners where id = $id";
+            $BFetch=$this->conectaDB()->prepare($sql);
             $BFetch->execute();
 
-            header("HTTP/1.0 204 No Content");
+            $j=[];
+            $i=0;
+            while($Fetch=$BFetch->fetch(PDO::FETCH_ASSOC)){
+                $j[$i]=[
+                    "urlImage"=>$Fetch['urlImage']
+                ];
+                $i++;
+            }
+
+            $BFetch=$this->conectaDB()->prepare("DELETE FROM banners WHERE id=$id");
+            if($BFetch->execute()){
+                unlink('../assets/banners/' . $j[0]['urlImage']);
+            }
+            
+            //header("HTTP/1.0 204 No Content");
         }
 
         public function saveBanner()
@@ -46,8 +60,9 @@
             $json = file_get_contents('php://input');
             $obj = json_decode($json, TRUE);
             $urlImage = $obj['urlImage'];
+            $posicao = $obj['posicao'];
 
-            $sql = "INSERT INTO banners (urlImage) VALUES ('$urlImage')";
+            $sql = "INSERT INTO banners (urlImage, posicao) VALUES ('$urlImage', '$posicao')";
             $BFetch=$this->conectaDB()->prepare($sql);
             $BFetch->execute();
   
@@ -65,7 +80,7 @@
             $banner->saveBanner();
             break;
         case "DELETE":
-            $banner->deleteBanner();
+            $banner->deleteBanner($_GET['id']);
             break;
     }
 ?>

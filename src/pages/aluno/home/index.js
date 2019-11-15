@@ -25,7 +25,7 @@ export default class Home extends Component {
   };
 
   carregaAluno = () => {
-    fetch(`${urlBaseApi}api/listar/alunos/`)
+    fetch(`${urlBaseApi}listar/alunos/`)
       .then(response => response.json())
       .then(responseJson => {
         console.log(responseJson);
@@ -41,7 +41,7 @@ export default class Home extends Component {
   };
 
   carregaAvisos = idUsuario => {
-    fetch(`${urlBaseApi}api/listarAvisosAluno/${idUsuario}`)
+    fetch(`${urlBaseApi}listarAvisosAluno/${idUsuario}`)
       .then(response => response.json())
       .then(responseJson => {
         this.setState({
@@ -51,7 +51,7 @@ export default class Home extends Component {
   };
 
   carregaFaltas = (idUsuario, idTurma) => {
-    fetch(`${urlBaseApi}api/listarFaltas/${idUsuario}/${idTurma}`)
+    fetch(`${urlBaseApi}listarFaltas/${idUsuario}/${idTurma}`)
       .then(response => response.json())
       .then(responseJson => {
         const faltas = responseJson.map(falta => {

@@ -5,6 +5,7 @@
   min-height: 50px;
   border: none;
   padding: 5px;
+  min-height: auto !important;
 }
 
 .btn-addFalta {

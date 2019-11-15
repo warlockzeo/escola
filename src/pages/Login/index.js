@@ -19,7 +19,7 @@ class Login extends Component {
   onSubmit = data => {
     this.setState({ formStatus: 'wait' });
     const { user, senha } = data;
-    fetch(`${urlBaseApi}api/verificarSenha`, {
+    fetch(`${urlBaseApi}verificarSenha`, {
       method: 'POST',
       body: JSON.stringify({
         user,

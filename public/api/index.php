@@ -1,4 +1,3 @@
-
 <?php 
     if($_GET['tabela']=='alunos'){
         include("ClassAlunos.php");

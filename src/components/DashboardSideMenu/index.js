@@ -22,6 +22,12 @@ class DashBoardSideMenu extends Component {
             </a>
           </li>
           <li className='sideBar__itensMenu'>
+            <a href='/dashboard/banners' className='sideBar__link'>
+              <div className='efeito-menu' />
+              <i className='sideBar__icone fas fa-globe' /> Banners
+            </a>
+          </li>
+          <li className='sideBar__itensMenu'>
             <a href='/dashboard/alunos' className='sideBar__link'>
               <i className='sideBar__icone fas fa-address-card' /> Alunos
               <div className='efeito-menu' />

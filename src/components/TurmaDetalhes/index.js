@@ -30,7 +30,7 @@ class TurmaDetalhes extends Component {
   };
 
   loadAlunos = () => {
-    fetch(`${urlBaseApi}api/listarAlunosSemMatricula/${this.state.turma.ano}`)
+    fetch(`${urlBaseApi}listarAlunosSemMatricula/${this.state.turma.ano}`)
       .then(response => response.json())
       .then(responseJson => {
         const alunosSemMatricula = responseJson.map(aluno => {
@@ -46,7 +46,7 @@ class TurmaDetalhes extends Component {
   };
 
   loadGradeAlunos = () => {
-    fetch(`${urlBaseApi}api/gradeAlunos/${this.state.turma.id}`)
+    fetch(`${urlBaseApi}gradeAlunos/${this.state.turma.id}`)
       .then(response => response.json())
       .then(responseJson => {
         this.setState({ gradeAlunos: responseJson });
@@ -55,7 +55,7 @@ class TurmaDetalhes extends Component {
 
   handleSubmit = data => {
     this.setState({ show: 'wait' });
-    fetch(`${urlBaseApi}api/gravar/gradesAlunos`, {
+    fetch(`${urlBaseApi}gravar/gradesAlunos`, {
       method: 'POST',
       body: JSON.stringify({
         idAluno: data.aluno,
@@ -80,7 +80,7 @@ class TurmaDetalhes extends Component {
 
   handleDeleteAlunos = () => {
     this.setState({ show: 'wait' });
-    fetch(`${urlBaseApi}api/apagar/gradesAlunos/${this.state.alunoAtual.id}`)
+    fetch(`${urlBaseApi}apagar/gradesAlunos/${this.state.alunoAtual.id}`)
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.resp === 'ok') {

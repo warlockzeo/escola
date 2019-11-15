@@ -44,7 +44,7 @@ class Escola extends Component {
   }
 
   loadEscola = () => {
-    fetch(`${urlBaseApi}api/escola`)
+    fetch(`${urlBaseApi}escola`)
       .then(response => response.json())
       .then(responseJson => {
         this.setState({ escola: responseJson, showButtons: false });
@@ -53,7 +53,7 @@ class Escola extends Component {
   };
 
   loadFiles = () => {
-    fetch(`${urlBaseApi}api/files`)
+    fetch(`${urlBaseApi}files`)
       .then(response => response.json())
       .then(responseJson => {
         this.setState({
@@ -66,7 +66,7 @@ class Escola extends Component {
   };
 
   saveFileDb = data => {
-    fetch(`${urlBaseApi}api/files`, {
+    fetch(`${urlBaseApi}files`, {
       method: 'POST',
       body: JSON.stringify(data)
     })
@@ -88,7 +88,7 @@ class Escola extends Component {
     const formData = new FormData();
     formData.append('file', arquivo);
 
-    fetch(`${urlBaseApi}api/files`, {
+    fetch(`${urlBaseApi}files`, {
       method: 'POST',
       body: formData
     })
@@ -110,7 +110,7 @@ class Escola extends Component {
   handleSubmit = data => {
     this.setState({ show: 'wait' });
 
-    fetch(`${urlBaseApi}api/escola/${this.state.escola.id}`, {
+    fetch(`${urlBaseApi}escola/${this.state.escola.id}`, {
       method: 'PUT',
       body: JSON.stringify({
         ...data,
@@ -146,16 +146,17 @@ class Escola extends Component {
   };
 
   handleDeleteFiles = data => {
+    const id = data;
     this.setState({ show: 'wait' });
-    fetch(`${urlBaseApi}api/files/${data}`, {
+    fetch(`${urlBaseApi}files/${ id }`, {
       method: 'DELETE',
-      body: JSON.stringify({ id: data })
+      body: JSON.stringify({ id })
     })
       .then(response => response)
       .then(() => {
         this.loadFiles();
       })
-      .catch(error => console.error(`Caught error:  ${error}`));
+      .catch(error => console.error(`Caught error:  ${ error }`));
   };
 
   componentWillMount() {

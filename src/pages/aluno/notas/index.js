@@ -20,7 +20,7 @@ export default class Notas extends Component {
 
   carregaNotas = () => {
     this.state.idUsuarioLogado &&
-      fetch(`${urlBaseApi}api/listar/historicos/${this.state.idUsuarioLogado}`)
+      fetch(`${urlBaseApi}listar/historicos/${this.state.idUsuarioLogado}`)
         .then(response => response.json())
         .then(responseJson => {
           this.setState({
@@ -51,7 +51,7 @@ export default class Notas extends Component {
               Disciplina
             </Col>
             <Col
-              xs={2}
+              
               className='negrito'
               style={{ backgroundColor: '#9c5035', color: '#ffffff' }}
             >
@@ -59,7 +59,7 @@ export default class Notas extends Component {
               Bim
             </Col>
             <Col
-              xs={2}
+              
               className='negrito'
               style={{ backgroundColor: '#9c5035', color: '#ffffff' }}
             >
@@ -67,15 +67,14 @@ export default class Notas extends Component {
               Bim
             </Col>
             <Col
-              xs={2}
+              
               className='negrito'
               style={{ backgroundColor: '#9c5035', color: '#ffffff' }}
             >
               3º <br />
               Bim
             </Col>
-            <Col
-              xs={2}
+            <Col 
               className='negrito'
               style={{ backgroundColor: '#9c5035', color: '#ffffff' }}
             >
@@ -83,7 +82,13 @@ export default class Notas extends Component {
               Bim
             </Col>
             <Col
-              xs={2}
+              className='negrito'
+              style={{ backgroundColor: '#9c5035', color: '#ffffff' }}
+            >
+              Méd <br />
+              Anual
+            </Col>
+            <Col
               className='negrito'
               style={{ backgroundColor: '#9c5035', color: '#ffffff' }}
             >
@@ -91,7 +96,6 @@ export default class Notas extends Component {
               Rec
             </Col>
             <Col
-              xs={2}
               className='negrito'
               style={{ backgroundColor: '#9c5035', color: '#ffffff' }}
             >
@@ -113,12 +117,13 @@ export default class Notas extends Component {
                 >
                   {nota.disciplina}
                 </Col>
-                <Col xs={2}>{nota.media1}</Col>
-                <Col xs={2}>{nota.media2}</Col>
-                <Col xs={2}>{nota.media3}</Col>
-                <Col xs={2}>{nota.media4}</Col>
-                <Col xs={2}>{nota.recup}</Col>
-                <Col xs={2}>{nota.mediaFinal}</Col>
+                <Col>{nota.media1}</Col>
+                <Col>{nota.media2}</Col>
+                <Col>{nota.media3}</Col>
+                <Col>{nota.media4}</Col>
+                <Col>{nota.mediaAnual}</Col>
+                <Col>{nota.recup}</Col>
+                <Col>{nota.mediaFinal}</Col>
               </Row>
             );
           })}

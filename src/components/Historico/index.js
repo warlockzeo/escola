@@ -56,6 +56,16 @@ const campos = [
     align: 'center'
   },
   {
+    id: 'mediaAnual',
+    numeric: false,
+    disablePadding: true,
+    label: 'Média Anual',
+    component: 'th',
+    scope: 'row',
+    padding: 'none',
+    align: 'center'
+  },
+  {
     id: 'recup',
     numeric: false,
     disablePadding: true,
@@ -86,7 +96,7 @@ class Historico extends Component {
   };
 
   loadHistorico = aluno => {
-    fetch(`${urlBaseApi}api/listar/historicos/${aluno}`)
+    fetch(`${urlBaseApi}listar/historicos/${aluno}`)
       .then(response => response.json())
       .then(responseJson => {
         this.setState({ historico: responseJson });
@@ -99,8 +109,8 @@ class Historico extends Component {
 
   handleSubmit = data => {
     const url = data.id
-      ? `${urlBaseApi}api/atualizar/historicos`
-      : `${urlBaseApi}api/gravar/historicos`;
+      ? `${urlBaseApi}atualizar/historicos`
+      : `${urlBaseApi}gravar/historicos`;
 
     this.setState({ show: 'wait' });
 

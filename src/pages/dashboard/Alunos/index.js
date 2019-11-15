@@ -49,7 +49,7 @@ class Alunos extends Component {
   };
 
   loadAlunos = () => {
-    fetch(`${urlBaseApi}api/listar/alunos`)
+    fetch(`${urlBaseApi}listar/alunos`)
       .then(response => response.json())
       .then(responseJson => {
         this.state.filtro
@@ -75,7 +75,7 @@ class Alunos extends Component {
   };
 
   onPasswordClick = data => {
-    fetch(`${urlBaseApi}api/verificaUser/${data}`)
+    fetch(`${urlBaseApi}verificaUser/${data}`)
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.resp === 'erro') {
@@ -92,8 +92,8 @@ class Alunos extends Component {
 
   handlePassword = data => {
     const url = this.state.idSenha
-      ? `${urlBaseApi}api/atualizar/users/`
-      : `${urlBaseApi}api/gravar/users/`;
+      ? `${urlBaseApi}atualizar/users/`
+      : `${urlBaseApi}gravar/users/`;
     fetch(url, {
       method: 'POST',
       body: JSON.stringify({
@@ -118,8 +118,8 @@ class Alunos extends Component {
 
   handleSubmit = data => {
     const url = data.id
-      ? `${urlBaseApi}api/atualizar/alunos`
-      : `${urlBaseApi}api/gravar/alunos`;
+      ? `${urlBaseApi}atualizar/alunos`
+      : `${urlBaseApi}gravar/alunos`;
 
     this.setState({ show: 'wait' });
 
@@ -150,7 +150,7 @@ class Alunos extends Component {
 
   handleDelete = () => {
     this.setState({ show: 'wait' });
-    fetch(`${urlBaseApi}api/apagar/alunos/${this.state.alunoAtual.id}`)
+    fetch(`${urlBaseApi}apagar/alunos/${this.state.alunoAtual.id}`)
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.resp === 'ok') {
@@ -195,7 +195,7 @@ class Alunos extends Component {
   render() {
     return (
       <div className='dashboard'>
-        {this.state.show === 'table' ? (
+        {this.state.show === 'table' && (
           <div className='container'>
             {this.state.mostraFiltro && (
               <BarraBusca change={this.onChangeBusca} />
@@ -211,30 +211,40 @@ class Alunos extends Component {
               filter={this.toggleFiltro}
             />
           </div>
-        ) : this.state.show === 'alert' ? (
+        )}
+
+        {this.state.show === 'alert' && (
           <ConfirmDelete
             info={`do aluno(a) ${this.state.alunoAtual.nome}`}
             delete={this.handleDelete}
             cancel={this.cancelDelete}
           />
-        ) : this.state.show === 'wait' ? (
+        )} 
+        
+        {this.state.show === 'wait' && (
           <div className='wrap100vh'>
             <Spinner />
           </div>
-        ) : this.state.show === 'detalhes' ? (
+        )}
+        
+        {this.state.show === 'detalhes' && (
           <AlunosDetalhes
             data={this.state.alunoAtual}
             cancel={this.cancelDetalhes}
             editar={this.onEditClick}
             password={this.onPasswordClick}
           />
-        ) : this.state.show === 'password' ? (
+        )}
+        
+        {this.state.show === 'password' && (
           <FormPassword
             cancel={this.cancelPassword}
             dados={this.state.alunoAtual}
             password={this.handlePassword}
           />
-        ) : (
+        )}
+
+        {this.state.show === 'edit' && (
           <FormAlunos
             data={this.state.alunoAtual}
             onSubmit={this.handleSubmit}

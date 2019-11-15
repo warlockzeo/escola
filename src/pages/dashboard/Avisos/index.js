@@ -48,7 +48,7 @@ class Avisos extends Component {
   };
 
   loadAvisos = () => {
-    fetch(`${urlBaseApi}api/listar/avisos`)
+    fetch(`${urlBaseApi}listar/avisos`)
       .then(response => response.json())
       .then(responseJson => {
         const avisos = responseJson.map(aviso => {
@@ -105,7 +105,7 @@ class Avisos extends Component {
 
   handleSubmit = data => {
     this.setState({ show: 'wait' });
-    fetch(`${urlBaseApi}api/gravar/avisos/`, {
+    fetch(`${urlBaseApi}gravar/avisos/`, {
       method: 'POST',
       body: JSON.stringify({ ...data })
     })
@@ -122,7 +122,7 @@ class Avisos extends Component {
 
   handleDelete = () => {
     this.setState({ show: 'wait' });
-    fetch(`${urlBaseApi}api/apagar/avisos/${this.state.avisoAtual.id}`)
+    fetch(`${urlBaseApi}apagar/avisos/${this.state.avisoAtual.id}`)
       .then(response => response.json())
       .then(responseJson => {
         if (responseJson.resp === 'ok') {
@@ -156,7 +156,7 @@ class Avisos extends Component {
   };
 
   loadTurmas = () => {
-    fetch(`${urlBaseApi}api/listar/turmas/${moment().format('YYYY')}`)
+    fetch(`${urlBaseApi}listar/turmas/${moment().format('YYYY')}`)
       .then(response => response.json())
       .then(responseJson => {
         const turmas = responseJson.map(turma => {
@@ -170,7 +170,7 @@ class Avisos extends Component {
   };
 
   loadGradeAlunos = turma => {
-    fetch(`${urlBaseApi}api/gradeAlunos/${turma}`)
+    fetch(`${urlBaseApi}gradeAlunos/${turma}`)
       .then(response => response.json())
       .then(responseJson => {
         const alunos = responseJson.map(aluno => {

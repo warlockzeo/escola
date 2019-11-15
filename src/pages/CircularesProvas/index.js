@@ -32,7 +32,7 @@ class CircularesProvas extends Component {
   }
 
   loadFiles = () => {
-    fetch(`${urlBaseApi}api/files`)
+    fetch(`${urlBaseApi}files`)
       .then(response => response.json())
       .then(responseJson => {
         this.setState({
