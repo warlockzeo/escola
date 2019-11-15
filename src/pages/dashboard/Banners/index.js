@@ -17,6 +17,15 @@ const camposBanners = [
     component: "th",
     scope: "row",
     padding: "none"
+  },
+  {
+    id: "posicao",
+    numeric: false,
+    disablePadding: true,
+    label: "Posição",
+    component: "th",
+    scope: "row",
+    padding: "none"
   }
 ];
 
@@ -36,7 +45,8 @@ class Banners extends Component {
         const banners = responseJson.map(banner => {
           return {
             id: banner.id,
-            urlImage: banner.urlImage
+            urlImage: banner.urlImage,
+            posicao: banner.posicao
           };
         });
         this.setState({ banners });
