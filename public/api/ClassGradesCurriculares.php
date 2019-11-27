@@ -43,7 +43,6 @@
                 $serie = $get_serie;
             }
 
-            
             $horario = $get_horario != "" ? " AND horario = '".$get_horario."'":"";
 
             $sql = "SELECT g.*, d.disciplina, p.nome FROM gradesCurriculares as g LEFT JOIN disciplinas as d on d.id = g.idDisciplina LEFT JOIN professores as p on p.id = g.idProfessor WHERE g.serie = '".$serie."' ".$horario." ORDER BY g.serie ASC, g.idTurma ASC, d.disciplina ASC";
@@ -70,7 +69,6 @@
             header("Access-Control-Allow-Origin:*");
             header("Content-type: application/json");
 
-            //echo (sizeof($j));
             if(sizeof($j)>0){
                 if($get_serie>0){
                     return json_encode($j);
@@ -79,7 +77,7 @@
                     echo '{"resp":"ok", "sql":"'.$sql.'", "data":'.$data.'}';
                 }
             } else {
-                echo '{"resp":"erro", "sql":"'.$sql.'"}';
+                return '{"resp":"erro", "data":"Nenhuma disciplina cadastrada."}';
             }
         }
 

@@ -67,8 +67,10 @@ class TurmaDetalhes extends Component {
         if (responseJson.resp === 'ok') {
           this.setState({ show: this.state.showAnterior, showAnterior: '' });
           this.loadGradeAlunos(this.state.turma.id);
-        } else {
+        } else if (responseJson.resp === 'erro') {
           this.setState({ show: 'formAlunos' });
+        } else {
+          this.setState({ show: this.state.showAnterior, showAnterior: '' });
         }
       });
   };

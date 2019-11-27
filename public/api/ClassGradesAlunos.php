@@ -48,18 +48,8 @@
             $obj = json_decode($json, TRUE);
             $idAluno = $obj['idAluno'];
             $idTurma = $obj['idTurma'];
-         
-            //grava aluno na grade fazendo a matrícula na turma
-            $sql = "INSERT INTO gradesAlunos (idAluno, idTurma) VALUES ($idAluno, $idTurma)";
-            $BFetch=$this->conectaDB()->prepare($sql);
-            $BFetch->execute();
-
-            //atualiza cadastro do aluno incluindo a turma
-            include_once("ClassAlunos.php");
-            $alunos = new ClassAlunos();
-            $aluno = json_decode($alunos->atualizaTurmaDoAluno($idAluno, $idTurma), TRUE);
             
-            //abre grade curricular da turma
+            //abre turma
             include_once("ClassTurmas.php");
             $turmas = new ClassTurmas();
             $turma = json_decode($turmas->exibeTurma($idTurma,'false'), TRUE);
@@ -69,22 +59,36 @@
             $grades = new ClassGradesCurriculares();
             $disciplinas = json_decode($grades->mostraGrade($turma[0]['serie'], $turma[0]['horario']), TRUE);
 
-            //print_r($disciplinas);
             include_once("ClassHistoricos.php");
             $historico = new ClassHistoricos();
-            //percorre disciplinas da grade
-            foreach($disciplinas as $disciplina){
-                //adiciona historico para o aluno para cada disciplina para esta turma
-                $dados = '{"idAluno":"'.$idAluno.'","idTurma":"'.$idTurma.'","idDisciplina":"'.$disciplina['idDisciplina'].'"}';
-                if($historico->gravaHistorico($dados)=="ok"){
-                    echo "ok";
-                }
-            }
 
+            //percorre disciplinas da grade
             header("Access-Control-Allow-Origin:*");
             header("Content-type: application/json");
-  
-            echo '{"resp":"ok", "sql":"'.$sql.'"}';
+
+            if(!isset($disciplinas['resp'])){
+                         
+                //grava aluno na grade fazendo a matrícula na turma
+                $sql = "INSERT INTO gradesAlunos (idAluno, idTurma) VALUES ($idAluno, $idTurma)";
+                $BFetch=$this->conectaDB()->prepare($sql);
+                $BFetch->execute();
+
+                //atualiza cadastro do aluno incluindo a turma
+                include_once("ClassAlunos.php");
+                $alunos = new ClassAlunos();
+                $aluno = json_decode($alunos->atualizaTurmaDoAluno($idAluno, $idTurma), TRUE);
+                
+                foreach($disciplinas as $disciplina){
+                    //adiciona historico para o aluno para cada disciplina para esta turma
+                    $dados = '{"idAluno":"'.$idAluno.'","idTurma":"'.$idTurma.'","idDisciplina":"'.$disciplina['idDisciplina'].'"}';
+                    if($historico->gravaHistorico($dados)=="ok"){
+                        echo '{"resp":"ok", "sql":"'.$sql.'"}';
+                    }
+                }    
+                echo '{"resp":"ok"}';
+            } else {
+                echo '{"resp":"Não possui disciplinas cadastradas para esta turma."}';
+            }
         }
 
     }
