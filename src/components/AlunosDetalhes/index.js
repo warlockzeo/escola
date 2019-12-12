@@ -33,6 +33,9 @@ class AlunosDetalhes extends Component {
           <h1>Cadastro do Aluno</h1>
         </Row>
         <Card className='alunosDetalhes__dados'>
+        <span className='btnPassword' onClick={this.handlePassword}>
+            <i className='fas fa-key' title='Cadastrar/Editar password' />
+          </span>
           <span className='btnPassword' onClick={this.handlePassword}>
             <i className='fas fa-key' title='Cadastrar/Editar password' />
           </span>

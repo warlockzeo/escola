@@ -1,52 +1,121 @@
-{
-    "parser": "babel-eslint",
-    "env": {
-      "browser": true,
-      "es6": true,
-      "jest": true
+/* {
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest": true
+  },
+  "extends": [
+    //"eslint:recommended"
+    "airbnb"
+  ],
+  "plugins": [
+    "react"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "plugins": [
-      "react", 
-      "jsx-a11y", 
-      //"import", 
-      "prettier"
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "rules": {
+    "react/jsx-uses-react": "error",   
+    "react/jsx-uses-vars": "error",
+    "react/jsx-props-no-spreding": "off",
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "extensions": [".js", ".jsx"]
+      }
     ],
-    "extends": [
-      //"airbnb"
-    ],
-    "parserOptions": {
-      "ecmaFeatures": {
-        "modules": true, 
-        "jsx": true
-      },
-      "ecmaVersion": 2018,
-      "sourceType": "module"
-    },
-    "rules": {
-      "react/jsx-uses-react": "error",   
-      "react/jsx-uses-vars": "error",
-      "react/jsx-props-no-spreding": "off",
-      "react/jsx-filename-extension": [
-        "error",
-        {
-          "extensions": [".js", ".jsx"]
-        }
-      ],
-      "global-require": "off",
-      "import/prefer-default-export": "off",
-      "no-unused-expressions": ["error", { "allowTaggedTemplates": true }],
-      "no-unused-vars": 2, 
-      "no-console": 0,
-    
-      "prettier/prettier": [
-        "error",
-        {
-          "trailingComma": "es5",
-          "singleQuote": true,
-          "printWidth": 80,
-          "tabWidth": 2
-        }
-      ]
+    "global-require": "off",
+    "import/prefer-default-export": "off",
+    "no-unused-expressions": ["error", { "allowTaggedTemplates": true }],
+    "no-unused-vars": 2, 
+    "no-console": 0,
   
-    }
+    "no-var": "error",
+    "prefer-const": ["error", {
+        "destructuring": "all",
+        "ignoreReadBeforeAssign": false
+    }],
+
+    "indent": [
+        "error",
+        2
+    ],
+    "linebreak-style": [
+        "error",
+        "windows"
+    ],
+    "quotes": [
+        "error",
+        "single"
+    ],
+    "semi": [
+        "error",
+        "always"
+    ]
   }
+}
+ */
+
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": "eslint:recommended",
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2018,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "react/jsx-uses-react": "error",   
+    "react/jsx-uses-vars": "error",
+    "react/jsx-props-no-spreding": "off",
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "extensions": [".js", ".jsx"]
+      }
+    ],
+    "global-require": "off",
+    "import/prefer-default-export": "off",
+
+    "no-var": "error",
+    "prefer-const": ["error", {
+      "destructuring": "all",
+      "ignoreReadBeforeAssign": false
+    }],
+
+    "indent": [
+      "error",
+      2
+    ],
+    "linebreak-style": [
+      "error",
+      "windows"
+    ],
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "always"
+    ],
+    "no-console": "off"
+  }
+}

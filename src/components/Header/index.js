@@ -12,7 +12,7 @@ const Header = props => {
   ) : window.location.href.includes('aluno') ? (
     <MenuAluno logout={props.logout} />
   ) : (
-    <TopMenu user={props.nomeUsuarioLogado} logout={props.logout} />
+    <TopMenu />
   );
 };
 

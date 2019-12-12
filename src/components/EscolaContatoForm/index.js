@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { Button, Alert, Row, Col, Spinner } from 'reactstrap';
 import { Form, Input, Select } from '@rocketseat/unform';
 import * as Yup from 'yup';
@@ -69,10 +69,10 @@ class EscolaContatoForm extends Component {
     this.props.onChange();
   };
 
-  componentWillMount() {
-    this.props.errorMessage &&
+  static getDerivedStateFromProps(props) {
+    props.errorMessage &&
       this.setState({
-        formMessage: this.props.errorMessage,
+        formMessage: props.errorMessage,
         formStatus: 'erro'
       });
   }
@@ -80,7 +80,7 @@ class EscolaContatoForm extends Component {
   render() {
     if (this.state.formStatus === 'fill') {
       return (
-        <Fragment>
+        <>
           <div className='container'>
             <h2>Contatos</h2>
             <Form
@@ -101,7 +101,7 @@ class EscolaContatoForm extends Component {
                 </Col>
               </Row>
               <Row>
-                <Col md={8}>
+                <Col md={6}>
                   <Label>Telefones</Label>
                   <Input
                     name='telefones'
@@ -111,7 +111,7 @@ class EscolaContatoForm extends Component {
                     onChange={this.onChange}
                   />
                 </Col>
-                <Col md={4}>
+                <Col md={6}>
                   <Label>E-mail</Label>
                   <Input
                     name='email'
@@ -156,7 +156,7 @@ class EscolaContatoForm extends Component {
                 </Col>
               </Row>
               {this.props.showButtons && (
-                <Fragment>
+                <>
                   <Row>
                     <Col md={6}>
                       <button type='submit' className='btn btn-success'>
@@ -172,11 +172,11 @@ class EscolaContatoForm extends Component {
                       </button>
                     </Col>
                   </Row>
-                </Fragment>
+                </>
               )}
             </Form>
           </div>
-        </Fragment>
+        </>
       );
     } else if (this.state.formStatus === 'wait') {
       return (

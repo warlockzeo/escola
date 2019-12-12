@@ -1,7 +1,7 @@
-import React, { Fragment, Component } from 'react';
-import Tabela from '../Tabela';
+import React, { Component } from 'react';
 import { Card, Button, Spinner, Col } from 'reactstrap';
 
+import Tabela from '../Tabela';
 import FormAddNotas from '../FormAddNotas';
 import urlBaseApi from '../config';
 
@@ -141,7 +141,7 @@ class Historico extends Component {
 
   render() {
     return (
-      <Fragment>
+      <>
         {this.state.show === 'table' ? (
           <Col md={12}>
             <Tabela
@@ -176,7 +176,7 @@ class Historico extends Component {
             errorMessage={this.state.errorMessage}
           />
         )}
-      </Fragment>
+      </>
     );
   }
 }

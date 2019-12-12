@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import {
   Collapse,
   Navbar,
@@ -7,6 +9,8 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap';
+
+import {setLogout} from '../../store/actions/user';
 
 import './styles.css';
 
@@ -101,8 +105,8 @@ class TopMenu extends Component {
                   this.state.activeItem.includes('login') ? 'nav-item__active' : ''
                 }
               >
-                {this.props.user ? (
-                  <NavLink href='#' onClick={this.props.logout}>
+                {this.props.nomeUsuarioLogado ? (
+                  <NavLink href='#' onClick={this.props.setLogout}>
                     <div className='efeito-menu' />
                     <i className='fas fa-power-off' /> Logout
                   </NavLink>
@@ -115,9 +119,9 @@ class TopMenu extends Component {
               </NavItem>
             </Nav>
           </Collapse>
-          {this.props.user && (
+          {this.props.nomeUsuarioLogado && (
             <div className='headerNomeAluno'>
-              Olá {this.props.user}{' '}
+              Olá {this.props.nomeUsuarioLogado}{' '}
               {localStorage.getItem('userAccessLevel') >= 90 ? (
                 <a href='/dashboard/'>- Painel de Controle</a>
               ) : (
@@ -131,4 +135,14 @@ class TopMenu extends Component {
   }
 }
 
-export default TopMenu;
+const mapStateToProps = state => ({
+  ...state.user.data
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({setLogout}, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TopMenu);

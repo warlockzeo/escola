@@ -19,6 +19,7 @@ import Professores from './pages/dashboard/Professores';
 import Avisos from './pages/dashboard/Avisos';
 import CircularesProvas from './pages/CircularesProvas';
 import Banners from './pages/dashboard/Banners';
+import DocHistorico from './pages/dashboard/documentos/DocHistorico';
 
 import AlunoHome from './pages/aluno/Home';
 import AlunoCalendario from './pages/aluno/calendario';
@@ -46,6 +47,7 @@ const Routes = () => (
       <PrivateRoute path='/dashboard/professores' component={Professores} />
       <PrivateRoute path='/dashboard/avisos' component={Avisos} />
       <PrivateRoute path='/dashboard/banners' component={Banners} />
+      <PrivateRoute path='/dashboard/historico' component={DocHistorico} />
 
       <PrivateRoute exact path='/aluno' component={AlunoHome} />
       <PrivateRoute path='/aluno/calendario' component={AlunoCalendario} />

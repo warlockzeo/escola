@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+
+import getEscolaDados from '../../../store/actions/escola';
 import {
   TabContent,
   TabPane,
@@ -29,7 +33,6 @@ class Escola extends Component {
     activeTab: '',
     show: '',
     showButtons: false,
-    escola: {},
     files: []
   };
 
@@ -42,15 +45,6 @@ class Escola extends Component {
       });
     }
   }
-
-  loadEscola = () => {
-    fetch(`${urlBaseApi}escola`)
-      .then(response => response.json())
-      .then(responseJson => {
-        this.setState({ escola: responseJson, showButtons: false });
-      })
-      .catch(error => console.error(`Caught error:  ${error}`));
-  };
 
   loadFiles = () => {
     fetch(`${urlBaseApi}files`)
@@ -110,11 +104,11 @@ class Escola extends Component {
   handleSubmit = data => {
     this.setState({ show: 'wait' });
 
-    fetch(`${urlBaseApi}escola/${this.state.escola.id}`, {
+    fetch(`${urlBaseApi}escola/${this.props.escola.id}`, {
       method: 'PUT',
       body: JSON.stringify({
         ...data,
-        id: this.state.escola.id
+        id: this.props.escola.id
       })
     })
       .then(response => response)
@@ -124,7 +118,7 @@ class Escola extends Component {
             escola: data,
             show: this.state.showAnterior
           });
-          this.loadEscola();
+          this.props.getEscolaDados();
         }
       })
       .catch(error => console.error(`Caught error:  ${error}`));
@@ -138,7 +132,7 @@ class Escola extends Component {
 
   handleCancel = () => {
     this.setState({ show: this.state.showAnterior });
-    this.loadEscola();
+//    this.loadEscola();
   };
 
   onChangeFieldsShowButtons = () => {
@@ -159,8 +153,7 @@ class Escola extends Component {
       .catch(error => console.error(`Caught error:  ${ error }`));
   };
 
-  componentWillMount() {
-    this.loadEscola();
+  componentDidMount() {
     this.loadFiles();
   }
 
@@ -231,7 +224,7 @@ class Escola extends Component {
                   <Col sm='12'>
                     {this.state.activeTab === '1' && (
                       <EscolaContatoForm
-                        data={this.state.escola}
+                        data={this.props.escola}
                         onSubmit={this.handleSubmit}
                         onCancel={this.handleCancel}
                         onChange={this.onChangeFieldsShowButtons}
@@ -247,7 +240,7 @@ class Escola extends Component {
                   <Col sm='12'>
                     {this.state.activeTab === '2' && (
                       <EscolaSobreForm
-                        data={this.state.escola}
+                        data={this.props.escola}
                         onSubmit={this.handleSubmit}
                         onCancel={this.handleCancel}
                         onChange={this.onChangeFieldsShowButtons}
@@ -263,7 +256,7 @@ class Escola extends Component {
                   <Col sm='12'>
                     {this.state.activeTab === '3' && (
                       <EscolaEnsinoForm
-                        data={this.state.escola}
+                        data={this.props.escola}
                         onSubmit={this.handleSubmit}
                         onCancel={this.handleCancel}
                         onChange={this.onChangeFieldsShowButtons}
@@ -300,4 +293,14 @@ class Escola extends Component {
   }
 }
 
-export default Escola;
+const mapStateToProps = state => ({
+  escola: {...state.escola.data}
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({getEscolaDados}, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Escola);

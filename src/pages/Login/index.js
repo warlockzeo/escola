@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { Row, Col, Alert, Card, CardTitle, Spinner } from 'reactstrap';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 
-import urlBaseApi from '../../components/config';
+import {setLogin} from '../../store/actions/user';
 
 const schema = Yup.object().shape({
   user: Yup.string().required('Um login é necessário'),
@@ -18,45 +20,7 @@ class Login extends Component {
 
   onSubmit = data => {
     this.setState({ formStatus: 'wait' });
-    const { user, senha } = data;
-    fetch(`${urlBaseApi}verificarSenha`, {
-      method: 'POST',
-      body: JSON.stringify({
-        user,
-        senha
-      })
-    })
-      .then(response => response.json())
-      .then(responseJson => {
-        console.log(responseJson);
-        /*
-Nivel 500 - Desenvolvedor
-Nivel 100 - Admin
-Nivel 90 - Professor
-Nivel 10 - Aluno
-*/
-        if (responseJson.resp !== 'erro') {
-          const { nivel, user, nome, id } = responseJson.resp;
-          if (nivel >= 90) {
-            localStorage.setItem('userAccessLevel', nivel);
-            localStorage.setItem('user', nome || user);
-            localStorage.setItem('userId', id);
-            this.setState({ errorMessage: '' });
-            window.location.href = '/dashboard/';
-          } else {
-            localStorage.setItem('userAccessLevel', nivel);
-            localStorage.setItem('user', nome || user);
-            localStorage.setItem('userId', id);
-            this.setState({ errorMessage: '' });
-            window.location.href = '/aluno/';
-          }
-        } else {
-          this.setState({
-            formStatus: 'fill',
-            errorMessage: 'Login ou Senha inválidos.'
-          });
-        }
-      });
+    this.props.setLogin(data);
   };
 
   render() {
@@ -103,4 +67,14 @@ Nivel 10 - Aluno
   }
 }
 
-export default Login;
+const mapStateToProps = state => ({
+  ...state.user.data
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({setLogin}, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);
