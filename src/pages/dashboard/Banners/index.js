@@ -1,31 +1,30 @@
-import React, { Component } from "react";
-import Tabela from "../../../components/Tabela";
-import { Spinner } from "reactstrap";
-//import { Form, Select } from '@rocketseat/unform';
+import React, { Component } from 'react';
+import Tabela from '../../../components/Tabela';
+import { Spinner } from 'reactstrap';
 
-import FormUploadBanner from "../../../components/FormUploadBanner";
-import ConfirmDelete from "../../../components/ConfirmDelete";
+import FormUploadBanner from '../../../components/FormUploadBanner';
+import ConfirmDelete from '../../../components/ConfirmDelete';
 
-import urlBaseApi from "../../../components/config";
+import urlBaseApi from '../../../components/config';
 
 const camposBanners = [
   {
-    id: "urlImage",
+    id: 'urlImage',
     numeric: false,
     disablePadding: true,
-    label: "Imagem",
-    component: "th",
-    scope: "row",
-    padding: "none"
+    label: 'Imagem',
+    component: 'th',
+    scope: 'row',
+    padding: 'none'
   },
   {
-    id: "posicao",
+    id: 'posicao',
     numeric: false,
     disablePadding: true,
-    label: "Posição",
-    component: "th",
-    scope: "row",
-    padding: "none"
+    label: 'Posição',
+    component: 'th',
+    scope: 'row',
+    padding: 'none'
   }
 ];
 
@@ -33,9 +32,9 @@ class Banners extends Component {
   state = {
     banners: [],
     bannerAtual: {},
-    show: "tableBanner",
-    showAnterior: "",
-    errorMessage: ""
+    show: 'tableBanner',
+    showAnterior: '',
+    errorMessage: ''
   };
 
   loadBanners = () => {
@@ -58,7 +57,7 @@ class Banners extends Component {
   onAddBannerClick = () => {
     this.setState({
       showAnterior: this.state.show,
-      show: "editAddBanner",
+      show: 'editAddBanner',
       bannerAtual: {}
     });
   };
@@ -66,21 +65,21 @@ class Banners extends Component {
   onDeletBannerClick = data => {
     this.setState({
       showAnterior: this.state.show,
-      show: "deleteBanner",
+      show: 'deleteBanner',
       bannerAtual: data
     });
   };
 
   handleDeleteBanner = () => {
     const id = this.state.bannerAtual.id;
-    this.setState({ show: "wait" });
+    this.setState({ show: 'wait' });
     fetch(`${urlBaseApi}banners/${id}`, {
-      method: "DELETE",
+      method: 'DELETE',
       body: JSON.stringify({ id })
     })
-      .then(response => console.log(`resp:`, response))
+      .then(response => console.log('resp:', response))
       .then(() => {
-        console.log(`deletado`);
+        console.log('deletado');
         this.setState({
           show: 'tableBanner',
           bannerAtual: {}
@@ -90,63 +89,63 @@ class Banners extends Component {
   };
 
   handleSubmitBanner = data => {
-      const formData = new FormData();
-      formData.append('file', data.arquivo);
+    const formData = new FormData();
+    formData.append('file', data.arquivo);
   
-      fetch(`${urlBaseApi}files`, {
-        method: 'POST',
-        body: formData
-      })
-        .then(response => response.json())
-        .then(responseJson => {
-          console.log(`resp upload ok: ${responseJson.resp}`);
+    fetch(`${urlBaseApi}files`, {
+      method: 'POST',
+      body: formData
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        console.log(`resp upload ok: ${responseJson.resp}`);
         
-          fetch(`${urlBaseApi}banners`, {
-            method: "POST",
-            body: JSON.stringify({
-              urlImage: data.nomeArquivo,
-              posicao: data.posicao
-            })
+        fetch(`${urlBaseApi}banners`, {
+          method: 'POST',
+          body: JSON.stringify({
+            urlImage: data.nomeArquivo,
+            posicao: data.posicao
           })
-            .then(response => response.json())
-            .then(responseJson => {
-              this.loadBanners();
-            })
-            .catch(response => this.setState({ show: "edit", errorMessage: response }));
-            this.setState({show: 'tableBanner'});
-
         })
-        .catch(error => console.error(`Caught error:  ${error}`));
+          .then(response => response.json())
+          .then(() => {
+            this.loadBanners();
+          })
+          .catch(response => this.setState({ show: 'edit', errorMessage: response }));
+        this.setState({show: 'tableBanner'});
+
+      })
+      .catch(error => console.error(`Caught error:  ${error}`));
   };
 
   handleCancelForm = () => {
     this.setState({
       show: this.state.showAnterior,
-      showAnterior: "",
+      showAnterior: '',
       bannerAtual: {}
     });
   };
 
   onClickBanner = () => {
-    this.setState({ show: "tableBanner" });
+    this.setState({ show: 'tableBanner' });
   };
 
   cancelDelete = () => {
     this.setState({
       show: this.state.showAnterior,
-      showAnterior: "",
+      showAnterior: '',
       bannerAtual: {}
     });
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.loadBanners();
   }
 
   render() {
     return (
       <div className="dashboard">
-        {this.state.show === "tableBanner" && (
+        {this.state.show === 'tableBanner' && (
           <div className="container">
             <Tabela
               titulo="Banners"
@@ -158,7 +157,7 @@ class Banners extends Component {
           </div>
         )}
 
-        {this.state.show === "deleteBanner" && (
+        {this.state.show === 'deleteBanner' && (
           <ConfirmDelete
             info={`do banner ${this.state.bannerAtual.urlImage}`}
             delete={this.handleDeleteBanner}
@@ -166,7 +165,7 @@ class Banners extends Component {
           />
         )}
 
-        {this.state.show === "editAddBanner" && (
+        {this.state.show === 'editAddBanner' && (
           <FormUploadBanner
             titulo="Banner"
             dados={this.state.bannerAtual}
@@ -176,7 +175,7 @@ class Banners extends Component {
           />
         )}
 
-        {this.state.show === "wait" && (
+        {this.state.show === 'wait' && (
           <div className="wrap100vh">
             <Spinner />
           </div>

@@ -62,6 +62,7 @@
 
 {
   "env": {
+    "jest": true,
     "browser": true,
     "es6": true,
     "node": true
@@ -71,6 +72,7 @@
     "Atomics": "readonly",
     "SharedArrayBuffer": "readonly"
   },
+  "parser": "babel-eslint",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true

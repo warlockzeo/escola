@@ -135,7 +135,7 @@ class Historico extends Component {
     this.setState({ show: 'table' });
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.loadHistorico(this.props.aluno);
   }
 

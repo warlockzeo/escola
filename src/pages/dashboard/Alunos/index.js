@@ -6,6 +6,7 @@ import Tabela from '../../../components/Tabela';
 import FormAlunos from '../../../components/FormAlunos';
 import AlunosDetalhes from '../../../components/AlunosDetalhes';
 import FormPassword from '../../../components/FormPassword';
+import DocHistorico from '../documentos/DocHistorico';
 import BarraBusca from '../../../components/BarraBusca';
 
 import urlBaseApi from '../../../components/config';
@@ -83,6 +84,22 @@ class Alunos extends Component {
         } else {
           this.setState({
             show: 'password',
+            showAnterior: this.state.show,
+            idSenha: responseJson.id
+          });
+        }
+      });
+  };
+
+  onHistoricoClick = data => {
+    fetch(`${urlBaseApi}verificaUser/${data}`)
+      .then(response => response.json())
+      .then(responseJson => {
+        if (responseJson.resp === 'erro') {
+          this.setState({ show: 'historico', showAnterior: this.state.show });
+        } else {
+          this.setState({
+            show: 'historico',
             showAnterior: this.state.show,
             idSenha: responseJson.id
           });
@@ -188,7 +205,7 @@ class Alunos extends Component {
     this.setState({ mostraFiltro: !this.state.mostraFiltro });
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.loadAlunos();
   }
 
@@ -233,6 +250,14 @@ class Alunos extends Component {
             cancel={this.cancelDetalhes}
             editar={this.onEditClick}
             password={this.onPasswordClick}
+            historico={this.onHistoricoClick}
+          />
+        )}
+
+        {this.state.show === 'historico' && (
+          <DocHistorico
+            data={this.state.alunoAtual}
+            cancel={this.cancelDetalhes}
           />
         )}
         

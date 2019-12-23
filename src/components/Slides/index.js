@@ -8,13 +8,13 @@ const Slideshow = props => {
       <ul className="cb-slideshow">
         {props.images.map((each, index, arr) => {
           return(
-          <li key={index} style={{
-            animationDelay: `${index * (20 / arr.length)}s`
-          }}>
-            <a href="#">
+            <li key={index} style={{
+              animationDelay: `${index * (20 / arr.length)}s`
+            }}>
+              
               <img src={`${each}`} alt='Foto de banner' />
-            </a>
-          </li>)
+              
+            </li>);
         })}
       </ul>
     </div>

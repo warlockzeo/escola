@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Card, Row, Col, Collapse } from 'reactstrap';
 import moment from 'moment';
+import { FaKey, FaUserEdit, FaClipboard } from "react-icons/fa";
+
 import Historico from '../Historico';
 import Faltas from '../Faltas';
 
@@ -23,6 +25,10 @@ class AlunosDetalhes extends Component {
     this.props.password(this.props.data.id);
   };
 
+  handleHistorico = () => {
+    this.props.historico(this.props.data.id);
+  };
+
   render() {
     return (
       <Col md={12} className='alunosDetalhes' style={{ textAlign: 'left' }}>
@@ -33,15 +39,17 @@ class AlunosDetalhes extends Component {
           <h1>Cadastro do Aluno</h1>
         </Row>
         <Card className='alunosDetalhes__dados'>
-        <span className='btnPassword' onClick={this.handlePassword}>
-            <i className='fas fa-key' title='Cadastrar/Editar password' />
-          </span>
-          <span className='btnPassword' onClick={this.handlePassword}>
-            <i className='fas fa-key' title='Cadastrar/Editar password' />
-          </span>
-          <span className='btnEdit' onClick={this.handleEdit}>
-            <i className='fas fa-user-edit' title='Editar dados' />
-          </span>
+          <div style={{textAlign: 'right'}}>
+            <span className='btnIcon' onClick={this.handleHistorico}>
+              <FaClipboard className='fas' title='Gerar Histórico/Transferência' />
+            </span>
+            <span className='btnIcon' onClick={this.handlePassword}>
+              <FaKey className='fas' title='Cadastrar/Editar password' />
+            </span>
+            <span className='btnIcon' onClick={this.handleEdit}>
+              <FaUserEdit className='fas' title='Editar dados' />
+            </span>
+          </div>
           <div className='alunosDetalhes__dados--show'>
             <Row className='alunosDetalhes__linhaDados'>
               <Col md={12}>

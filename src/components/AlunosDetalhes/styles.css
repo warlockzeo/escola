@@ -20,24 +20,13 @@
   padding: 10px 0;
 }
 
-.btnEdit {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+.btnIcon {
+  display: inline-block;
   cursor: pointer;
-  z-index: 999;
+  padding: 0 10px;
 }
 
-.btnPassword {
-  position: absolute;
-  top: 10px;
-  right: 45px;
-  cursor: pointer;
-  z-index: 999;
-}
-
-.btnEdit:hover,
-.btnPassword:hover {
+.btnIcon:hover {
   color: rgb(0, 160, 227);
 }
 

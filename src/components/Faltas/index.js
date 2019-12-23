@@ -120,7 +120,7 @@ class Faltas extends Component {
       });
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.loadFaltas(this.props.aluno, this.props.turma);
     this.loadTurmaParaGradeCurricular(this.props.turma);
   }
