@@ -65,13 +65,13 @@ class Contato extends Component {
       .then(responseJson => {
         responseJson.resp !== 'erro'
           ? this.setState({
-              formMessage: 'Mensagem enviada com sucesso!',
-              formStatus: 'send'
-            })
+            formMessage: 'Mensagem enviada com sucesso!',
+            formStatus: 'send'
+          })
           : this.setState({
-              formMessage: 'Falha ao enviar, tente novamente mais tarde.',
-              formStatus: 'erro'
-            });
+            formMessage: 'Falha ao enviar, tente novamente mais tarde.',
+            formStatus: 'erro'
+          });
       });
   };
 
